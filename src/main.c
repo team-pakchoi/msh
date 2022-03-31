@@ -10,10 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-int	main(void)
+int main(void)
 {
-	// return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+    char    *str;
+    int     his_fd;
+
+    init_history(&his_fd);
+    while(1)
+    {
+        str = readline("prompt : ");
+        if (str)
+            printf("%s\n", str);
+        else
+            return (0);
+            
+        save_history(str, his_fd);
+        free(str);
+    }
+    return(0);
 }
