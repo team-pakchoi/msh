@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/03/31 13:25:51 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/03/31 14:52:01 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJS = $(SRCS:.c=.o)
 LIBFT = libft
 LIBFT_FLAGS = -L ./$(LIBFT) -l ft
 
-INC_FLAGS = -I includes -I $(LIBFT)
+INC_FLAGS = -I includes -I $(LIBFT) -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
 
 green:=$(shell tput setaf 2)
 reset:=$(shell tput sgr0)
