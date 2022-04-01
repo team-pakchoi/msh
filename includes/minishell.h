@@ -34,4 +34,14 @@ typedef struct s_minishell
 int init_history(int *fd);
 int save_history(char *str, int fd);
 
+void	set_pipein_to_stdout(int *fds);
+void	set_pipeout_to_stdin(int *fds);
+void	set_fileout_to_fd(char *path, int fd);
+void	set_filein_to_fd(char *path, int fd);
+void    read_fd(int fd);
+char	*find_command_path(char *envp[], char *command);
+char	**split_command(char *cmd);
+int     execute_command(char *cmd, char *envp[]);
+void	pipex(int idx, char *cmd[], char *envp[]);
+
 #endif
