@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../libft/libft.h"
+# include "libft.h"
 
 # define  FT_SUCCESS 1
 # define  FT_ERROR -1
