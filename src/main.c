@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 13:58:30 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/02 14:05:55 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_env(envp);
 	init_history(&his_fd);
-
-	ft_env();
-
 	while(1)
 	{
 		str = readline("prompt : ");

@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 13:57:46 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/02 14:05:03 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_minishell		g_mini;
 ** env
 */
 void	init_env(char **envp);
-void	ft_env();
+int		ft_env();
 
 void	add_env(char *name_and_value);
 void	remove_env(char	*name);
