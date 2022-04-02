@@ -15,6 +15,11 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "libft.h"
 
 # define  FT_SUCCESS 1
 # define  FT_ERROR -1
@@ -25,5 +30,8 @@ typedef int	t_bool;
 typedef struct s_minishell
 {
 } t_minishell;
+
+int init_history(int *fd);
+int save_history(char *str, int fd);
 
 #endif
