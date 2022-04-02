@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/03/31 14:52:01 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/04/02 13:58:06 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 # TODO: edit wildcard to src files
-SRCS = $(wildcard src/*.c)
+SRCS = $(wildcard src/*.c) $(wildcard src/*/*.c)
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
@@ -41,6 +41,7 @@ $(NAME): $(OBJS)
 
 $(LIBFT):
 	@make all --silent --directory=$(LIBFT)
+	@make bonus --silent --directory=$(LIBFT)
 	$(info $(green)<MAKE> Libft - make$(reset))
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/03/31 14:43:06 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/02 14:05:55 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,30 @@ int deal_command(char *str, char *envp[]) {
     return (1);
 }
 
-int main(int argc, char *argv[], char *envp[])
+static void	free_global()
 {
-    char    *str;
-    int     his_fd;
+	ft_lstclear(&g_mini.env, free);
+}
 
-    if (argc && argv)
-    {}
-    init_history(&his_fd);
-    while(1)
-    {
-        str = readline("prompt : ");
-        if (!str)
-            return (0);
-        deal_command(str, envp);
-        read_fd(STDIN_FILENO);
-        save_history(str, his_fd);
-        free(str);
-    }
-    return(0);
+int	main(int argc, char **argv, char **envp)
+{
+	char	*str;
+	int		his_fd;
+
+	(void)argc;
+	(void)argv;
+	init_env(envp);
+	init_history(&his_fd);
+	while(1)
+	{
+		str = readline("prompt : ");
+		if (!str)
+			return (0);
+    deal_command(str, envp);
+    read_fd(STDIN_FILENO);
+    save_history(str, his_fd);
+    free(str);
+  }
+  free_global();
+	return(EXIT_SUCCESS);
 }
