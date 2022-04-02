@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 14:05:03 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/02 15:37:42 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef int	t_bool;
 typedef struct s_minishell
 {
 	t_list	*env;
+	t_list	*shell_var;
 } t_minishell;
 
 t_minishell		g_mini;
@@ -40,9 +41,29 @@ t_minishell		g_mini;
 void	init_env(char **envp);
 int		ft_env();
 
+/*
+** util: env
+*/
 void	add_env(char *name_and_value);
-void	remove_env(char	*name);
+char	*find_env(char *name);
 void	update_env(char *name, char *new_value);
+void	remove_env(char	*name);
+
+/*
+** util: shell_var
+*/
+void	add_shell_var(char *name_and_value);
+char	*find_shell_var(char *name);
+void	update_shell_var(char *name, char *new_value);
+void	remove_shell_var(char	*name);
+
+/*
+** util: var
+*/
+void	add_var(t_list *var_list, char *name_and_value);
+char	*find_var(t_list *var_list, char *name);
+void	update_var(t_list *var_list, char *name, char *new_value);
+void	remove_var(t_list *var_list, char	*name);
 
 /*
 ** history

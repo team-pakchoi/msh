@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_util.c                                         :+:      :+:    :+:   */
+/*   shell_var_util.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 22:22:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 15:35:30 by sarchoi          ###   ########seoul.kr  */
+/*   Created: 2022/04/02 15:23:33 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/04/02 15:35:45 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_env(char *name_and_value)
+void	add_shell_var(char *name_and_value)
 {
-	add_var(g_mini.env, name_and_value);
+	add_var(g_mini.shell_var, name_and_value);
 }
 
-char	*find_env(char *name)
+char	*find_shell_var(char *name)
 {
-	return (find_var(g_mini.env, name));
+	return (find_var(g_mini.shell_var, name));
 }
 
-void	remove_env(char	*name)
+void	remove_shell_var(char	*name)
 {
-	remove_var(g_mini.env, name);
+	remove_var(g_mini.shell_var, name);
 }
 
-void	update_env(char *name, char *new_value)
+void	update_shell_var(char *name, char *new_value)
 {
-	update_var(g_mini.env, name, new_value);
+	update_var(g_mini.shell_var, name, new_value);
 }
