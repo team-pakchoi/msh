@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:22:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/01 22:23:13 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/02 13:47:31 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static unsigned int	env_name_len(const char *str)
 	}
 	return (i);
 }
+
+// TODO: find_env(char *name)
 
 void	remove_env(char	*name)
 {

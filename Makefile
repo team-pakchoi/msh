@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/04/01 21:49:32 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/04/02 13:58:06 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
 LIBFT_FLAGS = -L ./$(LIBFT) -l ft
+READLINE_FLAGS = -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
 
 INC_FLAGS = -I includes -I $(LIBFT)
-# -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
 
 green:=$(shell tput setaf 2)
 reset:=$(shell tput sgr0)
@@ -32,7 +32,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT_FLAGS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT_FLAGS) $(READLINE_FLAGS)
 	$(info $(green)<MAKE> NAME$(reset))
 
 %.o: %.c
