@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 14:59:30 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 02:32:57 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ static void	increase_shlvl()
 
 void	init_env(char **envp)
 {
-	t_list	*tmp;
-
-	tmp = ft_lstnew(ft_strdup(*envp));
+	add_var(g_mini.env, ft_strdup(*envp), ENV_VAR);
 	envp++;
-	g_mini.env = tmp;
 	while (*envp)
 	{
-		tmp = ft_lstnew(ft_strdup(*envp));
-		ft_lstadd_back(&g_mini.env, tmp);
+		add_var(g_mini.env, ft_strdup(*envp), ENV_VAR);
 		envp++;
 	}
 	increase_shlvl();
