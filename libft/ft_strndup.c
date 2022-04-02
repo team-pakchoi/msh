@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 14:05:55 by sarchoi          ###   ########seoul.kr  */
+/*   Created: 2022/04/01 21:31:38 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/04/01 22:05:44 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-static void	free_global()
+char	*ft_strndup(char *src, size_t n)
 {
-	ft_lstclear(&g_mini.env, free);
-}
+	char			*dup;
+	char			*dup_start;
+	unsigned int	len;
+	unsigned int	i;
 
-int	main(int argc, char **argv, char **envp)
-{
-	char	*str;
-	int		his_fd;
-
-	(void)argc;
-	(void)argv;
-	init_env(envp);
-	init_history(&his_fd);
-	while(1)
+	len = ft_strlen(src);
+	if (len < n)
+		n = len;
+	dup = (char *)malloc(sizeof(char) * (n + 1));
+	if (!dup)
+		return (0);
+	dup_start = dup;
+	i = 0;
+	while (*src && i < n)
 	{
-		str = readline("prompt : ");
-		if (str)
-			printf("%s\n", str);
-		else
-			return (0);
-
-		save_history(str, his_fd);
-		free(str);
+		*dup = *src;
+		src++;
+		dup++;
+		i++;
 	}
-	free_global();
-	return(EXIT_SUCCESS);
+	*dup = '\0';
+	return (dup_start);
 }
