@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 14:05:55 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 13:54:30 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int deal_command(char *str, char *envp[]) {
 
 static void	free_global()
 {
-	ft_lstclear(&g_mini.env, free);
+	remove_var_list();
 }
 
 int	main(int argc, char **argv, char **envp)
