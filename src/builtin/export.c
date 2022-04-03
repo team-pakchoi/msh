@@ -1,47 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 16:56:20 by sarchoi          ###   ########seoul.kr  */
+/*   Created: 2022/04/03 14:20:03 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/04/03 16:57:00 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <string.h>
 
-static void	increase_shlvl()
-{
-	int	prev_value;
-
-	prev_value = ft_atoi(getenv("SHLVL"));
-	update_var("SHLVL", ft_itoa(prev_value + 1));
-}
-
-void	init_env(char **envp)
-{
-	add_var(ft_strdup(*envp), ENV_VAR);
-	envp++;
-	while (*envp)
-	{
-		add_var(ft_strdup(*envp), ENV_VAR);
-		envp++;
-	}
-	increase_shlvl();
-}
-
-int	ft_env()
+int	ft_export(char *str)
 {
 	t_var	*tmp;
 
-	tmp = g_mini.env;
-	while (tmp)
+	if (!str)
+		return (ft_env());
+	if (ft_strchr(str, '='))
 	{
-		if (tmp->scope == ENV_VAR)
-			printf("%s\n", (char *)tmp->var);
-		tmp = tmp->next;
+		add_var(str, ENV_VAR);
+		return (FT_SUCCESS);
 	}
+	tmp = find_var(str);
+	if (!tmp)
+		return (FT_ERROR);
+	tmp->scope = ENV_VAR;
 	return (FT_SUCCESS);
 }
