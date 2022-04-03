@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 15:37:42 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 02:30:02 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,22 @@
 # define  FT_FALSE 0
 typedef int	t_bool;
 
+typedef struct	s_var
+{
+	char					*var;
+	int						scope;
+	struct s_var	*next;
+}				t_var;
+
+/*
+** value for `scope` the member of structure `t_var`
+*/
+# define  SHELL_VAR 0
+# define  ENV_VAR 1
+
 typedef struct s_minishell
 {
 	t_list	*env;
-	t_list	*shell_var;
 } t_minishell;
 
 t_minishell		g_mini;
@@ -42,28 +54,12 @@ void	init_env(char **envp);
 int		ft_env();
 
 /*
-** util: env
-*/
-void	add_env(char *name_and_value);
-char	*find_env(char *name);
-void	update_env(char *name, char *new_value);
-void	remove_env(char	*name);
-
-/*
-** util: shell_var
-*/
-void	add_shell_var(char *name_and_value);
-char	*find_shell_var(char *name);
-void	update_shell_var(char *name, char *new_value);
-void	remove_shell_var(char	*name);
-
-/*
 ** util: var
 */
-void	add_var(t_list *var_list, char *name_and_value);
-char	*find_var(t_list *var_list, char *name);
-void	update_var(t_list *var_list, char *name, char *new_value);
-void	remove_var(t_list *var_list, char	*name);
+void	add_var(t_var *list, char *name_and_value, int scope);
+char	*find_var_value(t_var *list, char *name);
+void	update_var(t_var *list, char *name, char *new_value);
+void	remove_var(t_var *list, char *name);
 
 /*
 ** history
