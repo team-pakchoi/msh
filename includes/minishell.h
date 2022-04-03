@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 13:36:30 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 13:40:29 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	add_var(char *name_and_value, int scope);
 char	*find_var_value(char *name);
 void	update_var(char *name, char *new_value);
 void	remove_var(char *name);
+void	remove_var_list();
 
 /*
 ** history

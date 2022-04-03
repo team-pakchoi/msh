@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 13:36:47 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 13:53:50 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	add_var(char *name_and_value, int scope)
 
 	tmp = g_mini.env;
 	new = var_new(ft_strdup(name_and_value), scope);
-	if (!tmp->var || !tmp)
+	if (!tmp)
 	{
-		tmp = new;
+		g_mini.env = new;
 		return ;
 	}
 	while (tmp->next)
@@ -113,4 +113,17 @@ void	remove_var(char *name)
 	before_tmp->next = tmp->next;
 	free(tmp->var);
 	free(tmp);
+}
+
+void	remove_var_list()
+{
+	t_var	*tmp;
+
+	while (g_mini.env)
+	{
+		tmp = g_mini.env;
+		g_mini.env = g_mini.env->next;
+		free(tmp->var);
+		free(tmp);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 13:33:51 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 13:51:06 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	init_env(char **envp)
 
 int	ft_env()
 {
-	t_list	*tmp;
+	t_var	*tmp;
 
 	tmp = g_mini.env;
 	while (tmp)
 	{
-		printf("%s\n", (char *)tmp->content);
+		printf("%s\n", (char *)tmp->var);
 		tmp = tmp->next;
 	}
 	return (FT_SUCCESS);
