@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 13:23:19 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 13:36:47 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ static t_var	*var_find(char *name)
 
 void	add_var(char *name_and_value, int scope)
 {
-	t_var *list;
+	t_var *tmp;
 	t_var	*new;
 
-	list = g_mini.env;
+	tmp = g_mini.env;
 	new = var_new(ft_strdup(name_and_value), scope);
-	if (!list->var || !list)
+	if (!tmp->var || !tmp)
 	{
-		list = new;
+		tmp = new;
 		return ;
 	}
-	while (list->next)
-		list = list->next;
-	list->next = new;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
 }
 
 /*

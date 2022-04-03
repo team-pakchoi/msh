@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 13:24:07 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 13:36:30 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_var
 
 typedef struct s_minishell
 {
-	t_list	*env;
+	t_var	*env;
 } t_minishell;
 
 t_minishell		g_mini;
@@ -52,6 +52,8 @@ t_minishell		g_mini;
 */
 void	init_env(char **envp);
 int		ft_env();
+
+int		ft_unset(char *var_name);
 
 /*
 ** util: var

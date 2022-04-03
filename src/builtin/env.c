@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 02:32:57 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 13:33:51 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static void	increase_shlvl()
 	int	prev_value;
 
 	prev_value = ft_atoi(getenv("SHLVL"));
-	update_env("SHLVL", ft_itoa(prev_value + 1));
+	update_var("SHLVL", ft_itoa(prev_value + 1));
 }
 
 void	init_env(char **envp)
 {
-	add_var(g_mini.env, ft_strdup(*envp), ENV_VAR);
+	add_var(ft_strdup(*envp), ENV_VAR);
 	envp++;
 	while (*envp)
 	{
-		add_var(g_mini.env, ft_strdup(*envp), ENV_VAR);
+		add_var(ft_strdup(*envp), ENV_VAR);
 		envp++;
 	}
 	increase_shlvl();
