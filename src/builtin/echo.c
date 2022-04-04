@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:59:56 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/04 17:26:36 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/05 01:14:00 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	ft_echo(char **args)
 	}
 	while (*args)
 	{
-		printf("%s", *args);
+		ft_putstr_fd(*args, 1);
 		if (*(args + 1))
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 		args++;
 	}
 	if (!is_n_option)
-		ft_putstr("\n");
+		ft_putstr_fd("\n", 1);
 	return (FT_SUCCESS);
 }
