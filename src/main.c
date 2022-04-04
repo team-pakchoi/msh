@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+void    read_all_cmd()
+{
+    t_cmd   *node;
+
+    node = g_mini.cmd;
+    while (node != 0 && node->next != 0)
+    {
+        printf("str: %s, op: %d\n", node->str, node->op);
+        node = node->next;
+    }
+    printf("str: %s, op: %d\n", node->str, node->op);
+}
+
 int deal_command(char *str, char *envp[]) {
     pid_t   pid;
     int     status;
@@ -22,11 +35,13 @@ int deal_command(char *str, char *envp[]) {
     pid = fork();
     if (pid == 0)
     {
-        // 명령 문자열 분할
-        cmd = ft_split(str, '|');
-
+        g_mini.cmd_len = 0;
+        if (parse_command(str) == 0)
+            exit(0);
+        read_all_cmd();
+        printf("-----parsed-----\n");
         set_pipein_to_stdout(fds);
-        pipex(ft_strarr_len(cmd), cmd, envp);
+        pipex(g_mini.cmd_len - 1, envp);
         exit(0);
     }
     else
@@ -56,11 +71,11 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("prompt : ");
 		if (!str)
 			return (0);
-    deal_command(str, envp);
-    read_fd(STDIN_FILENO);
-    save_history(str, his_fd);
-    free(str);
-  }
-  free_global();
+        deal_command(str, envp);
+        read_fd(STDIN_FILENO);
+        save_history(str, his_fd);
+        free(str);
+    }
+    free_global();
 	return(EXIT_SUCCESS);
 }

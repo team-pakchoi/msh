@@ -16,7 +16,7 @@ int execute_command(char *cmd, char *envp[])
 {
 	char	**command;
 
-	command = split_command(cmd);
+	command = split_command(cmd, 32);
 	if (access(command[0], X_OK) != 0)
 		command[0] = find_command_path(envp, command[0]);
 	if (execve(command[0], command, envp) == -1)
@@ -27,19 +27,18 @@ int execute_command(char *cmd, char *envp[])
 	return (1);
 }
 
-void	pipex(int idx, char *cmd[], char *envp[])
+void	pipex(int idx, char *envp[])
 {
 	pid_t	pid;
 	int		fds[2];
 	int		status;
 
-	idx -= 1;
 	pipe(fds);
 	pid = fork();
 	if (pid == 0 && idx > 0)
 	{
 		set_pipein_to_stdout(fds);
-		pipex(idx, cmd, envp);
+		pipex(idx - 1, envp);
         exit(0);
 	}
 	else if (pid != 0)

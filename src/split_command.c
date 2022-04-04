@@ -66,11 +66,11 @@ char	**join_arr(char **arr1, char **arr2, int is_front)
 	return (tar);
 }
 
-char	**set_last_split(char **arr1, char **arr2, char **arr3)
+char	**set_last_split(char **arr1, char **arr2, char **arr3, char c)
 {
 	char	**result;
 
-	arr2 = ft_split(arr1[2], 32);
+	arr2 = ft_split(arr1[2], c);
 	free(arr1[2]);
 	free(arr1);
 	result = join_arr(arr3, arr2, 0);
@@ -79,7 +79,19 @@ char	**set_last_split(char **arr1, char **arr2, char **arr3)
 	return (result);
 }
 
-char	**split_command(char *cmd)
+void    read_arr1(char *arr[])
+{
+    while (*arr)
+    {
+        printf("%s\n", *arr);
+        arr += 1;
+    }
+}
+
+// c를 기준으로 split하고, 만약에 따옴표가 있다면 그 부분은 하나로 묶는다.
+// 먼저 따옴표를 기준으로 문자열을 나누고, 나뉜 상태에서 따옴표 바깥쪽만 c를 기준으로 나눈다.
+
+char	**split_command(char *cmd, char c)
 {
 	char	**arr1;
 	char	**arr2;
@@ -88,14 +100,14 @@ char	**split_command(char *cmd)
 
 	has_quotes = find_quotes(cmd);
 	if (has_quotes == 0)
-		return (ft_split(cmd, 32));
-	arr1 = ft_split(cmd, has_quotes);
-	arr2 = ft_split(arr1[0], 32);
+		return (ft_split(cmd, c));
+	arr1 = ft_split(cmd, has_quotes); // 따옴표를 기준으로 나눈다.
+	arr2 = ft_split(arr1[0], c); // tar를 기준으로 따옴표 앞부분을 나눈다.
 	free(arr1[0]);
-	arr3 = join_arr(arr2, arr1, 1);
+	arr3 = join_arr(arr2, arr1, 1); // 따옴표로 나뉜 배열와 tar로 나뉜 배열을 합한다.
 	free(arr2);
-	if (has_quotes != 0 && arr1[2] != 0)
-		return (set_last_split(arr1, arr2, arr3));
+	if (has_quotes != 0 && arr1[2] != 0) // 따옴표로 나뉘였고, 
+		return (set_last_split(arr1, arr2, arr3, c));
 	free(arr1);
 	return (arr3);
 }
