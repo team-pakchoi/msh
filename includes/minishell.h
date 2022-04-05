@@ -27,6 +27,14 @@
 # define  FT_FALSE 0
 typedef int	t_bool;
 
+typedef struct s_cmd
+{
+  char            *str;
+  int             op;
+  struct s_cmd    *next;
+  struct s_cmd    *prev;
+} t_cmd;
+  
 typedef struct	s_var
 {
 	char					*var;
@@ -43,6 +51,8 @@ typedef struct	s_var
 typedef struct s_minishell
 {
 	t_var	*env;
+  t_cmd   *cmd;
+  int     cmd_len;
 } t_minishell;
 
 t_minishell		g_mini;
@@ -72,19 +82,33 @@ void	remove_var(char *name);
 void	remove_var_list();
 
 /*
+** cmd
+*/
+int     parse_command(char *str);
+
+int     add_cmd(char *str, int op);
+void    remove_cmd_list();
+t_cmd   *find_nth_cmd(int idx);
+t_cmd   *find_last_cmd();
+
+
+/*
 ** history
 */
-int init_history(int *fd);
-int save_history(char *str, int fd);
+int     init_history(int *fd);
+int     save_history(char *str, int fd);
 
+/*
+** pipex
+*/
 void	set_pipein_to_stdout(int *fds);
 void	set_pipeout_to_stdin(int *fds);
 void	set_fileout_to_fd(char *path, int fd);
 void	set_filein_to_fd(char *path, int fd);
 void    read_fd(int fd);
 char	*find_command_path(char *envp[], char *command);
-char	**split_command(char *cmd);
-int     execute_command(char *cmd, char *envp[]);
-void	pipex(int idx, char *cmd[], char *envp[]);
+char	**split_command(char *cmd, char c);
+int     execute_command(int idx, char *envp[]);
+void	pipex(int idx, char *envp[]);
 
 #endif
