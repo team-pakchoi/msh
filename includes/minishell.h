@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/04 22:28:41 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/05 01:02:18 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_env(char **envp);
 */
 int		ft_env();
 int		ft_unset(char *var_name);
+int		ft_echo(char **args);
 int		ft_exit(char **args);
 int		ft_export(char *str);
 
