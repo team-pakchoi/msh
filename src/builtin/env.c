@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 16:56:20 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/05 15:41:26 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_env(char **envp)
 	increase_shlvl();
 }
 
-int	ft_env()
+void	ft_env()
 {
 	t_var	*tmp;
 
@@ -43,5 +43,5 @@ int	ft_env()
 			printf("%s\n", (char *)tmp->var);
 		tmp = tmp->next;
 	}
-	return (FT_SUCCESS);
+	g_mini.exit_status = 0;
 }
