@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:04:18 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/05 00:26:29 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/06 00:18:32 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,28 @@ static int	str_isdigit(char *str)
 	return (FT_TRUE);
 }
 
-int	ft_exit(char **args)
+void	ft_exit(char **cmds)
 {
-	if (!args[0])
+	printf("exit\n");
+	if (cmds[1] && !str_isdigit(cmds[1]))
 	{
-		printf("exit\n");
-		exit(EXIT_SUCCESS);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(cmds[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		g_mini.exit_status = 255;
+		exit(g_mini.exit_status);
 	}
-	if (args[0] && str_isdigit(args[0]))
+	if (cmds[1] && cmds[2])
 	{
-		printf("exit with number\n");
-		exit((unsigned char)ft_atol(args[0]));
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		g_mini.exit_status = 1;
+		return ;
 	}
-	if (args[0] && args[1])
+	if (cmds[1] && str_isdigit(cmds[1]))
 	{
-		ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2);
-		return (FT_ERROR);
+		g_mini.exit_status = ft_atoi(cmds[1]);
+		exit(g_mini.exit_status);
 	}
-	ft_putstr_fd("exit\nminishell: exit: ", 2);
-	ft_putstr_fd(args[0], 2);
-	ft_putstr_fd(": numeric argument required\n", 2);
-	exit(255);
-	return (FT_ERROR);
+	g_mini.exit_status = 0;
+	exit(g_mini.exit_status);
 }
