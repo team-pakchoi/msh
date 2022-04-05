@@ -66,11 +66,11 @@ char	**join_arr(char **arr1, char **arr2, int is_front)
 	return (tar);
 }
 
-char	**set_last_split(char **arr1, char **arr2, char **arr3)
+char	**set_last_split(char **arr1, char **arr2, char **arr3, char c)
 {
 	char	**result;
 
-	arr2 = ft_split(arr1[2], 32);
+	arr2 = ft_split(arr1[2], c);
 	free(arr1[2]);
 	free(arr1);
 	result = join_arr(arr3, arr2, 0);
@@ -79,7 +79,16 @@ char	**set_last_split(char **arr1, char **arr2, char **arr3)
 	return (result);
 }
 
-char	**split_command(char *cmd)
+void    read_arr1(char *arr[])
+{
+    while (*arr)
+    {
+        printf("%s\n", *arr);
+        arr += 1;
+    }
+}
+
+char	**split_command(char *cmd, char c)
 {
 	char	**arr1;
 	char	**arr2;
@@ -88,14 +97,14 @@ char	**split_command(char *cmd)
 
 	has_quotes = find_quotes(cmd);
 	if (has_quotes == 0)
-		return (ft_split(cmd, 32));
+		return (ft_split(cmd, c));
 	arr1 = ft_split(cmd, has_quotes);
-	arr2 = ft_split(arr1[0], 32);
+	arr2 = ft_split(arr1[0], c);
 	free(arr1[0]);
 	arr3 = join_arr(arr2, arr1, 1);
 	free(arr2);
 	if (has_quotes != 0 && arr1[2] != 0)
-		return (set_last_split(arr1, arr2, arr3));
+		return (set_last_split(arr1, arr2, arr3, c));
 	free(arr1);
 	return (arr3);
 }
