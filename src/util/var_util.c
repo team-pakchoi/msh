@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 13:53:50 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/03 16:58:27 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,6 @@ static t_var	*var_new(char *var, int scope)
 	return (new);
 }
 
-static t_var	*var_find(char *name)
-{
-	t_var	*tmp;
-
-	tmp = g_mini.env;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->var, name, name_len(tmp->var)) == 0)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return ((t_var *)NULL);
-}
-
 void	add_var(char *name_and_value, int scope)
 {
 	t_var *tmp;
@@ -70,6 +56,20 @@ void	add_var(char *name_and_value, int scope)
 	tmp->next = new;
 }
 
+t_var	*find_var(char *name)
+{
+	t_var	*tmp;
+
+	tmp = g_mini.env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->var, name, name_len(tmp->var)) == 0)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return ((t_var *)NULL);
+}
+
 /*
 ** get var valye by name
 */
@@ -77,7 +77,7 @@ char	*find_var_value(char *name)
 {
 	t_var	*tmp;
 
-	tmp = var_find(name);
+	tmp = find_var(name);
 	if (!tmp)
 		return ((char *)NULL);
 	return (tmp->var + name_len(tmp->var) + 1);
@@ -88,7 +88,7 @@ void	update_var(char *name, char *new_value)
 	t_var	*tmp;
 	char	*new;
 
-	tmp = var_find(name);
+	tmp = find_var(name);
 	if (!tmp)
 		return ;
 	new = ft_strjoin(name, "=");
