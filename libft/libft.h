@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:04:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/01 21:45:35 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/05 00:11:35 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 
 int				ft_atoi(const char *str);
+long long	ft_atol(const char *str);
 void			ft_bzero(void *b, size_t len);
 void			*ft_calloc(size_t count, size_t size);
 int				ft_isalnum(int c);
