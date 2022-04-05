@@ -15,21 +15,27 @@
 void    read_all_cmd()
 {
     t_cmd   *node;
+    int     len;
 
     node = g_mini.cmd;
-    while (node != 0 && node->next != 0)
+    len = g_mini.cmd_len;
+    while (len > 0)
     {
-        printf("str: %s, op: %d\n", node->str, node->op);
+        write(2, "str: ", 5);
+        write(2, node->str, ft_strlen(node->str));
+        write(2, ", op:", 5);
+        write(2, ft_itoa(node->op), ft_strlen(ft_itoa(node->op)));
+        write(2, "\n", 1);
         node = node->next;
+        len -= 1;
     }
-    printf("str: %s, op: %d\n", node->str, node->op);
+    write(2, "-----parsed-------\n", 19);
 }
 
 int deal_command(char *str, char *envp[]) {
     pid_t   pid;
     int     status;
     int     fds[2];
-    char    **cmd;
 
     pipe(fds);
     pid = fork();
@@ -39,8 +45,6 @@ int deal_command(char *str, char *envp[]) {
         if (parse_command(str) == 0)
             exit(0);
         read_all_cmd();
-        printf("-----parsed-----\n");
-        set_pipein_to_stdout(fds);
         pipex(g_mini.cmd_len - 1, envp);
         exit(0);
     }
@@ -48,6 +52,7 @@ int deal_command(char *str, char *envp[]) {
     {
         set_pipeout_to_stdin(fds);
         waitpid(pid, &status, 0);
+        read_fd(STDIN_FILENO);
     }
     return (1);
 }
@@ -55,6 +60,7 @@ int deal_command(char *str, char *envp[]) {
 static void	free_global()
 {
 	ft_lstclear(&g_mini.env, free);
+    remove_cmd_list();
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -66,16 +72,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_env(envp);
 	init_history(&his_fd);
-	while(1)
-	{
+	// while(1)
+	// {
 		str = readline("prompt : ");
 		if (!str)
 			return (0);
         deal_command(str, envp);
-        read_fd(STDIN_FILENO);
         save_history(str, his_fd);
         free(str);
-    }
+    // }
     free_global();
 	return(EXIT_SUCCESS);
 }

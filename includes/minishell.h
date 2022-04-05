@@ -32,6 +32,7 @@ typedef struct s_cmd
     char            *str;
     int             op;
     struct s_cmd    *next;
+    struct s_cmd    *prev;
 }   t_cmd;
 
 typedef struct s_minishell
@@ -59,6 +60,8 @@ void	update_env(char *name, char *new_value);
 int     parse_command(char *str);
 
 int     add_cmd(char *str, int op);
+void    remove_cmd_list();
+t_cmd   *find_nth_cmd(int idx);
 t_cmd   *find_last_cmd();
 
 
@@ -78,9 +81,7 @@ void	set_filein_to_fd(char *path, int fd);
 void    read_fd(int fd);
 char	*find_command_path(char *envp[], char *command);
 char	**split_command(char *cmd, char c);
-int     execute_command(char *cmd, char *envp[]);
-void	pipex(int idx, char *cmd[], char *envp[]);
-
-
+int     execute_command(int idx, char *envp[]);
+void	pipex(int idx, char *envp[]);
 
 #endif

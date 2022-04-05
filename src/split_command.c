@@ -88,9 +88,6 @@ void    read_arr1(char *arr[])
     }
 }
 
-// c를 기준으로 split하고, 만약에 따옴표가 있다면 그 부분은 하나로 묶는다.
-// 먼저 따옴표를 기준으로 문자열을 나누고, 나뉜 상태에서 따옴표 바깥쪽만 c를 기준으로 나눈다.
-
 char	**split_command(char *cmd, char c)
 {
 	char	**arr1;
@@ -101,12 +98,12 @@ char	**split_command(char *cmd, char c)
 	has_quotes = find_quotes(cmd);
 	if (has_quotes == 0)
 		return (ft_split(cmd, c));
-	arr1 = ft_split(cmd, has_quotes); // 따옴표를 기준으로 나눈다.
-	arr2 = ft_split(arr1[0], c); // tar를 기준으로 따옴표 앞부분을 나눈다.
+	arr1 = ft_split(cmd, has_quotes);
+	arr2 = ft_split(arr1[0], c);
 	free(arr1[0]);
-	arr3 = join_arr(arr2, arr1, 1); // 따옴표로 나뉜 배열와 tar로 나뉜 배열을 합한다.
+	arr3 = join_arr(arr2, arr1, 1);
 	free(arr2);
-	if (has_quotes != 0 && arr1[2] != 0) // 따옴표로 나뉘였고, 
+	if (has_quotes != 0 && arr1[2] != 0)
 		return (set_last_split(arr1, arr2, arr3, c));
 	free(arr1);
 	return (arr3);
