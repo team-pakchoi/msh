@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/02 14:05:03 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/05 01:02:18 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,57 @@ typedef int	t_bool;
 
 typedef struct s_cmd
 {
-    char            *str;
-    int             op;
-    struct s_cmd    *next;
-    struct s_cmd    *prev;
-}   t_cmd;
+  char            *str;
+  int             op;
+  struct s_cmd    *next;
+  struct s_cmd    *prev;
+} t_cmd;
+  
+typedef struct	s_var
+{
+	char					*var;
+	int						scope;
+	struct s_var	*next;
+}				t_var;
+
+/*
+** value for `scope` the member of structure `t_var`
+*/
+# define  SHELL_VAR 0
+# define  ENV_VAR 1
 
 typedef struct s_minishell
 {
-	t_list  *env;
-    t_cmd   *cmd;
-    int     cmd_len;
+	t_var	*env;
+  t_cmd   *cmd;
+  int     cmd_len;
 } t_minishell;
 
 t_minishell		g_mini;
 
 /*
-** env
+** init: env
 */
 void	init_env(char **envp);
-int		ft_env();
 
-void	add_env(char *name_and_value);
-void	remove_env(char	*name);
-void	update_env(char *name, char *new_value);
+/*
+** builtin
+*/
+int		ft_env();
+int		ft_unset(char *var_name);
+int		ft_echo(char **args);
+int		ft_exit(char **args);
+int		ft_export(char *str);
+
+/*
+** util: var
+*/
+void	add_var(char *name_and_value, int scope);
+t_var	*find_var(char *name);
+char	*find_var_value(char *name);
+void	update_var(char *name, char *new_value);
+void	remove_var(char *name);
+void	remove_var_list();
 
 /*
 ** cmd

@@ -1,47 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 16:56:20 by sarchoi          ###   ########seoul.kr  */
+/*   Created: 2022/04/04 16:59:56 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/04/05 01:14:00 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	increase_shlvl()
+int	ft_echo(char **args)
 {
-	int	prev_value;
+	int	is_n_option;
 
-	prev_value = ft_atoi(getenv("SHLVL"));
-	update_var("SHLVL", ft_itoa(prev_value + 1));
-}
-
-void	init_env(char **envp)
-{
-	add_var(ft_strdup(*envp), ENV_VAR);
-	envp++;
-	while (*envp)
+	is_n_option = FT_FALSE;
+	if (args[0] && ft_strcmp(args[0], "-n") == 0)
 	{
-		add_var(ft_strdup(*envp), ENV_VAR);
-		envp++;
+		is_n_option = FT_TRUE;
+		args++;
 	}
-	increase_shlvl();
-}
-
-int	ft_env()
-{
-	t_var	*tmp;
-
-	tmp = g_mini.env;
-	while (tmp)
+	while (*args)
 	{
-		if (tmp->scope == ENV_VAR)
-			printf("%s\n", (char *)tmp->var);
-		tmp = tmp->next;
+		ft_putstr_fd(*args, 1);
+		if (*(args + 1))
+			ft_putstr_fd(" ", 1);
+		args++;
 	}
+	if (!is_n_option)
+		ft_putstr_fd("\n", 1);
 	return (FT_SUCCESS);
 }
