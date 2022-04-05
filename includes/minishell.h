@@ -48,18 +48,23 @@ typedef struct s_minishell
 t_minishell		g_mini;
 
 /*
-** env
+** init: env
 */
 void	init_env(char **envp);
-int		ft_env();
 
+/*
+** builtin
+*/
+int		ft_env();
 int		ft_unset(char *var_name);
 int		ft_exit(char **args);
+int		ft_export(char *str);
 
 /*
 ** util: var
 */
 void	add_var(char *name_and_value, int scope);
+t_var	*find_var(char *name);
 char	*find_var_value(char *name);
 void	update_var(char *name, char *new_value);
 void	remove_var(char *name);
