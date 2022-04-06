@@ -20,22 +20,24 @@ static void	free_global()
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
+	char	*input;
+    char    *prev_input;
 	int		his_fd;
 
 	(void)argc;
 	(void)argv;
 	init_env(envp);
-	init_history(&his_fd);
+	init_history(&his_fd, &prev_input);
 	while(1)
 	{
-		str = readline("prompt : ");
-		if (!str)
+		input = readline("prompt : ");
+		if (!input)
             return (0);
-        deal_command(str, envp);
-        save_history(str, his_fd);
-        free(str);
+        deal_command(input, envp);
+        save_history(his_fd, input, &prev_input);
+        free(input);
     }
+    free(prev_input);
     free_global();
 	return(EXIT_SUCCESS);
 }
