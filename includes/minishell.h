@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/05 01:02:18 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/06 00:54:51 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_cmd
   struct s_cmd    *next;
   struct s_cmd    *prev;
 } t_cmd;
-  
+
 typedef struct	s_var
 {
 	char					*var;
@@ -51,6 +51,7 @@ typedef struct	s_var
 typedef struct s_minishell
 {
 	t_var	*env;
+	unsigned char	exit_status;
   t_cmd   *cmd;
   int     cmd_len;
 } t_minishell;
@@ -65,15 +66,16 @@ void	init_env(char **envp);
 /*
 ** builtin
 */
-int		ft_env();
-int		ft_unset(char *var_name);
-int		ft_echo(char **args);
-int		ft_exit(char **args);
-int		ft_export(char *str);
+void	ft_env();
+void	ft_unset(char **cmds);
+void	ft_export(char **cmds);
+void	ft_exit(char **cmds);
+void	ft_echo(char **cmds);
 
 /*
 ** util: var
 */
+int	is_valid_var_name(const char *str);
 void	add_var(char *name_and_value, int scope);
 t_var	*find_var(char *name);
 char	*find_var_value(char *name);

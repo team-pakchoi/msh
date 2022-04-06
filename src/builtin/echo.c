@@ -6,30 +6,31 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:59:56 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/05 01:14:00 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/06 00:48:19 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(char **args)
+void	ft_echo(char **cmds)
 {
 	int	is_n_option;
 
 	is_n_option = FT_FALSE;
-	if (args[0] && ft_strcmp(args[0], "-n") == 0)
+	cmds++;
+	if (*cmds && ft_strcmp(*cmds, "-n") == 0)
 	{
 		is_n_option = FT_TRUE;
-		args++;
+		cmds++;
 	}
-	while (*args)
+	while (*cmds)
 	{
-		ft_putstr_fd(*args, 1);
-		if (*(args + 1))
-			ft_putstr_fd(" ", 1);
-		args++;
+		ft_putstr_fd(*cmds, 1);
+		cmds++;
+		if (*cmds)
+			ft_putchar_fd(' ', 1);
 	}
 	if (!is_n_option)
-		ft_putstr_fd("\n", 1);
-	return (FT_SUCCESS);
+		ft_putchar_fd('\n', 1);
+	g_mini.exit_status = 0;
 }
