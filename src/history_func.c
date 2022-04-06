@@ -12,34 +12,40 @@
 
 #include "minishell.h"
 
-int init_history(int *fd)
+int init_history(int *fd, char **prev)
 {
     char    *line;
+    int     result;
 
+    result = 1;
     *fd = open(".history", O_RDWR | O_CREAT | O_EXCL, 0644);
     if (*fd == -1) {
         *fd = open(".history", O_RDWR);
-        while (get_next_line(*fd, &line) > 0)
+        while (result > 0)
         {
+            result = get_next_line(*fd, &line);
             add_history(line);
+            if (result == 0)
+                *prev = ft_strdup(line);
             free(line);
-            line = 0;
         }
     }
     return (1);
 }
 
-int save_history(char *str, int fd)
+int save_history(int fd, char *str, char **prev)
 {
     int len;
 
     if (str == 0)
         return (0);
     len = ft_strlen(str);
-    if (len > 0) {
+    if (len > 0 && ft_strcmp(str, *prev)) {
         write(fd, str, len);
         write(fd, "\n", 1);
         add_history(str);
+        free(*prev);
+        *prev = ft_strdup(str);
     }
     return (1);
 }

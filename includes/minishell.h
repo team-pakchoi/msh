@@ -95,12 +95,11 @@ t_cmd   *find_nth_cmd(int idx);
 t_cmd   *find_last_cmd();
 void    read_all_cmd();
 
-
 /*
 ** history
 */
-int     init_history(int *fd);
-int     save_history(char *str, int fd);
+int     init_history(int *fd, char **prev);
+int     save_history(int fd, char *str, char **prev);
 
 /*
 ** pipex
