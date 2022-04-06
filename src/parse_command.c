@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_command.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 14:38:47 by cpak              #+#    #+#             */
+/*   Updated: 2022/04/06 14:38:53 by cpak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void set_quotes_flag(char c, int *flag)
@@ -78,7 +90,7 @@ int parse_command(char *str)
     int     op;
 
     op = 1;
-    while (*str)
+    while (*str && op != 0)
     {
         len = get_len_to_next(str);
         cmd = get_str_command(str, len);

@@ -87,11 +87,13 @@ void	remove_var_list();
 ** cmd
 */
 int     parse_command(char *str);
+int     deal_command(char *str, char *envp[]);
 
 int     add_cmd(char *str, int op);
 void    remove_cmd_list();
 t_cmd   *find_nth_cmd(int idx);
 t_cmd   *find_last_cmd();
+void    read_all_cmd();
 
 
 /*

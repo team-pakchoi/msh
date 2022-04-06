@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_util.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 14:39:17 by cpak              #+#    #+#             */
+/*   Updated: 2022/04/06 14:39:18 by cpak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void    set_input_redir(t_cmd *node)
@@ -90,5 +102,26 @@ t_cmd   *find_last_cmd()
     while (node != 0 && node->next != 0)
         node = node->next;
     return (node);
+}
+
+void    read_all_cmd()
+{
+    t_cmd   *node;
+    int     len;
+
+    node = g_mini.cmd;
+    len = g_mini.cmd_len;
+    write(2, "------------------\n", 19);
+    while (len > 0)
+    {
+        write(2, "str: ", 5);
+        write(2, node->str, ft_strlen(node->str));
+        write(2, ", op:", 5);
+        write(2, ft_itoa(node->op), ft_strlen(ft_itoa(node->op)));
+        write(2, "\n", 1);
+        node = node->next;
+        len -= 1;
+    }
+    write(2, "-----parsed-------\n", 19);
 }
 
