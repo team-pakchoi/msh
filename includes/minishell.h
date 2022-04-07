@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/07 14:35:12 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/07 15:14:03 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_export(char **cmds);
 void	ft_exit(char **cmds);
 void	ft_echo(char **cmds);
 void	ft_cd(char **cmds);
+void	ft_pwd();
 
 /*
 ** util: var
