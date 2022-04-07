@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/06 00:54:51 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/07 14:35:12 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
 # include "libft.h"
 
 # define  FT_SUCCESS 1
@@ -71,6 +72,7 @@ void	ft_unset(char **cmds);
 void	ft_export(char **cmds);
 void	ft_exit(char **cmds);
 void	ft_echo(char **cmds);
+void	ft_cd(char **cmds);
 
 /*
 ** util: var
