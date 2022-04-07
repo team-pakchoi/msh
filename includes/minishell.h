@@ -96,6 +96,12 @@ t_cmd   *find_last_cmd();
 void    read_all_cmd();
 
 /*
+** parse
+*/
+int     parse_cmd(char **cmd);
+int     parse_env_str(char **str);
+
+/*
 ** history
 */
 int     init_history(int *fd, char **prev);

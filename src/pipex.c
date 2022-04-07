@@ -78,6 +78,7 @@ int execute_command(int idx, char *envp[])
     
     cmd_node = find_nth_cmd(idx);
     command = split_command(cmd_node->str, 32);
+    parse_cmd(command);
     if (cmd_node->op == 1)
     {
         if (access(command[0], X_OK) != 0)
