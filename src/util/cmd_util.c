@@ -12,7 +12,68 @@
 
 #include "minishell.h"
 
-void    set_input_redir(t_cmd *node)
+int get_is_sep(char *str, int *sep_num)
+{
+    if (str[0] == '|')
+    {
+        *sep_num = 1;
+        return (1);
+    }
+    if (str[0] == '>')
+    {
+        if (str[1] == '>')
+        {
+            *sep_num = 3;
+            return (2);
+        }
+        else if (str[1] == '<')
+        {
+            *sep_num = -1;  // error
+            return (2);
+        }
+        *sep_num = 2;
+        return (1);
+    }
+    if (str[0] == '<')
+    {
+        if (str[1] == '<')
+        {
+            *sep_num = 5;
+            return (2);
+        }
+        else if (str[1] == '>')
+        {
+            *sep_num = -1;  // error
+            return (2);
+        }
+        *sep_num = 4;
+        return (1);
+    }
+    *sep_num = 0;
+    return (0);
+}
+
+int set_cmd_list(char *str)
+{
+    char    **arr;
+    int     len;
+    int     sep;
+
+    sep = 1;
+    arr = split_with_quote_flag(str, get_is_sep);
+    while (*arr)
+    {
+        len = get_len_to_next(&str, get_is_sep);
+        if (add_cmd(*arr, sep) == 0)
+            return (0);
+        str += len;
+        str += get_is_sep(str, &sep);
+        arr += 1;
+    }
+    return (1);
+}
+
+void    set_input_redir_node(t_cmd *node)
 {
     t_cmd   *tar;
     t_cmd   *prev_tar;
@@ -52,7 +113,7 @@ int add_cmd(char *str, int op)
     else
     {
         if (op == 4 || op == 5)
-            set_input_redir(new);
+            set_input_redir_node(new);
         else
         {
             last->next = new;
@@ -123,5 +184,20 @@ void    read_all_cmd()
         len -= 1;
     }
     write(2, "-----parsed-------\n", 19);
+}
+
+void    read_arr(char **arr)
+{
+    int i;
+
+    i = 0;
+    while (arr[i])
+    {
+        write(2, "|", 1);
+        write(2, arr[i], ft_strlen(arr[i]));
+        write(2, "|", 1);
+        write(2, "\n", 1);
+        i += 1;
+    }
 }
 

@@ -23,55 +23,55 @@ void set_quotes_flag(char c, int *flag)
     }
 }
 
-int get_is_op(char *str)
-{
-    if (*str == '|')
-        return (1);
-    if (*str == '>')
-    {
-        str += 1;
-        if (*str == '>')
-            return (3);
-        if (*str == '<')
-            return (-1);    // error
-        return (2);
-    }
-    if (*str == '<')
-    {
-        str += 1;
-        if (*str == '<')
-            return (5);
-        if (*str == '>')
-            return (-1);    // error
-        return (4);
-    }
-    return (0);
-}
-
-int get_len_to_next(char *str)
+int get_len_to_next(char **str, int (*sep_func)(char *, int *))
 {
     int len;
     int flag;
-    int has_op;
+    int sep;
+    int sep_len;
 
     len = 0;
     flag = 0;
-    has_op = 0;
-    while (str[len])
+    sep = 0;
+    while (**str)
+    {
+        sep_len = sep_func(*str, &sep);
+        if (sep_len == 0)
+            break ;
+        *str += sep_len;
+    }
+    while ((*str)[len])
     {
         if (flag == 0)
         {
-            has_op = get_is_op(str + len);
-            if (has_op != 0)
+            sep_len = sep_func(*str + len, &sep);
+            if (sep_len != 0)
                 break ;
+            len += sep_len;
         }
-        set_quotes_flag(str[len], &flag);
+        set_quotes_flag((*str)[len], &flag);
         len += 1;
     }
-    return (len + 1);
+    return (len);
 }
 
-char    *get_str_command(char *str, int len)
+int get_nums_splited(char *str, int (*sep_func)(char *, int *))
+{
+    int nums;
+    int sep;
+
+    nums = 0;
+    sep = 0;
+    while (*str)
+    {
+        str += get_len_to_next(&str, sep_func);
+        str += sep_func(str, &sep);
+        nums += 1;
+    }
+    return (nums);
+}
+
+char    *get_str(char *str, int len)
 {
     char    *result;
 
@@ -83,29 +83,30 @@ char    *get_str_command(char *str, int len)
     return (result);
 }
 
-int parse_command(char *str)
+char    **split_with_quote_flag(char *str, int (*sep_func)(char *, int *))
 {
-    char    *cmd;
+    char    **result;
+    int     nums_splited;
+    int     idx;
     int     len;
-    int     op;
+    int     sep;
 
-    op = 1;
-    while (*str && op != 0)
+    nums_splited = get_nums_splited(str, sep_func);
+    result = malloc(sizeof(void *) * (nums_splited + 1));
+    if (result == 0)
+        return (0);
+    result[nums_splited] = 0;
+    idx = 0;
+    sep = 0;
+    while (idx < nums_splited)
     {
-        len = get_len_to_next(str);
-        cmd = get_str_command(str, len);
-        if (!cmd)
-            return (0);
-        if (add_cmd(cmd, op) == 0)
+        len = get_len_to_next(&str, sep_func);
+        result[idx] = get_str(str, len + 1);
+        if (!result[idx])
             return (0);
         str += len;
-        op = get_is_op(str - 1);
-        if (op == 3 || op == 5)
-            str += 2;
-        else
-            str += 1;
-        cmd = 0;
-        len = 0;
+        str += sep_func(str, &sep);
+        idx += 1;
     }
-    return (1);
+    return (result);
 }

@@ -44,7 +44,7 @@ char    *get_parsed_str(char *str, char *env_name, char *env_value)
     return (new);
 }
 
-int parse_env_str(char **str)
+int parse_str_env(char **str)
 {
     int     i;
     int     start;
@@ -53,16 +53,17 @@ int parse_env_str(char **str)
 
     i = 0;
     start = -1;
-    while (str[0][i])
+    while ((*str)[i])
     {
-        if (str[0][i] == '$')
+        if ((*str)[i] == '$')
             start = i;
-        else if (start != -1 && !ft_isalpha(str[0][i]) && !ft_isdigit(str[0][i]) && str[0][i] != '_')
+        else if (start != -1 && !ft_isalpha((*str)[i]) && !ft_isdigit((*str)[i]) && (*str)[i] != '_')
         {
-            env_name = ft_strndup(str[0] + start, i - start);
+            env_name = ft_strndup((*str) + start, i - start);
             env_value = find_var_value(env_name + 1);
-            str[0] = get_parsed_str(str[0], env_name, env_value);
+            *str = get_parsed_str(*str, env_name, env_value);
             free(env_name);
+
             i = start;
             start = -1;
         }
@@ -70,22 +71,22 @@ int parse_env_str(char **str)
     }
     if (start != -1)
     {
-        env_name = ft_strndup(str[0] + start, i - start);
+        env_name = ft_strndup((*str) + start, i - start);
         env_value = find_var_value(env_name + 1);
-        str[0] = get_parsed_str(str[0], env_name, env_value);
+        *str = get_parsed_str(*str, env_name, env_value);
         free(env_name);
     }
     return (1);
 }
 
-int parse_cmd(char **cmd)
+int parse_cmd_env(char **cmd)
 {
     int idx;
 
     idx = 0;
     while (cmd[idx])
     {
-        parse_env_str(&cmd[idx]);
+        parse_str_env(&cmd[idx]);
         idx += 1;
     }
     return (1);
