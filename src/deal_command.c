@@ -23,9 +23,9 @@ int deal_command(char *str, char *envp[])
     if (pid == 0)
     {
         g_mini.cmd_len = 0;
-        if (parse_command(str) == 0)
+        if (set_cmd_list(str) == 0)
             exit(0);
-        // read_all_cmd();  // 입력된 명령어 리스트 출력
+        read_all_cmd();
         pipex(g_mini.cmd_len - 1, envp);
         exit(0);
     }
