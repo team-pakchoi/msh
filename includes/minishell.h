@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/07 15:14:03 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/11 16:49:45 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ char	*find_var_value(char *name);
 void	update_var(char *name, char *new_value);
 void	remove_var(char *name);
 void	remove_var_list();
+
+/*
+** signal
+*/
+void	init_signal();
 
 /*
 ** cmd
