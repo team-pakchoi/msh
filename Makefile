@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/04/12 02:36:57 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/04/13 21:33:57 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(NAME): $(OBJS)
 	$(info $(green)<MAKE> NAME$(reset))
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(INC_FLAGS) -I /usr/local/opt/readline/include
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC_FLAGS)
 	$(info $(green)<MAKE> $(<) -> $(@)$(reset))
 
 $(LIBFT):
