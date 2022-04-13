@@ -15,16 +15,17 @@
 char    *get_parsed_str(char *str, char *env_name, char *env_value)
 {
     char    *new;
-    int     len;
+    int     len_n;
+    int     len_v;
     int     i;
 
     i = 0;
-    len = ft_strlen(str) - ft_strlen(env_name) + ft_strlen(env_value);
-    new = malloc(sizeof(char) * len);
+    len_n = ft_strlen(env_name);
+    len_v = ft_strlen(env_value);
+    new = ft_calloc(ft_strlen(str) - len_n + len_v + 1, sizeof(char));
     if (!new)
         return (0);
-    new[len] = 0;
-    while (str[i] != '$')
+    while (ft_strncmp(str + i, env_name, len_n) != 0)
     {
         new[i] = str[i];
         i += 1;
@@ -35,46 +36,61 @@ char    *get_parsed_str(char *str, char *env_name, char *env_value)
         i += 1;
         env_value += 1;
     }
-    while (str[i - ft_strlen(env_value) + ft_strlen(env_name) - 2])
+    while (str[i - len_v + len_n])
     {
-        new[i] = str[i - ft_strlen(env_value) + ft_strlen(env_name) - 2];
+        new[i] = str[i - len_v + len_n];
         i += 1;
     }
     free(str);
     return (new);
 }
 
-int parse_str_env(char **str)
+char *trans_env_name_to_value(char *str, int start, int end)
 {
-    int     i;
-    int     start;
     char    *env_name;
     char    *env_value;
+    char    *parsed_str;
+
+    env_name = ft_strndup(str + start, end - start);
+    env_value = find_var_value(env_name + 1);
+    parsed_str = get_parsed_str(str, env_name, env_value);
+    free(env_name);
+    return (parsed_str);
+}
+
+int get_next_env_point(char *str, int *start, int *end)
+{
+    int i;
 
     i = 0;
-    start = -1;
-    while ((*str)[i])
+    *start = -1;
+    while (str[i])
     {
-        if ((*str)[i] == '$')
-            start = i;
-        else if (start != -1 && !ft_isalpha((*str)[i]) && !ft_isdigit((*str)[i]) && (*str)[i] != '_')
+        if (str[i] == '$')
+            *start = i;
+        else if (*start != -1 && !ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
         {
-            env_name = ft_strndup((*str) + start, i - start);
-            env_value = find_var_value(env_name + 1);
-            *str = get_parsed_str(*str, env_name, env_value);
-            free(env_name);
-
-            i = start;
-            start = -1;
+            *end = i;
+            return (1);
         }
         i += 1;
     }
-    if (start != -1)
+    if (*start != -1)
     {
-        env_name = ft_strndup((*str) + start, i - start);
-        env_value = find_var_value(env_name + 1);
-        *str = get_parsed_str(*str, env_name, env_value);
-        free(env_name);
+        *end = i;
+        return (1);
+    }
+    return (0);
+}
+
+int parse_str_env(char **str)
+{
+    int     start;
+    int     end;
+    
+    while (get_next_env_point(*str, &start, &end))
+    {
+        *str = trans_env_name_to_value(*str, start, end);
     }
     return (1);
 }
