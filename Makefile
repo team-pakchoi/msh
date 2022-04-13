@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/04/02 13:58:06 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/04/12 02:36:57 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,10 @@ SRCS = $(wildcard src/*.c) $(wildcard src/*/*.c)
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
-LIBFT_FLAGS = -L ./$(LIBFT) -l ft
-READLINE_FLAGS = -lreadline -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include
+LIBFT_FLAGS = -l ft -L ./$(LIBFT)
+READLINE_FLAGS = -l readline -L /usr/local/opt/readline/lib
 
-INC_FLAGS = -I includes -I $(LIBFT)
+INC_FLAGS = -I includes -I $(LIBFT) -I /usr/local/opt/readline/include
 
 green:=$(shell tput setaf 2)
 reset:=$(shell tput sgr0)
@@ -36,7 +36,7 @@ $(NAME): $(OBJS)
 	$(info $(green)<MAKE> NAME$(reset))
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(INC_FLAGS)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC_FLAGS) -I /usr/local/opt/readline/include
 	$(info $(green)<MAKE> $(<) -> $(@)$(reset))
 
 $(LIBFT):
