@@ -12,33 +12,33 @@
 
 #include "minishell.h"
 
-char    *get_parsed_str(char *str, char *env_name, char *env_value)
+char    *change_str(char *str, char *str_tar, char *str_src)
 {
     char    *new;
-    int     len_n;
-    int     len_v;
+    int     len_tar;
+    int     len_src;
     int     i;
 
     i = 0;
-    len_n = ft_strlen(env_name);
-    len_v = ft_strlen(env_value);
-    new = ft_calloc(ft_strlen(str) - len_n + len_v + 1, sizeof(char));
+    len_tar = ft_strlen(str_tar);
+    len_src = ft_strlen(str_src);
+    new = ft_calloc(ft_strlen(str) - len_tar + len_src + 1, sizeof(char));
     if (!new)
         return (0);
-    while (ft_strncmp(str + i, env_name, len_n) != 0)
+    while (ft_strncmp(str + i, str_tar, len_tar) != 0)
     {
         new[i] = str[i];
         i += 1;
     }
-    while (*env_value)
+    while (*str_src)
     {
-        new[i] = *env_value;
+        new[i] = *str_src;
         i += 1;
-        env_value += 1;
+        str_src += 1;
     }
-    while (str[i - len_v + len_n])
+    while (str[i - len_src + len_tar])
     {
-        new[i] = str[i - len_v + len_n];
+        new[i] = str[i - len_src + len_tar];
         i += 1;
     }
     free(str);
@@ -53,7 +53,7 @@ char *trans_env_name_to_value(char *str, int start, int end)
 
     env_name = ft_strndup(str + start, end - start);
     env_value = find_var_value(env_name + 1);
-    parsed_str = get_parsed_str(str, env_name, env_value);
+    parsed_str = change_str(str, env_name, env_value);
     free(env_name);
     return (parsed_str);
 }
@@ -83,14 +83,68 @@ int get_next_env_point(char *str, int *start, int *end)
     return (0);
 }
 
-int parse_str_env(char **str)
+char *get_next_str(char *str, int *idx, int *sep)
+{
+    int     start;
+    char    *result;
+
+    start = *idx;
+    if (str[*idx] == '"' || str[*idx] == '\'')
+        *sep = str[*idx];
+    else
+        *sep = -1;
+    *idx += 1;
+    while (str[*idx])
+    {
+        if (*sep == str[*idx])
+            break ;
+        if (*sep == -1 && (str[*idx] == '"' || str[*idx] == '\''))
+            break ;
+        *idx += 1;
+    }
+    if (*idx - start - 1 <= 0)
+        return (0);
+    result = ft_strndup(str + start, *idx - start + 1);
+    return (result);
+}
+
+int trans_all_env(char **str)
 {
     int     start;
     int     end;
-    
+
     while (get_next_env_point(*str, &start, &end))
     {
         *str = trans_env_name_to_value(*str, start, end);
+        if (*str == 0)
+            return (0);
+    }
+    return (1);
+}
+
+int parse_str_env(char **str)
+{
+    int     idx;
+    char    *tar;
+    char    *src;
+    int     sep;
+   
+    idx = 0;
+    while ((*str)[idx])
+    {
+        tar = get_next_str(*str, &idx, &sep);
+        if (tar == 0)
+            continue ;
+        src = ft_strtrim(tar, (const char *)&sep);
+        if (sep != '\'')
+        {
+            if (trans_all_env(&src) == 0)
+                return (0);
+        }
+        *str = change_str(*str, tar, src);
+        idx += ft_strlen(src) - ft_strlen(tar);
+        free(src);
+        free(tar);
     }
     return (1);
 }
