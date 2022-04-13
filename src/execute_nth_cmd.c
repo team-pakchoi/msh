@@ -87,6 +87,7 @@ int execute_nth_cmd(int idx, char *envp[])
     
     cmd_node = find_nth_cmd(idx);
     command = split_with_quote_flag(cmd_node->str, is_white_space);
+    read_arr(command);
     parse_cmd_env(command);
     if (cmd_node->op == 1)
         execute_command(command, envp);
