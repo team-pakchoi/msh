@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/11 16:49:45 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 21:27:45 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
@@ -27,6 +28,8 @@
 # define  FT_TRUE 1
 # define  FT_FALSE 0
 typedef int	t_bool;
+
+# define  PROMPT_STRING "prompt : "
 
 typedef struct s_cmd
 {
