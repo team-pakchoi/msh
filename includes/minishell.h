@@ -97,14 +97,28 @@ void	init_signal();
 /*
 ** cmd
 */
-int     parse_command(char *str);
+int     set_cmd_list(char *str);
 int     deal_command(char *str, char *envp[]);
+
 
 int     add_cmd(char *str, int op);
 void    remove_cmd_list();
 t_cmd   *find_nth_cmd(int idx);
 t_cmd   *find_last_cmd();
 void    read_all_cmd();
+void    read_arr(char **str);
+
+/*
+** parse
+*/
+int     parse_cmd_env(char **cmd);
+int     parse_str_env(char **str);
+
+/*
+** split
+*/
+int     get_len_to_next(char **str, int (*sep_func)(char *, int *));
+char    **split_with_quote_flag(char *str, int (*sep_func)(char *, int *));
 
 /*
 ** history
@@ -121,8 +135,7 @@ void	set_fileout_to_fd(char *path, int fd);
 void	set_filein_to_fd(char *path, int fd);
 void    read_fd(int fd);
 char	*find_command_path(char *envp[], char *command);
-char	**split_command(char *cmd, char c);
-int     execute_command(int idx, char *envp[]);
+int     execute_nth_cmd(int idx, char *envp[]);
 void	pipex(int idx, char *envp[]);
 
 #endif

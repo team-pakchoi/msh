@@ -83,7 +83,7 @@ t_var	*find_var(char *name)
 	tmp = g_mini.env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->var, name, name_len(tmp->var)) == 0)
+		if (ft_strncmp(tmp->var, name, name_len(name)) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}
