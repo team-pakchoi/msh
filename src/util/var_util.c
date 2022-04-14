@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/05 16:15:17 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/14 18:02:31 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ static t_var	*var_new(char *var, int scope)
 	new->scope = scope;
 	new->next = (t_var *)NULL;
 	return (new);
+}
+
+int	is_valid_var_format(char *str)
+{
+	char	*tmp;
+	char	*name;
+
+	tmp = ft_strchr(str, '=');
+	if (!tmp)
+		return (FT_FALSE);
+	name = ft_strndup(str, tmp - str);
+	if (!is_valid_var_name(name))
+	{
+		free(name);
+		return (FT_FALSE);
+	}
+	free(name);
+	return (FT_TRUE);
 }
 
 int	is_valid_var_name(const char *str)
