@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:32:11 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/07 14:39:45 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 21:51:01 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	print_directory(void)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 	{
-		ft_putstr_fd("cd: getcwd() failed\n", 2);
+		ft_putstr_fd("minishell: cd: getcwd() failed\n", 2);
 		return ;
 	}
 	printf("%s\n", cwd);
@@ -89,7 +89,10 @@ int	ft_chdir(char *path)
 		return (FT_ERROR);
 	}
 	cwd = getcwd(NULL, 0);
-	update_var("OLDPWD", find_var_value("PWD"));
+	if (find_var_value("OLDPWD") == NULL)
+		add_var(ft_strjoin("OLDPWD=", find_var_value("PWD")), ENV_VAR);
+	else
+		update_var("OLDPWD", find_var_value("PWD"));
 	update_var("PWD", cwd);
 	free(cwd);
 	return (FT_SUCCESS);
@@ -106,7 +109,7 @@ void	ft_cd(char **cmds)
 		oldpwd = find_var_value("OLDPWD");
 		if (oldpwd == NULL)
 		{
-			ft_putstr_fd("cd: OLDPWD not set\n", 2);
+			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 			g_mini.exit_status = 1;
 			return ;
 		}

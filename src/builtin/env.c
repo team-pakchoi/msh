@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/05 15:41:26 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 21:44:11 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_env(char **envp)
 		envp++;
 	}
 	increase_shlvl();
+	remove_var("OLDPWD");
 }
 
 void	ft_env()
