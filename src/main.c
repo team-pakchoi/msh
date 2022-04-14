@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/03 13:54:30 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 21:27:51 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_env(envp);
 	init_history(&his_fd, &prev_input);
+	init_signal();
 	while(1)
 	{
-		input = readline("prompt : ");
+		input = readline(PROMPT_STRING);
 		if (!input)
-            return (0);
+		{
+			printf("\033[1A");
+			printf(PROMPT_STRING);
+			printf("exit\n");
+			free(prev_input);
+			free_global();
+			return (g_mini.exit_status);
+		}
         deal_command(input, envp);
         save_history(his_fd, input, &prev_input);
         free(input);
