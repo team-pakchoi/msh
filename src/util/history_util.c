@@ -24,9 +24,10 @@ int init_history(int *fd, char **prev)
         while (result > 0)
         {
             result = get_next_line(*fd, &line);
-            add_history(line);
             if (result == 0)
                 *prev = ft_strdup(line);
+            else
+                add_history(line);
             free(line);
         }
     }
@@ -44,7 +45,8 @@ int save_history(int fd, char *str, char **prev)
         write(fd, str, len);
         write(fd, "\n", 1);
         add_history(str);
-        free(*prev);
+        if (**prev != 0)
+            free(*prev);
         *prev = ft_strdup(str);
     }
     return (1);
