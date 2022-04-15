@@ -45,7 +45,7 @@ char    *change_str(char *str, char *str_tar, char *str_src)
     return (new);
 }
 
-char *trans_env_name_to_value(char *str, int start, int end)
+char *trans_env_name_to_value(char *str, int start, int end, int *idx)
 {
     char    *env_name;
     char    *env_value;
@@ -54,6 +54,7 @@ char *trans_env_name_to_value(char *str, int start, int end)
     env_name = ft_strndup(str + start, end - start);
     env_value = find_var_value(env_name + 1);
     parsed_str = change_str(str, env_name, env_value);
+    *idx = start + ft_strlen(env_value);
     free(env_name);
     return (parsed_str);
 }
@@ -89,7 +90,7 @@ char *get_next_str(char *str, int *idx, int *sep)
     char    *result;
 
     start = *idx;
-    if (str[*idx] == '"' || str[*idx] == '\'')
+    if (str[*idx] == 34 || str[*idx] == 39)
         *sep = str[*idx];
     else
         *sep = -1;
@@ -97,14 +98,18 @@ char *get_next_str(char *str, int *idx, int *sep)
     while (str[*idx])
     {
         if (*sep == str[*idx])
+        {
+            *idx += 1;
             break ;
-        if (*sep == -1 && (str[*idx] == '"' || str[*idx] == '\''))
+        }
+        else if (*sep == -1 && (str[*idx] == '"' || str[*idx] == '\''))
+        {
+            *idx -= 1;
             break ;
+        }
         *idx += 1;
     }
-    if (*idx - start - 1 <= 0)
-        return (0);
-    result = ft_strndup(str + start, *idx - start + 1);
+    result = ft_strndup(str + start, *idx - start);
     return (result);
 }
 
@@ -112,10 +117,12 @@ int trans_all_env(char **str)
 {
     int     start;
     int     end;
+    int     idx;
 
-    while (get_next_env_point(*str, &start, &end))
+    idx = 0;
+    while (get_next_env_point(*str + idx, &start, &end))
     {
-        *str = trans_env_name_to_value(*str, start, end);
+        *str = trans_env_name_to_value(*str + idx, start, end, &idx);
         if (*str == 0)
             return (0);
     }
@@ -130,6 +137,7 @@ int parse_str_env(char **str)
     int     sep;
    
     idx = 0;
+    sep = -1;
     while ((*str)[idx])
     {
         tar = get_next_str(*str, &idx, &sep);
@@ -142,7 +150,9 @@ int parse_str_env(char **str)
                 return (0);
         }
         *str = change_str(*str, tar, src);
-        idx += ft_strlen(src) - ft_strlen(tar);
+        idx += ft_strlen(src) - ft_strlen(tar) + ft_strlen(src);
+        if (sep == -1)
+            idx += 1;
         free(src);
         free(tar);
     }

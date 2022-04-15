@@ -16,9 +16,9 @@ void set_quotes_flag(char c, int *flag)
 {
     if (c == 34 || c == 39)
     {
-        if (*flag != 0)
+        if (*flag == c)
             *flag = 0;
-        else
+        else if (*flag == 0)
             *flag = c;
     }
 }
