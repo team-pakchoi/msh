@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/13 21:27:45 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/14 17:59:56 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_pwd();
 /*
 ** util: var
 */
+int	is_valid_var_format(char *str);
 int	is_valid_var_name(const char *str);
 void	add_var(char *name_and_value, int scope);
 t_var	*find_var(char *name);
