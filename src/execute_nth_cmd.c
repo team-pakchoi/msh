@@ -1,7 +1,49 @@
 #include "minishell.h"
 
+int find_command_builtin(char **cmd)
+{
+    if (!ft_strcmp(*cmd, "cd"))
+    {
+        ft_cd(cmd);
+        return (1);
+    }
+    else if (!ft_strcmp(*cmd, "echo"))
+    {
+        ft_echo(cmd);
+        return (1);
+    }
+    else if (!ft_strcmp(*cmd, "env"))
+    {
+        ft_env(cmd);
+        return (1);
+    }
+    else if (!ft_strcmp(*cmd, "exit"))
+    {
+        ft_exit(cmd);
+        return (1);
+    }
+    else if (!ft_strcmp(*cmd, "export"))
+    {
+        ft_export(cmd);
+        return (1);
+    }
+    else if (!ft_strcmp(*cmd, "pwd"))
+    {
+        ft_pwd(cmd);
+        return (1);
+    }
+    else if (!ft_strcmp(*cmd, "unset"))
+    {
+        ft_unset(cmd);
+        return (1);
+    }
+    return (0);
+}
+
 int execute_command(char **command, char *envp[])
 {
+    if (find_command_builtin(command) == 1)
+        exit(0);
     if (access(command[0], X_OK) != 0)
     command[0] = find_command_path(envp, command[0]);
     if (execve(command[0], command, envp) == -1)
