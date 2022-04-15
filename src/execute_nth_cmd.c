@@ -43,7 +43,7 @@ int find_command_builtin(char **cmd)
 int execute_command(char **command, char *envp[])
 {
     if (find_command_builtin(command) == 1)
-        exit(0);
+        exit(g_mini.exit_status);
     if (access(command[0], X_OK) != 0)
     command[0] = find_command_path(envp, command[0]);
     if (execve(command[0], command, envp) == -1)
