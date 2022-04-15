@@ -30,6 +30,7 @@ void	pipex(int idx, char *envp[])
 	{
 		set_pipeout_to_stdin(fds);
 		waitpid(pid, &status, 0);
+		g_mini.exit_status = status;
 		execute_nth_cmd(idx, envp);
 	}
 }

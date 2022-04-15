@@ -30,6 +30,9 @@ int deal_command(char *str, char *envp[])
         exit(0);
     }
     else
+    {
         waitpid(pid, &status, 0);
+        g_mini.exit_status = status;
+    }
     return (1);
 }
