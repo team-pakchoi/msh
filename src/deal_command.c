@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int deal_command(char *str, char *envp[])
+int deal_command(char *str)
 {
     pid_t   pid;
     int     status;
@@ -26,8 +26,8 @@ int deal_command(char *str, char *envp[])
         if (set_cmd_list(str) == 0)
             exit(0);
         // read_all_cmd();  명령어 리스트 출력
-        pipex(g_mini.cmd_len - 1, envp);
-        exit(0);
+        pipex(g_mini.cmd_len - 1);
+        exit(g_mini.exit_status);
     }
     else
     {

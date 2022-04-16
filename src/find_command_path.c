@@ -12,27 +12,13 @@
 
 #include "minishell.h"
 
-char	*find_path_in_envp(char *envp[])
-{
-	int	idx;
-
-	idx = 0;
-	while (envp[idx] != 0)
-	{
-		if (ft_strnstr(envp[idx], "PATH=", 7) != 0)
-			return (envp[idx]);
-		idx++;
-	}
-	return (0);
-}
-
-char	*find_command_path(char *envp[], char *command)
+char	*find_command_path(char *command)
 {
 	char	**paths;
 	char	*path;
-	int		i;	
+	int		i;
 
-	path = find_path_in_envp(envp);
+	path = find_var_value("PATH");
 	if (path == 0)
 		return (0);
 	paths = ft_split(path, ':');
