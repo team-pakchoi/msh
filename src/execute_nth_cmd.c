@@ -130,11 +130,11 @@ int execute_nth_cmd(int idx, char *envp[])
     cmd_node = find_nth_cmd(idx);
     command = split_with_quote_flag(cmd_node->str, is_white_space);
     parse_cmd_env(command);
-    if (cmd_node->op == 1)
+    if (cmd_node->op == PIPE)
         execute_command(command, envp);
-    if (cmd_node->op == 2 || cmd_node->op == 3)
+    if (cmd_node->op == INPUT || cmd_node->op == INPUT_D)
         execute_input_redir(command);
-    if (cmd_node->op == 4 || cmd_node->op == 5)
+    if (cmd_node->op == OUTPUT || cmd_node->op == OUTPUT_D)
         execute_output_redir(command);
 	return (1);
 }
