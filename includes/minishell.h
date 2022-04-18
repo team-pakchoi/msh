@@ -118,14 +118,13 @@ void	init_signal();
 /*
 ** prompt
 */
-int     deal_prompt(char **input, int quote);
+int     deal_prompt(char **input);
 
 /*
 ** cmd
 */
 int     set_cmd_list(char *str);
 int     deal_command(char *str);
-
 
 int     add_cmd(char *str, t_op op);
 void    remove_cmd_list();
@@ -162,7 +161,14 @@ void	  set_fileout_to_fd(char *path, int fd);
 void	  set_filein_to_fd(char *path, int fd);
 void    read_fd(int fd);
 char	  *find_command_path(char *command);
-int     execute_nth_cmd(int idx);
-void	  pipex(int idx);
+
+void	  keep_ori_std();
+void	  restore_ori_stdin();
+void	  restore_ori_stdout();
+
+int     exe_builtin(char **cmd);
+int     exe_execve(char **command);
+int     exe_input_redir(char *command[]);
+int     exe_output_redir(char *command[]);
 
 #endif

@@ -130,7 +130,7 @@ void    remove_cmd_list()
     t_cmd   *prev;
 
     node = g_mini.cmd;
-    while (node != 0)
+    while (node)
     {
         prev = node;
         node = node->next;

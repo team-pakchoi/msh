@@ -12,27 +12,46 @@
 
 #include "minishell.h"
 
+int is_white_space(char *str, int *sep_num)
+{
+    if (*str == 32)
+        *sep_num = 1;
+    else
+        *sep_num = 0;
+    return (*sep_num);
+}
+
+int deal_cmd_node(t_cmd *cmd)
+{
+	char	**command;
+    
+    command = split_with_quote_flag(cmd->str, is_white_space);
+    parse_cmd_env(command);
+    if (cmd->op == PIPE)
+    {
+        if (exe_builtin(command) == 0)
+            exe_execve(command);
+    }
+    else if (cmd->op == INPUT || cmd->op == INPUT_D)
+        exe_input_redir(command);
+    else if (cmd->op == OUTPUT || cmd->op == OUTPUT_D)
+        exe_output_redir(command);
+	return (1);
+}
+
 int deal_command(char *str)
 {
-    pid_t   pid;
-    int     status;
-    int     fds[2];
+    t_cmd   *cmd;
 
-    pipe(fds);
-    pid = fork();
-    if (pid == 0)
+    if (str == 0 || *str == 0)
+        return (0);
+    if (set_cmd_list(str) == 0)
+        return (0);
+    cmd = g_mini.cmd;
+    while (cmd)
     {
-        g_mini.cmd_len = 0;
-        if (set_cmd_list(str) == 0)
-            exit(0);
-        // read_all_cmd();  명령어 리스트 출력
-        pipex(g_mini.cmd_len - 1);
-        exit(g_mini.exit_status);
-    }
-    else
-    {
-        waitpid(pid, &status, 0);
-        g_mini.exit_status = status;
+        deal_cmd_node(cmd);
+        cmd = cmd->next;
     }
     return (1);
 }

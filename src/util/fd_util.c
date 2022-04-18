@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+void	keep_ori_std()
+{
+	dup2(STDIN_FILENO, 3);
+	dup2(STDOUT_FILENO, 4);
+}
+
+void	restore_ori_stdin()
+{
+	dup2(3, STDIN_FILENO);
+}
+
+void	restore_ori_stdout()
+{
+	dup2(4, STDOUT_FILENO);
+}
+
 void	set_pipein_to_stdout(int *fds)
 {
 	dup2(fds[1], STDOUT_FILENO);
@@ -58,7 +74,7 @@ void    read_fd(int fd)
 
     while (get_next_line(fd, &line) > 0)
     {
-        printf("%s\t", line);
+        printf("%s\n", line);
         free(line);
         line = 0;
     }

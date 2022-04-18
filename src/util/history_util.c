@@ -41,7 +41,8 @@ int save_history(int fd, char *str, char **prev)
     if (str == 0)
         return (0);
     len = ft_strlen(str);
-    if (len > 0 && ft_strcmp(str, *prev)) {
+    if (len > 0 && ft_strcmp(str, *prev)) 
+    {
         write(fd, str, len);
         write(fd, "\n", 1);
         add_history(str);

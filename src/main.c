@@ -26,12 +26,13 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	keep_ori_std();
 	init_env(envp);
 	init_history(&his_fd, &prev_input);
 	init_signal();
 	while(1)
 	{
-		if (deal_prompt(&input, 0))
+		if (deal_prompt(&input) == 0)
 		{
 			printf("\033[1A");
 			printf(PROMPT_STRING);
@@ -40,9 +41,13 @@ int	main(int argc, char **argv, char **envp)
 			free_global();
 			return (g_mini.exit_status);
 		}
-        deal_command(input);
-        save_history(his_fd, input, &prev_input);
-        free(input);
+		deal_command(input);
+		save_history(his_fd, input, &prev_input);
+		remove_cmd_list();
+		if (*input)
+			read_fd(STDIN_FILENO);
+		restore_ori_stdin();
+		free(input);
 		input = 0;
     }
     free(prev_input);
