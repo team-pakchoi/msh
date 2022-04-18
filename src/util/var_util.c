@@ -121,6 +121,33 @@ char	*find_var_value(char *name)
 	return (tmp->var + name_len(tmp->var) + 1);
 }
 
+char	**find_all_env()
+{
+	char	**arr;
+	t_var	*tmp;
+	int		idx;
+
+	idx = 0;
+	tmp = g_mini.env;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		idx += 1;
+	}
+	arr = malloc(sizeof(char *) * (idx + 1));
+	if (!arr)
+		return ((char **)NULL);
+	idx = 0;
+	tmp = g_mini.env;
+	while (tmp)
+	{
+		arr[idx] = ft_strdup(tmp->var);
+		tmp = tmp->next;
+		idx += 1;
+	}
+	return (arr);
+}
+
 void	update_var(char *name, char *new_value)
 {
 	t_var	*tmp;

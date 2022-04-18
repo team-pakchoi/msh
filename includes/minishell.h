@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/14 17:59:56 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/16 20:58:12 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
@@ -95,9 +96,17 @@ int	is_valid_var_name(const char *str);
 void	add_var(char *name_and_value, int scope);
 t_var	*find_var(char *name);
 char	*find_var_value(char *name);
+char	**find_all_env();
 void	update_var(char *name, char *new_value);
 void	remove_var(char *name);
 void	remove_var_list();
+
+/*
+** util: print
+*/
+void	print_strerror(char *cmd_str);
+void	print_error(char *cmd_str, char *msg);
+void	print_error2(char *cmd_str, char *arg_str, char *msg);
 
 /*
 ** signal
@@ -108,7 +117,7 @@ void	init_signal();
 ** cmd
 */
 int     set_cmd_list(char *str);
-int     deal_command(char *str, char *envp[]);
+int     deal_command(char *str);
 
 
 int     add_cmd(char *str, t_op op);
@@ -139,13 +148,13 @@ int     save_history(int fd, char *str, char **prev);
 /*
 ** pipex
 */
-void	set_pipein_to_stdout(int *fds);
-void	set_pipeout_to_stdin(int *fds);
-void	set_fileout_to_fd(char *path, int fd);
-void	set_filein_to_fd(char *path, int fd);
+void	  set_pipein_to_stdout(int *fds);
+void	  set_pipeout_to_stdin(int *fds);
+void	  set_fileout_to_fd(char *path, int fd);
+void	  set_filein_to_fd(char *path, int fd);
 void    read_fd(int fd);
-char	*find_command_path(char *envp[], char *command);
-int     execute_nth_cmd(int idx, char *envp[]);
-void	pipex(int idx, char *envp[]);
+char	  *find_command_path(char *command);
+int     execute_nth_cmd(int idx);
+void	  pipex(int idx);
 
 #endif

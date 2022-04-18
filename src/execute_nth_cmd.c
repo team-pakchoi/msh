@@ -40,12 +40,15 @@ int find_command_builtin(char **cmd)
     return (0);
 }
 
-int execute_command(char **command, char *envp[])
+int execute_command(char **command)
 {
+    char    **envp;
+
+    envp = find_all_env();
     if (find_command_builtin(command) == 1)
         exit(g_mini.exit_status);
     if (access(command[0], X_OK) != 0)
-    command[0] = find_command_path(envp, command[0]);
+    command[0] = find_command_path(command[0]);
     if (execve(command[0], command, envp) == -1)
     {
         perror("command not found");
@@ -122,7 +125,7 @@ int is_white_space(char *str, int *sep_num)
     return (*sep_num);
 }
 
-int execute_nth_cmd(int idx, char *envp[])
+int execute_nth_cmd(int idx)
 {
     t_cmd   *cmd_node;
 	char	**command;

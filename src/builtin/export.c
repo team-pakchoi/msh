@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 14:20:03 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/14 17:16:34 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/16 21:05:19 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	execute_export(char *name)
 
 	if (!is_valid_var_name(name))
 	{
-		ft_putstr_fd("minishell: export: `", 2);
-		ft_putstr_fd(name, 2);
-		ft_putstr_fd("': not a valid identifier\n", 2);
+		print_error2("export", name, "not a valid identifier");
 		g_mini.exit_status = 1;
 		return ;
 	}

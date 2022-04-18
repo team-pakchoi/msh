@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 			free_global();
 			return (g_mini.exit_status);
 		}
-        deal_command(input, envp);
+        deal_command(input);
         save_history(his_fd, input, &prev_input);
         free(input);
     }
