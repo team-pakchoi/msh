@@ -30,6 +30,8 @@
 typedef int	t_bool;
 
 # define  PROMPT_STRING "prompt : "
+# define  PROMPT_QUOTE "quote> "
+# define  PROMPT_QUOTE_D "dquote> "
 
 typedef struct s_cmd
 {
@@ -96,6 +98,11 @@ void	remove_var_list();
 void	init_signal();
 
 /*
+** prompt
+*/
+int     deal_prompt(char **input, int quote);
+
+/*
 ** cmd
 */
 int     set_cmd_list(char *str);
@@ -112,6 +119,7 @@ void    read_arr(char **str);
 /*
 ** parse
 */
+void    set_quotes_flag(char c, int *flag);
 int     parse_cmd_env(char **cmd);
 int     parse_str_env(char **str);
 
