@@ -5,6 +5,7 @@ char    *set_prompt(int quote)
 {
     char    *line;
 
+    line = 0;
     if (quote == 0)
         line = readline(PROMPT_STRING);
     else if (quote == '\'')
@@ -14,7 +15,7 @@ char    *set_prompt(int quote)
     return (line);
 }
 
-void check_quote_is_closed(char *str, int *quote)
+void    check_str_quote_closed(char *str, int *quote)
 {
     while (*str)
     {
@@ -32,10 +33,10 @@ int deal_prompt(char **input, int quote)
 	if (str == 0)
         return (1);
     joined = ft_strjoin(*input, str);
-    if (**input)
+    if (*input)
         free(*input);
     *input = joined;
-    check_quote_is_closed(str, &quote);
+    check_str_quote_closed(str, &quote);
     free(str);
     if (quote)
     {

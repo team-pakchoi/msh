@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
         deal_command(input, envp);
         save_history(his_fd, input, &prev_input);
         free(input);
+		input = 0;
     }
     free(prev_input);
     free_global();
