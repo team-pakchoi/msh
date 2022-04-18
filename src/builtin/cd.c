@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:32:11 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/15 16:08:11 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/16 21:06:30 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	print_directory(void)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 	{
-		ft_putstr_fd("minishell: cd: getcwd() failed\n", 2);
+		print_strerror("cd");
 		return ;
 	}
 	printf("%s\n", cwd);
@@ -58,33 +58,25 @@ int	ft_chdir(char *path)
 
 	if (stat(path, &buf) != 0)
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		print_error2("cd", path, "No such file or directory");
 		g_mini.exit_status = 1;
 		return (FT_ERROR);
 	}
 	if (!is_directory(&buf))
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": Not a directory\n", 2);
+		print_error2("cd", path, "Not a directory");
 		g_mini.exit_status = 1;
 		return (FT_ERROR);
 	}
 	if (!has_permission(&buf))
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": Permission denied\n", 2);
+		print_error2("cd", path, "Permission denied");
 		g_mini.exit_status = 1;
 		return (FT_ERROR);
 	}
 	if (chdir(path) == FT_ERROR)
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": Function chdir error\n", 2);
+		print_strerror("cd");
 		g_mini.exit_status = 1;
 		return (FT_ERROR);
 	}
@@ -109,7 +101,7 @@ void	ft_cd(char **cmds)
 		oldpwd = find_var_value("OLDPWD");
 		if (oldpwd == NULL)
 		{
-			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
+			print_error("cd", "OLDPWD not set");
 			g_mini.exit_status = 1;
 			return ;
 		}
