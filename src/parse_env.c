@@ -52,9 +52,14 @@ char *trans_env_name_to_value(char *str, int start, int end, int *idx)
     char    *parsed_str;
 
     env_name = ft_strndup(str + start, end - start);
-    env_value = find_var_value(env_name + 1);
+    if (env_name[1] == '?')
+        env_value = ft_itoa((int)g_mini.exit_status);
+    else
+        env_value = find_var_value(env_name + 1);
     parsed_str = change_str(str, env_name, env_value);
     *idx = start + ft_strlen(env_value);
+    if (env_name[1] == '?')
+        free(env_value);
     free(env_name);
     return (parsed_str);
 }
@@ -69,7 +74,7 @@ int get_next_env_point(char *str, int *start, int *end)
     {
         if (str[i] == '$')
             *start = i;
-        else if (*start != -1 && !ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
+        else if (*start != -1 && !ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_' && str[i] != '?')
         {
             *end = i;
             return (1);
