@@ -31,8 +31,7 @@ int	main(int argc, char **argv, char **envp)
 	init_signal();
 	while(1)
 	{
-		input = readline(PROMPT_STRING);
-		if (!input)
+		if (deal_prompt(&input, 0))
 		{
 			printf("\033[1A");
 			printf(PROMPT_STRING);
@@ -44,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
         deal_command(input);
         save_history(his_fd, input, &prev_input);
         free(input);
+		input = 0;
     }
     free(prev_input);
     free_global();
