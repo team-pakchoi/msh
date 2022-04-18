@@ -95,7 +95,7 @@ void    set_input_redir_node(t_cmd *node)
     tar->prev = node;
 }
 
-int add_cmd(char *str, int op)
+int add_cmd(char *str, t_op op)
 {
     t_cmd   *new;
     t_cmd   *last;
@@ -112,7 +112,7 @@ int add_cmd(char *str, int op)
         g_mini.cmd = new;
     else
     {
-        if (op == 4 || op == 5)
+        if (op == OUTPUT || op == OUTPUT_D)
             set_input_redir_node(new);
         else
         {

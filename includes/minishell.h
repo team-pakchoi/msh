@@ -32,10 +32,19 @@ typedef int	t_bool;
 
 # define  PROMPT_STRING "prompt : "
 
+typedef enum  e_op
+{
+  PIPE = 1,
+  INPUT = 2,
+  INPUT_D = 3,
+  OUTPUT = 4,
+  OUTPUT_D = 5
+} t_op;
+
 typedef struct s_cmd
 {
   char            *str;
-  int             op;
+  t_op            op;
   struct s_cmd    *next;
   struct s_cmd    *prev;
 } t_cmd;
@@ -111,7 +120,7 @@ int     set_cmd_list(char *str);
 int     deal_command(char *str);
 
 
-int     add_cmd(char *str, int op);
+int     add_cmd(char *str, t_op op);
 void    remove_cmd_list();
 t_cmd   *find_nth_cmd(int idx);
 t_cmd   *find_last_cmd();
