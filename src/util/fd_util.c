@@ -78,5 +78,4 @@ void    read_fd(int fd)
         free(line);
         line = 0;
     }
-    printf("\n");
 }

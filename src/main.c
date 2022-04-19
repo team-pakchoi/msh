@@ -41,11 +41,12 @@ int	main(int argc, char **argv, char **envp)
 			free_global();
 			return (g_mini.exit_status);
 		}
-		deal_command(input);
 		save_history(his_fd, input, &prev_input);
+		deal_command(input);
 		remove_cmd_list();
-		if (*input)
-			read_fd(STDIN_FILENO);
+		if (!*input)
+			close(STDIN_FILENO);
+		read_fd(STDIN_FILENO);
 		restore_ori_stdin();
 		free(input);
 		input = 0;
