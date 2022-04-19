@@ -6,13 +6,13 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:09:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/07 15:13:55 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/19 15:55:49 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd()
+void	ft_pwd(void)
 {
 	char	*pwd;
 
