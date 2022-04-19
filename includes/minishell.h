@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/16 20:58:12 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/19 15:27:48 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ void	ft_cd(char **cmds);
 void	ft_pwd();
 
 /*
+** util: cd
+*/
+int	valid_directory(char *path);
+int	valid_permission(char *path);
+int	has_directory(char *path);
+
+/*
 ** util: var
 */
 int	is_valid_var_format(char *str);
@@ -109,6 +116,7 @@ void	remove_var_list();
 void	print_strerror(char *cmd_str);
 void	print_error(char *cmd_str, char *msg);
 void	print_error2(char *cmd_str, char *arg_str, char *msg);
+void	print_cwd(void);
 
 /*
 ** signal

@@ -6,38 +6,13 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:32:11 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/19 14:03:10 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/19 15:41:55 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_directory(struct stat *buf)
-{
-	if (buf->st_mode & S_IFDIR)
-		return (FT_TRUE);
-	return (FT_FALSE);
-}
-
-static int	has_permission(struct stat *buf)
-{
-	if (buf->st_mode & S_IRUSR)
-		return (FT_TRUE);
-	return (FT_FALSE);
-}
-
-static int	has_directory(char *path)
-{
-	struct stat	buf;
-
-	if (stat(path, &buf) == -1)
-		return (FT_FALSE);
-	if (is_directory(&buf) == FT_TRUE)
-		return (FT_TRUE);
-	return (FT_FALSE);
-}
-
-static void	print_directory(void)
+static void	set_pwd_env(void)
 {
 	char	*cwd;
 
@@ -47,14 +22,17 @@ static void	print_directory(void)
 		print_strerror("cd");
 		return ;
 	}
-	printf("%s\n", cwd);
+	if (find_var_value("OLDPWD") == NULL)
+		add_var(ft_strjoin("OLDPWD=", find_var_value("PWD")), ENV_VAR);
+	else
+		update_var("OLDPWD", find_var_value("PWD"));
+	update_var("PWD", cwd);
 	free(cwd);
 }
 
-int	ft_chdir(char *path)
+static int	ft_chdir(char *path)
 {
 	struct stat	buf;
-	char	*cwd;
 
 	if (stat(path, &buf) != 0)
 	{
@@ -62,89 +40,79 @@ int	ft_chdir(char *path)
 		g_mini.exit_status = 1;
 		return (FT_ERROR);
 	}
-	if (!is_directory(&buf))
-	{
-		print_error2("cd", path, "Not a directory");
-		g_mini.exit_status = 1;
+	if (!valid_directory(path) || !valid_permission(path))
 		return (FT_ERROR);
-	}
-	if (!has_permission(&buf))
-	{
-		print_error2("cd", path, "Permission denied");
-		g_mini.exit_status = 1;
-		return (FT_ERROR);
-	}
 	if (chdir(path) == FT_ERROR)
 	{
 		print_strerror("cd");
 		g_mini.exit_status = 1;
 		return (FT_ERROR);
 	}
-	cwd = getcwd(NULL, 0);
-	if (find_var_value("OLDPWD") == NULL)
-		add_var(ft_strjoin("OLDPWD=", find_var_value("PWD")), ENV_VAR);
-	else
-		update_var("OLDPWD", find_var_value("PWD"));
-	update_var("PWD", cwd);
-	free(cwd);
+	set_pwd_env();
 	return (FT_SUCCESS);
+}
+
+static void	move_to_oldpwd(void)
+{
+	char	*oldpwd;
+
+	oldpwd = find_var_value("OLDPWD");
+	if (oldpwd == NULL)
+	{
+		print_error("cd", "OLDPWD not set");
+		g_mini.exit_status = 1;
+		return ;
+	}
+	if (ft_chdir(oldpwd) == FT_ERROR)
+	{
+		print_error("cd", "OLDPWD not set");
+		g_mini.exit_status = 1;
+		return ;
+	}
+	print_cwd();
+}
+
+static int	move_to_cdpath(char *path)
+{
+	char	**cdpaths;
+	char	*tmp;
+
+	cdpaths = ft_split(find_var_value("CDPATH"), ':');
+	while (*cdpaths)
+	{
+		tmp = ft_strjoin(ft_strjoin(*cdpaths, "/"), path);
+		if (has_directory(tmp) && ft_chdir(tmp))
+		{
+			print_cwd();
+			free(tmp);
+			return (FT_TRUE);
+		}
+		free(tmp);
+		cdpaths++;
+	}
+	return (FT_FALSE);
 }
 
 void	ft_cd(char **cmds)
 {
-	char	*oldpwd;
-	char	**paths;
-	char	*path;
-
-	if (!cmds[1])
+	if (!cmds[1] || ft_strcmp(cmds[1], "~") == 0)
+		ft_chdir(ft_strjoin(find_var_value("HOME"), "/"));
+	else if (ft_strcmp(cmds[1], "-") == 0)
+		move_to_oldpwd();
+	else
 	{
-		path = ft_strjoin(find_var_value("HOME"), "/");
-		ft_chdir(path);
-		return ;
-	}
-	if (ft_strcmp(cmds[1], "-") == 0)
-	{
-		oldpwd = find_var_value("OLDPWD");
-		if (oldpwd == NULL)
+		if (cmds[1][ft_strlen(cmds[1]) - 1] == '\\')
+			cmds[1][ft_strlen(cmds[1]) - 1] = '\0';
+		if (cmds[1][0] == '/')
 		{
-			print_error("cd", "OLDPWD not set");
-			g_mini.exit_status = 1;
+			ft_chdir(cmds[1]);
 			return ;
 		}
-		if (ft_chdir(oldpwd) == FT_ERROR)
-			return ;
-		print_directory();
-		return ;
-	}
-	if (ft_strcmp(cmds[1], "~") == 0)
-	{
-		path = ft_strjoin(find_var_value("HOME"), "/");
-		ft_chdir(path);
-		return ;
-	}
-	if (cmds[1][0] == '/')
-	{
-		ft_chdir(cmds[1]);
-		return;
-	}
-	if (find_var_value("CDPATH") != NULL)
-	{
-		paths = ft_split(find_var_value("CDPATH"), ':');
-		while (*paths)
+		if (cmds[1][0] != '.' && find_var_value("CDPATH") != NULL)
 		{
-			path = ft_strjoin(*paths, "/");
-			path = ft_strjoin(path, cmds[1]);
-			if (has_directory(path) == FT_TRUE)
-			{
-				if (ft_chdir(path) == FT_ERROR)
-					return ;
-				print_directory();
+			if (move_to_cdpath(cmds[1]))
 				return ;
-			}
-			free(path);
-			paths++;
 		}
+		ft_chdir(cmds[1]);
 	}
-	if (ft_chdir(cmds[1]) == FT_ERROR)
-		return ;
 }
