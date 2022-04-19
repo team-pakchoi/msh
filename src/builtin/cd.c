@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:32:11 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/16 21:06:30 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/19 14:03:10 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ void	ft_cd(char **cmds)
 	char	**paths;
 	char	*path;
 
+	if (!cmds[1])
+	{
+		path = ft_strjoin(find_var_value("HOME"), "/");
+		ft_chdir(path);
+		return ;
+	}
 	if (ft_strcmp(cmds[1], "-") == 0)
 	{
 		oldpwd = find_var_value("OLDPWD");
