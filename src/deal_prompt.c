@@ -24,26 +24,18 @@ void    check_str_quote_closed(char *str, int *quote)
     }
 }
 
-int deal_prompt(char **input, int quote)
+int deal_prompt(char **input)
 {
-    char    *str;
-    char    *joined;
+    int quote;
 
-	str = set_prompt(quote);
-	if (str == 0)
-        return (1);
-    joined = ft_strjoin(*input, str);
-    if (*input)
-        free(*input);
-    *input = joined;
-    check_str_quote_closed(str, &quote);
-    free(str);
+    quote = 0;
+	*input = readline(PROMPT_STRING);
+	if (*input == 0)
+        return (0);
+    check_str_quote_closed(*input, &quote);
     if (quote)
     {
-        joined = ft_strjoin(*input, "\n");
-        free(*input);
-        *input = joined;
-        quote = deal_prompt(input, quote);
+        // unclosed quote
     }
-    return (quote);
+    return (1);
 }

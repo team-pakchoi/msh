@@ -1,63 +1,101 @@
 #include "minishell.h"
 
-int find_command_builtin(char **cmd)
+void    set_pipe()
+{
+    int		fds[2];
+
+	pipe(fds);
+    dup2(fds[0], STDIN_FILENO);
+    dup2(fds[1], STDOUT_FILENO);
+    close(fds[0]);
+    close(fds[1]);
+}
+
+int exe_builtin(char **cmd)
 {
     if (!ft_strcmp(*cmd, "cd"))
     {
+        set_pipe();
         ft_cd(cmd);
+        restore_ori_stdout();
         return (1);
     }
     else if (!ft_strcmp(*cmd, "echo"))
     {
+        set_pipe();
         ft_echo(cmd);
+        restore_ori_stdout();
         return (1);
     }
     else if (!ft_strcmp(*cmd, "env"))
     {
+        set_pipe();
         ft_env(cmd);
+        restore_ori_stdout();
         return (1);
     }
     else if (!ft_strcmp(*cmd, "exit"))
     {
+        set_pipe();
         ft_exit(cmd);
+        restore_ori_stdout();
         return (1);
     }
     else if (!ft_strcmp(*cmd, "export"))
     {
+        set_pipe();
         ft_export(cmd);
+        restore_ori_stdout();
         return (1);
     }
     else if (!ft_strcmp(*cmd, "pwd"))
     {
+        set_pipe();
         ft_pwd(cmd);
+        restore_ori_stdout();
         return (1);
     }
     else if (!ft_strcmp(*cmd, "unset"))
     {
+        set_pipe();
         ft_unset(cmd);
+        restore_ori_stdout();
         return (1);
     }
     return (0);
 }
 
-int execute_command(char **command)
+int exe_execve(char **command)
 {
+    pid_t   pid;
+    int     fds[2];
+    int     status;
     char    **envp;
 
-    envp = find_all_env();
-    if (find_command_builtin(command) == 1)
-        exit(g_mini.exit_status);
-    if (access(command[0], X_OK) != 0)
-    command[0] = find_command_path(command[0]);
-    if (execve(command[0], command, envp) == -1)
+    pipe(fds);
+    pid = fork();
+    if (pid == 0)
     {
-        perror("command not found");
-        exit (127);
+        set_pipein_to_stdout(fds);
+        envp = find_all_env();
+        if (access(command[0], X_OK) != 0)
+        command[0] = find_command_path(command[0]);
+        if (execve(command[0], command, envp) == -1)
+        {
+            perror("command not found");
+            exit (127);
+        }
+    }
+    else
+    {
+        set_pipeout_to_stdin(fds);
+        waitpid(pid, &status, 0);
+        g_mini.exit_status = status;
     }
     return (1);
 }
 
-int execute_input_redir(char *command[])
+int exe_input_redir(char *command[])
 {
     int     fd;
     int     len;
@@ -71,19 +109,16 @@ int execute_input_redir(char *command[])
     while (len > 0)
     {
         len = get_next_line(STDIN_FILENO, &line);
-        write(fd, line, ft_strlen(line));
-        write(STDOUT_FILENO, line, ft_strlen(line));
-        write(fd, "\n", 1);
-        write(STDOUT_FILENO, "\n", 1);
+        ft_putstr_fd(line, fd);
+        ft_putstr_fd("\n", fd);
         free(line);
         line = 0;
     }
     close(fd);
-    close(STDOUT_FILENO);
     return (1);
 }
 
-int execute_output_redir(char *command[])
+int exe_output_redir(char *command[])
 {
     int     fd;
     int     len;
@@ -93,8 +128,8 @@ int execute_output_redir(char *command[])
     while (len > 0)
     {
         len = get_next_line(STDIN_FILENO, &line);
-        write(STDOUT_FILENO, line, ft_strlen(line));
-        write(STDOUT_FILENO, "\n", 1);
+        ft_putstr_fd(line, STDOUT_FILENO);
+        ft_putstr_fd("\n", STDOUT_FILENO);
         free(line);
         line = 0;
     }
@@ -106,38 +141,12 @@ int execute_output_redir(char *command[])
     while (len > 0)
     {
         len = get_next_line(fd, &line);
-        write(STDOUT_FILENO, line, ft_strlen(line));
-        write(STDOUT_FILENO, "\n", 1);
+        ft_putstr_fd(line, STDOUT_FILENO);
+        ft_putstr_fd("\n", STDOUT_FILENO);
         free(line);
         line = 0;
     }
     close(fd);
     close(STDOUT_FILENO);
     return (1);
-}
-
-int is_white_space(char *str, int *sep_num)
-{
-    if (*str == 32)
-        *sep_num = 1;
-    else
-        *sep_num = 0;
-    return (*sep_num);
-}
-
-int execute_nth_cmd(int idx)
-{
-    t_cmd   *cmd_node;
-	char	**command;
-    
-    cmd_node = find_nth_cmd(idx);
-    command = split_with_quote_flag(cmd_node->str, is_white_space);
-    parse_cmd_env(command);
-    if (cmd_node->op == PIPE)
-        execute_command(command, envp);
-    if (cmd_node->op == INPUT || cmd_node->op == INPUT_D)
-        execute_input_redir(command);
-    if (cmd_node->op == OUTPUT || cmd_node->op == OUTPUT_D)
-        execute_output_redir(command);
-	return (1);
 }
