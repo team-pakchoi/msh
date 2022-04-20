@@ -19,14 +19,14 @@ int get_is_sep(char *str, int *sep_num)
         *sep_num = 1;
         return (1);
     }
-    if (str[0] == '>')
+    if (str[0] == '<')
     {
-        if (str[1] == '>')
+        if (str[1] == '<')
         {
             *sep_num = 3;
             return (2);
         }
-        else if (str[1] == '<')
+        else if (str[1] == '>')
         {
             *sep_num = -1;  // error
             return (2);
@@ -34,14 +34,14 @@ int get_is_sep(char *str, int *sep_num)
         *sep_num = 2;
         return (1);
     }
-    if (str[0] == '<')
+    if (str[0] == '>')
     {
-        if (str[1] == '<')
+        if (str[1] == '>')
         {
             *sep_num = 5;
             return (2);
         }
-        else if (str[1] == '>')
+        else if (str[1] == '<')
         {
             *sep_num = -1;  // error
             return (2);
@@ -112,7 +112,7 @@ int add_cmd(char *str, t_op op)
         g_mini.cmd = new;
     else
     {
-        if (op == OUTPUT || op == OUTPUT_D)
+        if (op == INPUT || op == INPUT_D)
             set_input_redir_node(new);
         else
         {

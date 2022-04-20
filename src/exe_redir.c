@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-int exe_input_redir(char *command[], t_op op)
+int exe_output_redir(char *command[], t_op op)
 {
     int     file_fd;
     int		fds[2];
@@ -10,7 +10,7 @@ int exe_input_redir(char *command[], t_op op)
     file_fd = open(command[0], O_WRONLY | O_CREAT | O_EXCL, 0644);
     if (file_fd == -1) 
     {
-        if (op == INPUT)
+        if (op == OUTPUT)
             file_fd = open(command[0], O_WRONLY | O_TRUNC);
         else
             file_fd = open(command[0], O_WRONLY | O_APPEND);
@@ -33,7 +33,7 @@ int exe_input_redir(char *command[], t_op op)
     return (1);
 }
 
-int exe_output_redir(char *command[])
+int exe_input_redir(char *command[])
 {
     int     file_fd;
     int		fds[2];
