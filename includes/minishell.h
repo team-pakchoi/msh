@@ -170,7 +170,7 @@ void	  restore_ori_stdout();
 
 int     exe_builtin(char **cmd);
 int     exe_execve(char **command);
-int     exe_input_redir(char *command[]);
+int     exe_input_redir(char *command[], t_op op);
 int     exe_output_redir(char *command[]);
 
 #endif

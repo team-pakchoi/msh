@@ -1,15 +1,20 @@
 
 #include "minishell.h"
 
-int exe_input_redir(char *command[])
+int exe_input_redir(char *command[], t_op op)
 {
     int     file_fd;
     int		fds[2];
     char    *line;
 
-    file_fd = open(command[0], O_RDWR | O_CREAT | O_EXCL, 0644);
+    file_fd = open(command[0], O_WRONLY | O_CREAT | O_EXCL, 0644);
     if (file_fd == -1) 
-        file_fd = open(command[0], O_RDWR);
+    {
+        if (op == INPUT)
+            file_fd = open(command[0], O_WRONLY | O_TRUNC);
+        else
+            file_fd = open(command[0], O_WRONLY | O_APPEND);
+    }
     pipe(fds);
     dup2(fds[1], STDOUT_FILENO);
     close(fds[1]);
@@ -46,7 +51,7 @@ int exe_output_redir(char *command[])
         free(line);
         line = 0;
     }
-    file_fd = open(command[0], O_RDWR | O_EXCL);
+    file_fd = open(command[0], O_RDONLY | O_EXCL);
     if (file_fd == -1) 
     {
         perror("no such file or directory");

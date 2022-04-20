@@ -33,7 +33,7 @@ int deal_cmd_node(t_cmd *cmd)
             exe_execve(command);
     }
     else if (cmd->op == INPUT || cmd->op == INPUT_D)
-        exe_input_redir(command);
+        exe_input_redir(command, cmd->op);
     else if (cmd->op == OUTPUT || cmd->op == OUTPUT_D)
         exe_output_redir(command);
 	return (1);
