@@ -70,6 +70,7 @@ typedef struct s_minishell
 	unsigned char	exit_status;
   t_cmd   *cmd;
   int     cmd_len;
+  int     cmd_idx;
 } t_minishell;
 
 t_minishell		g_mini;
@@ -162,6 +163,7 @@ void	  set_filein_to_fd(char *path, int fd);
 void    read_fd(int fd);
 char	  *find_command_path(char *command);
 
+void    set_self_pipe();
 void	  keep_ori_std();
 void	  restore_ori_stdin();
 void	  restore_ori_stdout();

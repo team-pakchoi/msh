@@ -137,9 +137,11 @@ void    remove_cmd_list()
         free(prev->str);
         prev->str = 0;
         prev->next = 0;
+        prev->prev = 0;
         free(prev);
     }
     g_mini.cmd = 0;
+    g_mini.cmd_len = 0;
 }
 
 t_cmd   *find_nth_cmd(int idx)

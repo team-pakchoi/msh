@@ -47,11 +47,13 @@ int deal_command(char *str)
         return (0);
     if (set_cmd_list(str) == 0)
         return (0);
+    g_mini.cmd_idx = 1;
     cmd = g_mini.cmd;
     while (cmd)
     {
         deal_cmd_node(cmd);
         cmd = cmd->next;
+        g_mini.cmd_idx += 1;
     }
     return (1);
 }

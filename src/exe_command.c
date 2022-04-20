@@ -1,16 +1,5 @@
 #include "minishell.h"
 
-void    set_builtin_pipe()
-{
-    int		fds[2];
-
-	pipe(fds);
-    dup2(fds[0], STDIN_FILENO);
-    dup2(fds[1], STDOUT_FILENO);
-    close(fds[0]);
-    close(fds[1]);
-}
-
 int is_builtin(char **cmd)
 {
     if (!ft_strcmp(*cmd, "cd"))
@@ -55,7 +44,8 @@ int exe_builtin(char **cmd)
     n = is_builtin(cmd);
     if (n)
     {
-        set_builtin_pipe();
+        if (g_mini.cmd_len != g_mini.cmd_idx)
+            set_self_pipe();
         route_builtin(cmd, n);
         restore_ori_stdout();
     }
@@ -73,7 +63,8 @@ int exe_execve(char **command)
     pid = fork();
     if (pid == 0)
     {
-        set_pipein_to_stdout(fds);
+        if (g_mini.cmd_len != g_mini.cmd_idx)
+            set_pipein_to_stdout(fds);
         envp = find_all_env();
         if (access(command[0], X_OK) != 0)
         command[0] = find_command_path(command[0]);
@@ -84,7 +75,8 @@ int exe_execve(char **command)
         }
         return (0);
     }
-    set_pipeout_to_stdin(fds);
+    if (g_mini.cmd_len != g_mini.cmd_idx)
+        set_pipeout_to_stdin(fds);
     waitpid(pid, &status, 0);
     g_mini.exit_status = status;
     return (1);

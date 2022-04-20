@@ -42,6 +42,17 @@ void	set_pipeout_to_stdin(int *fds)
 	close(fds[1]);
 }
 
+void    set_self_pipe()
+{
+    int		fds[2];
+
+	pipe(fds);
+    dup2(fds[0], STDIN_FILENO);
+    dup2(fds[1], STDOUT_FILENO);
+    close(fds[0]);
+    close(fds[1]);
+}
+
 void	set_fileout_to_fd(char *path, int fd)
 {
 	int	file_fd;
