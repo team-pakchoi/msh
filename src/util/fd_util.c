@@ -90,3 +90,17 @@ void    read_fd(int fd)
         line = 0;
     }
 }
+
+void	print_file(char *path)
+{
+	int file_fd;
+
+	file_fd = open(path, O_RDONLY);
+    if (file_fd == -1) 
+    {
+        perror("no such file or directory");
+        g_mini.exit_status = 127;
+    }
+    read_fd(file_fd);
+    close(file_fd);
+}
