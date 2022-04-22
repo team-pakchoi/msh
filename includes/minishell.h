@@ -46,7 +46,7 @@ typedef enum  e_op
 
 typedef struct s_cmd
 {
-  char            *str;
+  char            **strarr;
   t_op            op;
   struct s_cmd    *next;
   struct s_cmd    *prev;
@@ -128,7 +128,7 @@ int     deal_prompt(char **input);
 int     set_cmd_list(char *str);
 int     deal_command(char *str);
 
-int     add_cmd(char *str, t_op op);
+int     add_cmd(char **strarr, t_op op);
 void    remove_cmd_list();
 t_cmd   *find_nth_cmd(int idx);
 t_cmd   *find_last_cmd();

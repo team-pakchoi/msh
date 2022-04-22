@@ -12,67 +12,6 @@
 
 #include "minishell.h"
 
-int get_is_sep(char *str, int *sep_num)
-{
-    if (str[0] == '|')
-    {
-        *sep_num = 1;
-        return (1);
-    }
-    if (str[0] == '<')
-    {
-        if (str[1] == '<')
-        {
-            *sep_num = 3;
-            return (2);
-        }
-        else if (str[1] == '>')
-        {
-            *sep_num = -1;  // error
-            return (2);
-        }
-        *sep_num = 2;
-        return (1);
-    }
-    if (str[0] == '>')
-    {
-        if (str[1] == '>')
-        {
-            *sep_num = 5;
-            return (2);
-        }
-        else if (str[1] == '<')
-        {
-            *sep_num = -1;  // error
-            return (2);
-        }
-        *sep_num = 4;
-        return (1);
-    }
-    *sep_num = 0;
-    return (0);
-}
-
-int set_cmd_list(char *str)
-{
-    char    **arr;
-    int     len;
-    int     sep;
-
-    sep = 1;
-    arr = split_with_quote_flag(str, get_is_sep);
-    while (*arr)
-    {
-        len = get_len_to_next(&str, get_is_sep);
-        if (add_cmd(*arr, sep) == 0)
-            return (0);
-        str += len;
-        str += get_is_sep(str, &sep);
-        arr += 1;
-    }
-    return (1);
-}
-
 void    set_input_redir_node(t_cmd *node)
 {
     t_cmd   *tar;
@@ -95,7 +34,7 @@ void    set_input_redir_node(t_cmd *node)
     tar->prev = node;
 }
 
-int add_cmd(char *str, t_op op)
+int add_cmd(char **strarr, t_op op)
 {
     t_cmd   *new;
     t_cmd   *last;
@@ -103,7 +42,7 @@ int add_cmd(char *str, t_op op)
     new = (t_cmd *)malloc(sizeof(t_cmd));
     if (!new)
         return (0);
-    new->str = str;
+    new->strarr = strarr;
     new->op = op;
     new->next = 0;
     new->prev = 0;
@@ -134,8 +73,8 @@ void    remove_cmd_list()
     {
         prev = node;
         node = node->next;
-        free(prev->str);
-        prev->str = 0;
+        free(prev->strarr);
+        prev->strarr = 0;
         prev->next = 0;
         prev->prev = 0;
         free(prev);
@@ -177,11 +116,11 @@ void    read_all_cmd()
     write(2, "------------------\n", 19);
     while (len > 0)
     {
-        write(2, "str: ", 5);
-        write(2, node->str, ft_strlen(node->str));
-        write(2, ", op:", 5);
+        write(2, "-- strarr --\n", 13);
+        read_arr(node->strarr);
+        write(2, "-- op: ", 7);
         write(2, ft_itoa(node->op), ft_strlen(ft_itoa(node->op)));
-        write(2, "\n", 1);
+        write(2, " --\n", 4);
         node = node->next;
         len -= 1;
     }
