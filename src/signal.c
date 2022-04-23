@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/13 21:27:56 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/20 13:44:39 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
-	printf(PROMPT_STRING);
-	printf("\n");
+	ft_putchar_fd('\n', 1);
+	print_prompt();
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
