@@ -141,6 +141,7 @@ int deal_command(char *str)
         return (0);
     g_mini.cmd_idx = 1;
     cmd = g_mini.cmd;
+    read_all_cmd();
     while (cmd)
     {
         deal_cmd_node(cmd);
