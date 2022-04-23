@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/23 13:11:34 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/24 02:48:52 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define  FT_FALSE 0
 typedef int	t_bool;
 
-# define  PROMPT_STRING " $"
+# define  PROMPT_STRING " $ "
 # define  PROMPT_QUOTE "quote> "
 # define  PROMPT_QUOTE_D "dquote> "
 # define  PROMPT_HEREDOC "heredoc> "
@@ -72,6 +72,7 @@ typedef struct s_var
 
 typedef struct s_minishell
 {
+	char		*prompt_str;
 	t_var			*env;
 	unsigned char	exit_status;
   t_cmd   *cmd;
