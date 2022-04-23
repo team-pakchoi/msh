@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:42:50 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/20 14:26:11 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/23 13:11:54 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,17 @@ void	print_prompt(void)
 	ft_putstr_fd(PROMPT_COLOR_PROMPT, 1);
 	ft_putstr_fd(PROMPT_STRING, 1);
 	ft_putstr_fd(PROMPT_COLOR_RESET, 1);
+
+void	print_cwd(void)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+	{
+		print_strerror("cd");
+		return ;
+	}
+	printf("%s\n", cwd);
 	free(cwd);
 }
