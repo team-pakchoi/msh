@@ -72,9 +72,10 @@ typedef struct s_minishell
 {
 	t_var			*env;
 	unsigned char	exit_status;
-	t_cmd			*cmd;
-	int				cmd_len;
-}					t_minishell;
+  t_cmd   *cmd;
+  int     cmd_len;
+  int     cmd_idx;
+} t_minishell;
 
 t_minishell	g_mini;
 
@@ -168,20 +169,21 @@ int		save_history(int fd, char *str, char **prev);
 /*
 ** pipex
 */
-void	set_pipein_to_stdout(int *fds);
-void	set_pipeout_to_stdin(int *fds);
-void	set_fileout_to_fd(char *path, int fd);
-void	set_filein_to_fd(char *path, int fd);
-void	read_fd(int fd);
-char	*find_command_path(char *command);
+void	  set_pipein_to_stdout(int *fds);
+void	  set_pipeout_to_stdin(int *fds);
+void	  set_fileout_to_fd(char *path, int fd);
+void	  set_filein_to_fd(char *path, int fd);
+void    read_fd(int fd);
+char	  *find_command_path(char *command);
 
-void	keep_ori_std();
-void	restore_ori_stdin();
-void	restore_ori_stdout();
+void    set_self_pipe();
+void	  keep_ori_std();
+void	  restore_ori_stdin();
+void	  restore_ori_stdout();
 
-int		exe_builtin(char **cmd);
-int		exe_execve(char **command);
-int		exe_input_redir(char *command[]);
-int		exe_output_redir(char *command[]);
+int     exe_builtin(char **cmd);
+int     exe_execve(char **command);
+int     exe_output_redir(char *command[], t_op op);
+int     exe_input_redir(char *command[]);
 
 #endif

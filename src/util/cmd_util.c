@@ -19,14 +19,14 @@ int get_is_sep(char *str, int *sep_num)
         *sep_num = 1;
         return (1);
     }
-    if (str[0] == '>')
+    if (str[0] == '<')
     {
-        if (str[1] == '>')
+        if (str[1] == '<')
         {
             *sep_num = 3;
             return (2);
         }
-        else if (str[1] == '<')
+        else if (str[1] == '>')
         {
             *sep_num = -1;  // error
             return (2);
@@ -34,14 +34,14 @@ int get_is_sep(char *str, int *sep_num)
         *sep_num = 2;
         return (1);
     }
-    if (str[0] == '<')
+    if (str[0] == '>')
     {
-        if (str[1] == '<')
+        if (str[1] == '>')
         {
             *sep_num = 5;
             return (2);
         }
-        else if (str[1] == '>')
+        else if (str[1] == '<')
         {
             *sep_num = -1;  // error
             return (2);
@@ -112,7 +112,7 @@ int add_cmd(char *str, t_op op)
         g_mini.cmd = new;
     else
     {
-        if (op == OUTPUT || op == OUTPUT_D)
+        if (op == INPUT || op == INPUT_D)
             set_input_redir_node(new);
         else
         {
@@ -137,9 +137,11 @@ void    remove_cmd_list()
         free(prev->str);
         prev->str = 0;
         prev->next = 0;
+        prev->prev = 0;
         free(prev);
     }
     g_mini.cmd = 0;
+    g_mini.cmd_len = 0;
 }
 
 t_cmd   *find_nth_cmd(int idx)

@@ -1,58 +1,73 @@
 
 #include "minishell.h"
 
-int exe_input_redir(char *command[])
+int exe_output_redir(char *command[], t_op op)
 {
-    int     fd;
-    int     len;
+    int     file_fd;
+    int		fds[2];
     char    *line;
 
-    len = 1;
-    fd = open(command[0], O_RDWR | O_CREAT | O_EXCL, 0644);
-    if (fd == -1) {
-        fd = open(command[0], O_RDWR);
-    }
-    while (len > 0)
+    file_fd = open(command[0], O_WRONLY | O_CREAT | O_EXCL, 0644);
+    if (file_fd == -1) 
     {
-        len = get_next_line(STDIN_FILENO, &line);
-        ft_putstr_fd(line, fd);
-        ft_putstr_fd("\n", fd);
-        free(line);
-        line = 0;
+        if (op == OUTPUT)
+            file_fd = open(command[0], O_WRONLY | O_TRUNC);
+        else
+            file_fd = open(command[0], O_WRONLY | O_APPEND);
     }
-    close(fd);
+    pipe(fds);
+    dup2(fds[1], STDOUT_FILENO);
+    close(fds[1]);
+    while (get_next_line(STDIN_FILENO, &line) > 0)
+    {
+        ft_putstr_fd(line, STDOUT_FILENO);
+        ft_putstr_fd("\n", STDOUT_FILENO);
+        ft_putstr_fd(line, file_fd);
+        ft_putstr_fd("\n", file_fd);
+        free(line);
+    }
+    close(file_fd);
+    dup2(fds[0], STDIN_FILENO);
+    close(fds[0]);
+    restore_ori_stdout();
     return (1);
 }
 
-int exe_output_redir(char *command[])
+int exe_input_redir(char *command[])
 {
-    int     fd;
-    int     len;
+    int     file_fd;
+    int		fds[2];
     char    *line;
 
-    len = 1;
-    while (len > 0)
+    pipe(fds);
+    if (g_mini.cmd_idx == 1)
+        close(STDIN_FILENO);
+    dup2(fds[1], STDOUT_FILENO);
+    close(fds[1]);
+    while (get_next_line(STDIN_FILENO, &line) > 0)
     {
-        len = get_next_line(STDIN_FILENO, &line);
         ft_putstr_fd(line, STDOUT_FILENO);
         ft_putstr_fd("\n", STDOUT_FILENO);
         free(line);
         line = 0;
     }
-    fd = open(command[0], O_RDWR | O_CREAT | O_EXCL, 0644);
-    if (fd == -1) {
-        fd = open(command[0], O_RDWR);
-    }
-    len = 1;
-    while (len > 0)
+    file_fd = open(command[0], O_RDONLY | O_EXCL);
+    if (file_fd == -1) 
     {
-        len = get_next_line(fd, &line);
+        perror("no such file or directory");
+        g_mini.exit_status = 127;
+    }
+    while (get_next_line(file_fd, &line) > 0)
+    {
         ft_putstr_fd(line, STDOUT_FILENO);
         ft_putstr_fd("\n", STDOUT_FILENO);
         free(line);
         line = 0;
     }
-    close(fd);
+    close(file_fd);
+    dup2(fds[0], STDIN_FILENO);
+    close(fds[0]);
     close(STDOUT_FILENO);
+    restore_ori_stdout();
     return (1);
 }
