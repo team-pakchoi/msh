@@ -26,13 +26,13 @@ void route_builtin(char **cmd, int n)
     if (n == 2)
         return (ft_echo(cmd));
     if (n == 3)
-        return (ft_env(cmd));
+        return (ft_env());
     if (n == 4)
         return (ft_exit(cmd));
     if (n == 5)
         return (ft_export(cmd));
     if (n == 6)
-        return (ft_pwd(cmd));
+        return (ft_pwd());
     if (n == 7)
         return (ft_unset(cmd));
 }

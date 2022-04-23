@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deal_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/06 14:39:04 by cpak             ###   ########.fr       */
+/*   Updated: 2022/04/23 13:57:55 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,10 @@ int set_cmd_list(char *str)
     arr = split_with_quote_flag(str, get_is_sep);
     if (get_is_sep(str, &sep) == 0)
         sep = 1;
-    read_arr(arr);
     while (*arr)
     {
         strarr = split_with_quote_flag(*arr, is_white_space);
-        parse_cmd_env(strarr);   
+        parse_cmd_env(strarr);
         if (sep != 1)
         {
             shifted = ft_strarr_shift(&strarr);
@@ -103,7 +102,7 @@ int set_cmd_list(char *str)
             if (add_cmd(shifted, sep) == 0)
                 return (0);
         }
-        else 
+        else
         {
             if (add_cmd(strarr, sep) == 0)
                 return (0);
@@ -118,7 +117,7 @@ int set_cmd_list(char *str)
 int deal_cmd_node(t_cmd *cmd)
 {
 	char	**command;
-    
+
     command = cmd->strarr;
     if (cmd->op == PIPE)
     {
