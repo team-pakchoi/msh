@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-int exe_output_redir(char *command[], t_op op)
+int exec_output_redir(char *command[], t_op op)
 {
     int     file_fd;
     int		fds[2];
@@ -20,10 +20,9 @@ int exe_output_redir(char *command[], t_op op)
     close(fds[1]);
     while (get_next_line(STDIN_FILENO, &line) > 0)
     {
-        ft_putstr_fd(line, STDOUT_FILENO);
-        ft_putstr_fd("\n", STDOUT_FILENO);
         ft_putstr_fd(line, file_fd);
         ft_putstr_fd("\n", file_fd);
+        printf("%s\n", line);
         free(line);
     }
     close(file_fd);
@@ -33,38 +32,22 @@ int exe_output_redir(char *command[], t_op op)
     return (1);
 }
 
-int exe_input_redir(char *command[])
+int exec_input_redir(char *command[], t_op op)
 {
-    int     file_fd;
     int		fds[2];
-    char    *line;
 
     pipe(fds);
     if (g_mini.cmd_idx == 1)
         close(STDIN_FILENO);
     dup2(fds[1], STDOUT_FILENO);
-    close(fds[1]);
-    while (get_next_line(STDIN_FILENO, &line) > 0)
+    read_fd(STDIN_FILENO);
+    if (op == INPUT)
     {
-        ft_putstr_fd(line, STDOUT_FILENO);
-        ft_putstr_fd("\n", STDOUT_FILENO);
-        free(line);
-        line = 0;
+        close(fds[1]);
+        print_file(command[0]);
     }
-    file_fd = open(command[0], O_RDONLY | O_EXCL);
-    if (file_fd == -1) 
-    {
-        perror("no such file or directory");
-        g_mini.exit_status = 127;
-    }
-    while (get_next_line(file_fd, &line) > 0)
-    {
-        ft_putstr_fd(line, STDOUT_FILENO);
-        ft_putstr_fd("\n", STDOUT_FILENO);
-        free(line);
-        line = 0;
-    }
-    close(file_fd);
+    else
+        exec_heredoc(command, fds[1]);
     dup2(fds[0], STDIN_FILENO);
     close(fds[0]);
     close(STDOUT_FILENO);

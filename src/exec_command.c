@@ -37,7 +37,7 @@ void route_builtin(char **cmd, int n)
         return (ft_unset(cmd));
 }
 
-int exe_builtin(char **cmd)
+int exec_builtin(char **cmd)
 {
     int n;
 
@@ -52,7 +52,7 @@ int exe_builtin(char **cmd)
     return (n);
 }
 
-int exe_execve(char **command)
+int exec_execve(char **command)
 {
     pid_t   pid;
     int     fds[2];

@@ -29,13 +29,13 @@ int deal_cmd_node(t_cmd *cmd)
     parse_cmd_env(command);
     if (cmd->op == PIPE)
     {
-        if (exe_builtin(command) == 0)
-            exe_execve(command);
+        if (exec_builtin(command) == 0)
+            exec_execve(command);
     }
     else if (cmd->op == INPUT || cmd->op == INPUT_D)
-        exe_input_redir(command);
+        exec_input_redir(command, cmd->op);
     else if (cmd->op == OUTPUT || cmd->op == OUTPUT_D)
-        exe_output_redir(command, cmd->op);
+        exec_output_redir(command, cmd->op);
 	return (1);
 }
 
