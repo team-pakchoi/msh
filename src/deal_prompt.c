@@ -7,7 +7,7 @@ char    *set_prompt(int quote)
 
     line = 0;
     if (quote == 0)
-        line = readline(PROMPT_STRING);
+        line = readline(" ");
     else if (quote == '\'')
         line = readline(PROMPT_QUOTE);
     else if (quote == '"')
@@ -29,7 +29,7 @@ int deal_prompt(char **input)
     int quote;
 
     quote = 0;
-	*input = readline(PROMPT_STRING);
+	*input = readline(" ");
 	if (*input == 0)
         return (0);
     check_str_quote_closed(*input, &quote);
