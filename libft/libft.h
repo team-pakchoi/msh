@@ -77,5 +77,9 @@ t_list			*ft_lstmap(
 
 int             get_next_line(int fd, char **line);
 int             ft_strarr_len(char *str[]);
+size_t			ft_strarr_lcpy(char *dest[], char *src[], size_t size);
+char    		**ft_strarr_join(char *a1[], char *a2[]);
+char    		**ft_strarr_shift(char ***strarr);
+
 
 #endif
