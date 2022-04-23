@@ -6,13 +6,13 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/13 21:27:51 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/20 13:49:37 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	free_global()
+static void	free_global(void)
 {
 	remove_var_list();
     remove_cmd_list();
@@ -32,11 +32,13 @@ int	main(int argc, char **argv, char **envp)
 	init_signal();
 	while(1)
 	{
+		print_prompt();
 		if (deal_prompt(&input) == 0)
 		{
-			printf("\033[1A");
-			printf(PROMPT_STRING);
-			printf("exit\n");
+			ft_putstr_fd("\033[1A", 1);
+			print_prompt();
+			ft_putchar_fd(' ', 1);
+			ft_putstr_fd("exit\n", 1);
 			free(prev_input);
 			free_global();
 			return (g_mini.exit_status);

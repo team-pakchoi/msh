@@ -6,13 +6,13 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/13 21:44:11 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/19 15:53:16 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	increase_shlvl()
+static void	increase_shlvl(void)
 {
 	int	prev_value;
 
@@ -33,7 +33,7 @@ void	init_env(char **envp)
 	remove_var("OLDPWD");
 }
 
-void	ft_env()
+void	ft_env(void)
 {
 	t_var	*tmp;
 
