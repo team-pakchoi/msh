@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int get_is_sep(char *str, int *sep_num)
+int get_is_op(char *str, int *sep_num)
 {
     if (str[0] == '|')
     {
@@ -88,13 +88,16 @@ int set_cmd_list(char *str)
 
     while (is_white_space(str, &sep))
         str += 1;
-    arr = split_with_quote_flag(str, get_is_sep);
-    if (get_is_sep(str, &sep) == 0)
+    arr = split_with_quote_flag(str, get_is_op);
+    if (get_is_op(str, &sep) == 0)
         sep = 1;
+    read_arr(arr);
     while (*arr)
     {
         strarr = split_with_quote_flag(*arr, is_white_space);
+        read_arr(strarr);
         parse_cmd_env(strarr);
+        read_arr(strarr);
         if (sep != 1)
         {
             shifted = ft_strarr_shift(&strarr);
@@ -107,8 +110,8 @@ int set_cmd_list(char *str)
             if (add_cmd(strarr, sep) == 0)
                 return (0);
         }
-        str += get_len_to_next(&str, get_is_sep);
-        str += get_is_sep(str, &sep);
+        str += get_len_to_next(&str, get_is_op);
+        str += get_is_op(str, &sep);
         arr += 1;
     }
     return (1);

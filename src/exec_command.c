@@ -66,8 +66,10 @@ int exec_execve(char **command)
         if (g_mini.cmd_len != g_mini.cmd_idx)
             set_pipein_to_stdout(fds);
         envp = find_all_env();
+        if (**command == 0)
+            return (0);
         if (access(command[0], X_OK) != 0)
-        command[0] = find_command_path(command[0]);
+            command[0] = find_command_path(command[0]);
         if (execve(command[0], command, envp) == -1)
         {
             perror("command not found");
