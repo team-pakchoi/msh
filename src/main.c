@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/20 13:49:37 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/24 14:55:09 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,35 @@
 static void	free_global(void)
 {
 	remove_var_list();
-    remove_cmd_list();
+	remove_cmd_list();
+	free(g_mini.prompt_str);
+}
+
+void	update_prompt_str(void)
+{
+	char	*cwd;
+	char	*home;
+	char	*tmp;
+
+	cwd = getcwd(NULL, 0);
+	home = find_var_value("HOME");
+	if (ft_strncmp(cwd, home, ft_strlen(home)) == 0)
+	{
+		tmp = cwd;
+		cwd = ft_strjoin("~", cwd + ft_strlen(home));
+		free(tmp);
+	}
+	g_mini.prompt_str = ft_strjoin(PROMPT_COLOR_PWD, cwd);
+	free(cwd);
+	tmp = g_mini.prompt_str;
+	g_mini.prompt_str = ft_strjoin(g_mini.prompt_str, PROMPT_COLOR_PROMPT);
+	free(tmp);
+	tmp = g_mini.prompt_str;
+	g_mini.prompt_str = ft_strjoin(g_mini.prompt_str, PROMPT_STRING);
+	free(tmp);
+	tmp = g_mini.prompt_str;
+	g_mini.prompt_str = ft_strjoin(g_mini.prompt_str, PROMPT_COLOR_RESET);
+	free(tmp);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -32,12 +60,11 @@ int	main(int argc, char **argv, char **envp)
 	init_signal();
 	while(1)
 	{
-		print_prompt();
+		update_prompt_str();
 		if (deal_prompt(&input) == 0)
 		{
 			ft_putstr_fd("\033[1A", 1);
-			print_prompt();
-			ft_putchar_fd(' ', 1);
+			ft_putstr_fd(g_mini.prompt_str, 1);
 			ft_putstr_fd("exit\n", 1);
 			free(prev_input);
 			free_global();

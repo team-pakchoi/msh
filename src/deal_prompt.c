@@ -29,7 +29,7 @@ int deal_prompt(char **input)
     int quote;
 
     quote = 0;
-	*input = readline(" ");
+	*input = readline(g_mini.prompt_str);
 	if (*input == 0)
         return (0);
     check_str_quote_closed(*input, &quote);
