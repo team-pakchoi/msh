@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/24 02:49:09 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/24 17:35:15 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,11 @@ void	init_signal(void)
 	init_term();
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	eof_handler(void)
+{
+	ft_putstr_fd("\033[1A", 1);
+	ft_putstr_fd(g_mini.prompt_str, 1);
+	ft_putstr_fd("exit\n", 1);
 }
