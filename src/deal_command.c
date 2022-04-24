@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/23 13:57:55 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/24 17:46:08 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,13 @@ int deal_cmd_node(t_cmd *cmd)
 	return (1);
 }
 
-int deal_command(char *str)
+int deal_command(void)
 {
     t_cmd   *cmd;
 
-    if (str == 0 || *str == 0)
+    if (g_mini.prompt_input == 0 || *g_mini.prompt_input == 0)
         return (0);
-    if (set_cmd_list(str) == 0)
+    if (set_cmd_list(g_mini.prompt_input) == 0)
         return (0);
     g_mini.cmd_idx = 1;
     cmd = g_mini.cmd;
