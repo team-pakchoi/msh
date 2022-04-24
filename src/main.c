@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/24 02:51:10 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/24 14:55:09 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	free_global(void)
 {
 	remove_var_list();
 	remove_cmd_list();
+	free(g_mini.prompt_str);
 }
 
 void	update_prompt_str(void)
