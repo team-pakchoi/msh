@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_command.c                                    :+:      :+:    :+:   */
+/*   split_with_quote_flag.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: chanul <chanul@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:38:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/06 14:38:53 by cpak             ###   ########.fr       */
+/*   Updated: 2022/04/24 23:17:10 by chanul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ void set_quotes_flag(char c, int *flag)
         else if (*flag == 0)
             *flag = c;
     }
+}
+
+int check_quote_closed(char *str, int *flag)
+{
+    int idx;
+
+    idx = 0;
+    while (str[idx] && *flag != 0)
+    {
+        idx += 1;
+        set_quotes_flag(str[idx], flag);
+        if (*flag == 0)
+            return (idx);
+    }
+    return (0);
 }
 
 int get_len_to_next(char **str, int (*sep_func)(char *, int *))
@@ -42,14 +57,13 @@ int get_len_to_next(char **str, int (*sep_func)(char *, int *))
     }
     while ((*str)[len])
     {
-        if (flag == 0)
-        {
-            sep_len = sep_func(*str + len, &sep);
-            if (sep_len != 0)
-                break ;
-            len += sep_len;
-        }
         set_quotes_flag((*str)[len], &flag);
+        if (flag != 0)
+            len += check_quote_closed(*str + len, &flag);
+        sep_len = sep_func(*str + len, &sep);
+        if (sep_len != 0)
+            break ;
+        len += sep_len;
         len += 1;
     }
     return (len);
@@ -87,7 +101,7 @@ char    *get_str(char *str, int len)
     return (result);
 }
 
-char    **split_with_quote_flag(char *str, int (*sep_func)(char *, int *))
+char    **split_with_quote(char *str, int (*sep_func)(char *, int *))
 {
     char    **result;
     int     nums_splited;
@@ -96,7 +110,6 @@ char    **split_with_quote_flag(char *str, int (*sep_func)(char *, int *))
     int     sep;
 
     nums_splited = get_nums_splited(str, sep_func);
-    printf("===== nums: %d\n", nums_splited);
     result = (char **)ft_calloc(nums_splited + 1, sizeof(char *));
     if (result == 0)
         return (0);

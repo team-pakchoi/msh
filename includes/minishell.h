@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chanul <chanul@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/23 13:11:34 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/24 23:17:17 by chanul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int		parse_str_env(char **str);
 ** split
 */
 int		get_len_to_next(char **str, int (*sep_func)(char *, int *));
-char	**split_with_quote_flag(char *str, int (*sep_func)(char *, int *));
+char	**split_with_quote(char *str, int (*sep_func)(char *, int *));
 
 /*
 ** history

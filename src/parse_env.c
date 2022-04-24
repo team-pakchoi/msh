@@ -6,7 +6,7 @@
 /*   By: chanul <chanul@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:41:00 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/24 18:06:52 by chanul           ###   ########.fr       */
+/*   Updated: 2022/04/24 23:51:56 by chanul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,10 @@ int parse_str_env(char **str)
     int     sep;
    
     idx = 0;
-    sep = -1;
+    sep = 0;
     while ((*str)[idx])
     {
         tar = get_next_str(*str, &idx, &sep);
-        printf("while: %s, sep: %d, tar: %s\n", *str + idx, sep, tar);
         if (tar == 0)
             continue ;
         if (sep == 0)
@@ -157,7 +156,6 @@ int parse_str_env(char **str)
             if (trans_all_env(&src) == 0)
                 return (0);
         }
-        printf("tar: %s, src: %s\n\n", tar, src);
         *str = change_str(*str, tar, src);
         idx -= ft_strlen(tar);
         idx += ft_strlen(src);
