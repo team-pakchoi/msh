@@ -30,7 +30,7 @@
 # define  FT_FALSE 0
 typedef int	t_bool;
 
-# define  PROMPT_STRING " $"
+# define  PROMPT_STRING " $ "
 # define  PROMPT_QUOTE "quote> "
 # define  PROMPT_QUOTE_D "dquote> "
 # define  PROMPT_HEREDOC "heredoc> "
@@ -70,14 +70,23 @@ typedef struct s_var
 # define  SHELL_VAR 0
 # define  ENV_VAR 1
 
+typedef struct s_history
+{
+	char	*prev_input;
+	int		fd;
+}			t_history;
+
 typedef struct s_minishell
 {
+	t_history		history;
+	char			*prompt_str;
+	char			*prompt_input;
+	t_cmd			*cmd;
+	int				cmd_len;
+	int				cmd_idx;
 	t_var			*env;
 	unsigned char	exit_status;
-  t_cmd   *cmd;
-  int     cmd_len;
-  int     cmd_idx;
-} t_minishell;
+}					t_minishell;
 
 t_minishell	g_mini;
 
@@ -129,18 +138,19 @@ void	print_cwd(void);
 /*
 ** signal
 */
-void	init_signal();
+void	init_signal(void);
+void	eof_handler(void);
 
 /*
 ** prompt
 */
-int		deal_prompt(char **input);
+int		deal_prompt(void);
 
 /*
 ** cmd
 */
 int		set_cmd_list(char *str);
-int		deal_command(char *str);
+int		deal_command(void);
 
 int     add_cmd(char **strarr, t_op op);
 void    remove_cmd_list();
@@ -165,8 +175,8 @@ char	**split_with_quote(char *str, int (*sep_func)(char *, int *));
 /*
 ** history
 */
-int		init_history(int *fd, char **prev);
-int		save_history(int fd, char *str, char **prev);
+int		init_history(void);
+int		save_history(void);
 
 /*
 ** pipex

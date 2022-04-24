@@ -36,15 +36,15 @@ void    check_str_quote_closed(char *str, int *quote)
     }
 }
 
-int deal_prompt(char **input)
+int deal_prompt(void)
 {
     int quote;
 
     quote = 0;
-	*input = readline(" ");
-	if (*input == 0)
+	g_mini.prompt_input = readline(g_mini.prompt_str);
+	if (g_mini.prompt_input == 0)
         return (0);
-    check_str_quote_closed(*input, &quote);
+    check_str_quote_closed(g_mini.prompt_input, &quote);
     if (quote)
     {
         // unclosed quote
