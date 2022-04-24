@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/19 16:09:00 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/24 15:08:28 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_var	*find_var(char *name)
 	tmp = g_mini.env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->var, name, name_len(name)) == 0)
+		if (ft_strncmp(tmp->var, name, name_len(name)) == 0 \
+			&& tmp->var[name_len(name)] == '=')
 			return (tmp);
 		tmp = tmp->next;
 	}
