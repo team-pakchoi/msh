@@ -6,13 +6,13 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 14:20:03 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/19 15:55:12 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 16:16:51 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_export(char *name)
+static void	execute_export(char *name)
 {
 	t_var	*tmp;
 
