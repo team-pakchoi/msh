@@ -114,6 +114,7 @@ void	set_var(char **cmds);
 int		valid_directory(char *path);
 int		valid_permission(char *path);
 int		has_directory(char *path);
+void	set_pwd_env(void);
 
 /*
 ** util: var
