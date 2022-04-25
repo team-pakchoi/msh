@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:09:04 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 23:45:09 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,28 @@ int exec_execve(char **command)
     waitpid(pid, &status, 0);
     g_mini.exit_status = status;
     return (1);
+}
+
+int exec_assign(char **command, t_cmd *cmd)
+{
+    int     idx;
+
+    idx = 0;
+    while (command[idx])
+    {
+        if (is_assign_cmd(command[idx]) == 0)
+            break ;
+        idx += 1;
+    }
+    if (command[idx] == 0)
+    {
+        if (cmd->prev && cmd->prev->op == 1)
+            return (0);
+        if (cmd->next && cmd->next->op == 1)
+            return (0);
+        set_var(command);
+        set_self_pipe();
+        restore_ori_stdout();
+    }
+    return (idx);
 }

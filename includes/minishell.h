@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 16:19:07 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 23:45:28 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ void	  keep_ori_std();
 void	  restore_ori_stdin();
 void	  restore_ori_stdout();
 
+int 	exec_assign(char **command, t_cmd *cmd);
 int     exec_builtin(char **cmd);
 int     exec_execve(char **command);
 int     exec_output_redir(char *command[], t_op op);

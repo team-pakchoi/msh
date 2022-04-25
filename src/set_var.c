@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:13:09 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 16:19:33 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 18:46:08 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static void	execute_set(char *name)
 void	set_var(char **cmds)
 {
 	g_mini.exit_status = 0;
-	if (!cmds[1])
-	{
-		ft_env();
-		return ;
-	}
+	// if (!cmds[1])
+	// {
+	// 	ft_env();
+	// 	return ;
+	// }
 	while (*cmds)
 	{
 		execute_set(*cmds);
