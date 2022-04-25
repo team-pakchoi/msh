@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_with_quote_flag.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:38:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:08:20 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 15:11:48 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int get_nums_splited(char *str, int (*sep_func)(char *, int *))
     while (*str)
     {
         len = get_len_to_next(&str, sep_func);
-        if (len > 1)
+        if (len >= 1)
         {
             str += len;
             str += sep_func(str, &sep);
