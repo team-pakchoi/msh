@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:22:27 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/19 15:29:03 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 15:40:07 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,22 @@ int	has_directory(char *path)
 	if (valid_directory(path) == FT_TRUE)
 		return (FT_TRUE);
 	return (FT_FALSE);
+}
+
+void	set_pwd_env(void)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+	{
+		print_strerror("cd");
+		return ;
+	}
+	if (find_var_value("OLDPWD") == NULL)
+		add_var(ft_strjoin("OLDPWD=", find_var_value("PWD")), ENV_VAR);
+	else
+		update_var("OLDPWD", find_var_value("PWD"));
+	update_var("PWD", cwd);
+	free(cwd);
 }

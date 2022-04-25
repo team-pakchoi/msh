@@ -6,29 +6,11 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:32:11 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/19 15:41:55 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 15:53:06 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	set_pwd_env(void)
-{
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-	{
-		print_strerror("cd");
-		return ;
-	}
-	if (find_var_value("OLDPWD") == NULL)
-		add_var(ft_strjoin("OLDPWD=", find_var_value("PWD")), ENV_VAR);
-	else
-		update_var("OLDPWD", find_var_value("PWD"));
-	update_var("PWD", cwd);
-	free(cwd);
-}
 
 static int	ft_chdir(char *path)
 {
@@ -93,9 +75,25 @@ static int	move_to_cdpath(char *path)
 	return (FT_FALSE);
 }
 
+static int	move_with_tilde(char *path)
+{
+	char	*tmp;
+
+	if (find_var_value("HOME") == NULL)
+	{
+		print_error("cd", "HOME not set");
+		g_mini.exit_status = 1;
+		return (FT_ERROR);
+	}
+	tmp = ft_strjoin(find_var_value("HOME"), &path[1]);
+	ft_chdir(tmp);
+	free(tmp);
+	return (FT_SUCCESS);
+}
+
 void	ft_cd(char **cmds)
 {
-	if (!cmds[1] || ft_strcmp(cmds[1], "~") == 0)
+	if ((!cmds[1] || ft_strcmp(cmds[1], "~") == 0) && find_var_value("HOME"))
 		ft_chdir(ft_strjoin(find_var_value("HOME"), "/"));
 	else if (ft_strcmp(cmds[1], "-") == 0)
 		move_to_oldpwd();
@@ -107,6 +105,11 @@ void	ft_cd(char **cmds)
 		{
 			ft_chdir(cmds[1]);
 			return ;
+		}
+		if (cmds[1][0] == '~')
+		{
+			if (move_with_tilde(cmds[1]))
+				return ;
 		}
 		if (cmds[1][0] != '.' && find_var_value("CDPATH") != NULL)
 		{
