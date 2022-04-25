@@ -6,13 +6,13 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 13:17:37 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/16 21:04:57 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 16:38:14 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	execute_export(char *name)
+static void	execute_unset(char *name)
 {
 	if (!is_valid_var_name(name))
 	{
@@ -38,7 +38,7 @@ void	ft_unset(char **cmds)
 	}
 	while (*cmds)
 	{
-		execute_export(*cmds);
+		execute_unset(*cmds);
 		cmds++;
 	}
 }
