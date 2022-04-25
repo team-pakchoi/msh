@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   deal_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/24 17:46:08 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/25 00:08:17 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int get_is_sep(char *str, int *sep_num)
+int is_op(char *str, int *sep_num)
 {
     if (str[0] == '|')
     {
@@ -62,7 +62,7 @@ int is_white_space(char *str, int *sep_num)
     return (*sep_num);
 }
 
-void    set_redir_rest(char **strarr)
+void    set_args_to_prev_cmd(char **strarr)
 {
     t_cmd   *node;
     char    **new_arr;
@@ -79,38 +79,53 @@ void    set_redir_rest(char **strarr)
     add_cmd(strarr, 1);
 }
 
+int set_new_cmd(char **strarr, int sep)
+{
+    char    **shifted;
+    
+    if (sep != 1)
+    {
+        shifted = ft_strarr_shift(&strarr);
+        set_args_to_prev_cmd(strarr);
+        if (add_cmd(shifted, sep) == 0)
+            return (0);
+    }
+    else
+    {
+        if (add_cmd(strarr, sep) == 0)
+            return (0);
+    }
+    return (1);
+}
+
 int set_cmd_list(char *str)
 {
     char    **arr;
     int     sep;
     char    **strarr;
-    char    **shifted;
-
+    int     idx;
+    
     while (is_white_space(str, &sep))
         str += 1;
-    arr = split_with_quote_flag(str, get_is_sep);
-    if (get_is_sep(str, &sep) == 0)
+    if (is_op(str, &sep) == 0)
         sep = 1;
-    while (*arr)
+    idx = 0;
+    arr = split_with_quote(str, is_op);
+    while (arr[idx])
     {
-        strarr = split_with_quote_flag(*arr, is_white_space);
-        parse_cmd_env(strarr);
-        if (sep != 1)
-        {
-            shifted = ft_strarr_shift(&strarr);
-            set_redir_rest(strarr);
-            if (add_cmd(shifted, sep) == 0)
-                return (0);
-        }
-        else
-        {
-            if (add_cmd(strarr, sep) == 0)
-                return (0);
-        }
-        str += get_len_to_next(&str, get_is_sep);
-        str += get_is_sep(str, &sep);
-        arr += 1;
+        strarr = split_with_quote(arr[idx], is_white_space);
+        if (!strarr)
+            return (0);
+        if (!parse_cmd_env(strarr))
+            return (0);
+        if (!set_new_cmd(strarr, sep))
+            return (0);
+        str += get_len_to_next(&str, is_op);
+        str += is_op(str, &sep);
+        idx += 1;
+        // free strarr
     }
+    // free arr
     return (1);
 }
 
@@ -141,7 +156,6 @@ int deal_command(void)
         return (0);
     g_mini.cmd_idx = 1;
     cmd = g_mini.cmd;
-    read_all_cmd();
     while (cmd)
     {
         deal_cmd_node(cmd);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:41:00 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/07 16:41:03 by cpak             ###   ########.fr       */
+/*   Updated: 2022/04/25 00:08:18 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char    *change_str(char *str, char *str_tar, char *str_src)
     i = 0;
     len_tar = ft_strlen(str_tar);
     len_src = ft_strlen(str_src);
-    new = ft_calloc(ft_strlen(str) - len_tar + len_src + 1, sizeof(char));
+    new = (char *)ft_calloc(ft_strlen(str) - len_tar + len_src + 1, sizeof(char));
     if (!new)
         return (0);
     while (ft_strncmp(str + i, str_tar, len_tar) != 0)
@@ -30,7 +30,7 @@ char    *change_str(char *str, char *str_tar, char *str_src)
         new[i] = str[i];
         i += 1;
     }
-    while (*str_src)
+    while (str_src && *str_src)
     {
         new[i] = *str_src;
         i += 1;
@@ -74,10 +74,15 @@ int get_next_env_point(char *str, int *start, int *end)
     {
         if (str[i] == '$')
             *start = i;
-        else if (*start != -1 && !ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_' && str[i] != '?')
-        {
-            *end = i;
-            return (1);
+        else if (*start != -1)
+        {            
+            if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
+            {
+                if (i - *start == 1 && str[i] == '?')
+                    i += 1;
+                *end = i;
+                return (1);
+            }
         }
         i += 1;
     }
@@ -89,33 +94,27 @@ int get_next_env_point(char *str, int *start, int *end)
     return (0);
 }
 
-char *get_next_str(char *str, int *idx, int *sep)
+char    *get_next_str(char *str, int *idx, int *sep)
 {
     int     start;
-    char    *result;
 
     start = *idx;
-    if (str[*idx] == 34 || str[*idx] == 39)
+    *sep = 0;
+    if (str[*idx] == '"' || str[*idx] == '\'')
+    {
         *sep = str[*idx];
-    else
-        *sep = -1;
-    *idx += 1;
+        *idx += 1;
+    }
     while (str[*idx])
     {
         if (*sep == str[*idx])
-        {
-            *idx += 1;
-            break ;
-        }
-        else if (*sep == -1 && (str[*idx] == '"' || str[*idx] == '\''))
-        {
-            *idx -= 1;
-            break ;
-        }
+            return (ft_strndup(str + start, *idx - start + 1));
+        else if (*sep == 0 && (str[*idx] == '"' || str[*idx] == '\''))
+            return (ft_strndup(str + start, *idx - start));
         *idx += 1;
     }
-    result = ft_strndup(str + start, *idx - start);
-    return (result);
+    *sep = 0;
+    return (ft_strndup(str + start, *idx - start));
 }
 
 int trans_all_env(char **str)
@@ -142,21 +141,25 @@ int parse_str_env(char **str)
     int     sep;
    
     idx = 0;
-    sep = -1;
+    sep = 0;
     while ((*str)[idx])
     {
         tar = get_next_str(*str, &idx, &sep);
         if (tar == 0)
             continue ;
-        src = ft_strtrim(tar, (const char *)&sep);
+        if (sep == 0)
+            src = ft_strdup(tar);
+        else
+            src = ft_strtrim(tar, (const char *)&sep);
         if (sep != '\'')
         {
             if (trans_all_env(&src) == 0)
                 return (0);
         }
         *str = change_str(*str, tar, src);
-        idx += ft_strlen(src) - ft_strlen(tar) + ft_strlen(src);
-        if (sep == -1)
+        idx -= ft_strlen(tar);
+        idx += ft_strlen(src);
+        if (sep != 0)
             idx += 1;
         free(src);
         free(tar);

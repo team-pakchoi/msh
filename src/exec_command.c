@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_command.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
+/*   Updated: 2022/04/25 00:09:04 by cpak             ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int is_builtin(char **cmd)
@@ -66,7 +78,8 @@ int exec_execve(char **command)
         if (g_mini.cmd_len != g_mini.cmd_idx)
             set_pipein_to_stdout(fds);
         envp = find_all_env();
-        if (access(command[0], X_OK) != 0)
+        if (**command == 0)
+            return (0);
         if (execve(find_command_path(command[0]), command, envp) == -1)
         {
             print_error(command[0], "command not found");
