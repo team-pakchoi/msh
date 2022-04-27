@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 16:51:45 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 05:42:25 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@
 # define  FT_ERROR		-1
 # define  FT_TRUE		1
 # define  FT_FALSE		0
+
 typedef int	t_bool;
 
 # define  PROMPT_STRING		" $ "
-# define  PROMPT_QUOTE		"quote> "
-# define  PROMPT_QUOTE_D	"dquote> "
 # define  PROMPT_HEREDOC	"heredoc> "
 
 # define  PROMPT_COLOR_PWD		"\033[1;32m"
@@ -55,7 +54,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;
-
 
 typedef struct s_var
 {
@@ -166,8 +164,11 @@ void	read_arr(char **str);
 ** parse
 */
 void	set_quotes_flag(char c, int *flag);
+char	*change_str(char *str, char *str_tar, char *str_src);
 int		parse_cmd_env(char **cmd);
 int		parse_str_env(char **str);
+int		trans_all_env(char **str);
+int		set_cmd_list(char *str);
 
 /*
 ** split
@@ -203,5 +204,8 @@ int		exec_execve(char **command);
 int		exec_output_redir(char *command[], t_op op);
 int		exec_input_redir(char *command[], t_op op);
 void	exec_heredoc(char *command[], int out_fd);
+
+int		is_op(char *str, int *sep_num);
+int		is_white_space(char *str, int *sep_num);
 
 #endif

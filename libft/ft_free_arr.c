@@ -6,21 +6,21 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 15:57:15 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/27 15:59:53 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 03:06:25 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    ft_free_arr(char **arr)
+void	ft_free_arr(char **arr)
 {
-    int idx;
+	int	idx;
 
-    idx = 0;
-    while (arr[idx])
-    {
-        free(arr[idx]);
-        idx += 1;
-    }
-    free(arr);
+	idx = 0;
+	while (arr[idx])
+	{
+		free(arr[idx]);
+		idx += 1;
+	}
+	free(arr);
 }

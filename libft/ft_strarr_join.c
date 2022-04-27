@@ -6,15 +6,15 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 19:32:30 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:10:02 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 03:01:54 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char    **ft_strarr_join(char *a1[], char *a2[])
+char	**ft_strarr_join(char *a1[], char *a2[])
 {
-    size_t	a1_len;
+	size_t	a1_len;
 	size_t	a2_len;
 	char	**r;
 
