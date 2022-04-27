@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:08:17 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 12:08:13 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,14 @@ int set_cmd_list(char *str)
 int deal_cmd_node(t_cmd *cmd)
 {
 	char	**command;
+    int     idx;
 
     command = cmd->strarr;
     if (cmd->op == PIPE)
     {
+        idx = exec_assign(command, cmd);
+        if (idx == -1 || command[idx] == 0)
+            return (1);
         if (exec_builtin(command) == 0)
             exec_execve(command);
     }
