@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/19 15:53:16 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 16:01:58 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	increase_shlvl(void)
 
 void	init_env(char **envp)
 {
-	add_var(ft_strdup(*envp), ENV_VAR);
+	add_var(*envp, ENV_VAR);
 	envp++;
 	while (*envp)
 	{
-		add_var(ft_strdup(*envp), ENV_VAR);
+		add_var(*envp, ENV_VAR);
 		envp++;
 	}
 	increase_shlvl();

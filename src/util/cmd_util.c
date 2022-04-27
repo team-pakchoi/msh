@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:17 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:09:33 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:58:42 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void    remove_cmd_list()
     {
         prev = node;
         node = node->next;
-        free(prev->strarr);
+        ft_free_arr(prev->strarr);
         prev->strarr = 0;
         prev->next = 0;
         prev->prev = 0;

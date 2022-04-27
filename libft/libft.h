@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:04:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/19 14:35:13 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:57:44 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int             ft_strarr_len(char *str[]);
 size_t			ft_strarr_lcpy(char *dest[], char *src[], size_t size);
 char    		**ft_strarr_join(char *a1[], char *a2[]);
 char    		**ft_strarr_shift(char ***strarr);
+void			ft_free_arr(char **arr);
 
 
 #endif
