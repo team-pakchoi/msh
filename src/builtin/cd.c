@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:32:11 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 15:53:06 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:43:53 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,24 @@ static void	move_to_oldpwd(void)
 static int	move_to_cdpath(char *path)
 {
 	char	**cdpaths;
+	char	*dir;
 	char	*tmp;
 
 	cdpaths = ft_split(find_var_value("CDPATH"), ':');
 	while (*cdpaths)
 	{
-		tmp = ft_strjoin(ft_strjoin(*cdpaths, "/"), path);
-		if (has_directory(tmp) && ft_chdir(tmp))
+		tmp = ft_strjoin(*cdpaths, "/");
+		dir = ft_strjoin(tmp, path);
+		free(tmp);
+		if (has_directory(dir) && ft_chdir(dir))
 		{
 			print_cwd();
-			free(tmp);
+			free(dir);
+			ft_split_free(cdpaths);
 			return (FT_TRUE);
 		}
-		free(tmp);
+		free(dir);
+		ft_split_free(cdpaths);
 		cdpaths++;
 	}
 	return (FT_FALSE);
