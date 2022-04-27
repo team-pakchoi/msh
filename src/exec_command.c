@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 23:45:09 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 12:08:10 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,20 @@ int exec_execve(char **command)
     return (1);
 }
 
+int is_assign_cmd(char *str)
+{
+    int idx;
+    
+    idx = 0;
+    while (str[idx])
+    {
+        if (!ft_isalpha(str[idx]) && !ft_isdigit(str[idx]) && str[idx] != '_')
+            break ;
+        idx += 1;
+    }
+    return (str[idx] == '=');
+}
+
 int exec_assign(char **command, t_cmd *cmd)
 {
     int     idx;
@@ -108,9 +122,9 @@ int exec_assign(char **command, t_cmd *cmd)
     if (command[idx] == 0)
     {
         if (cmd->prev && cmd->prev->op == 1)
-            return (0);
+            return (-1);
         if (cmd->next && cmd->next->op == 1)
-            return (0);
+            return (-1);
         set_var(command);
         set_self_pipe();
         restore_ori_stdout();
