@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:22:27 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 15:40:07 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:22:21 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	has_directory(char *path)
 void	set_pwd_env(void)
 {
 	char	*cwd;
+	char	*tmp;
 
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
@@ -60,7 +61,11 @@ void	set_pwd_env(void)
 		return ;
 	}
 	if (find_var_value("OLDPWD") == NULL)
-		add_var(ft_strjoin("OLDPWD=", find_var_value("PWD")), ENV_VAR);
+	{
+		tmp = ft_strjoin("OLDPWD=", find_var_value("PWD"));
+		add_var(tmp, ENV_VAR);
+		free(tmp);
+	}
 	else
 		update_var("OLDPWD", find_var_value("PWD"));
 	update_var("PWD", cwd);

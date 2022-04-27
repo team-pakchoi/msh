@@ -28,13 +28,15 @@ void	update_prompt_str(void)
 
 	cwd = getcwd(NULL, 0);
 	home = find_var_value("HOME");
-	if (ft_strncmp(cwd, home, ft_strlen(home)) == 0)
+	if (home && ft_strncmp(cwd, home, ft_strlen(home)) == 0)
 	{
 		tmp = cwd;
 		cwd = ft_strjoin("~", cwd + ft_strlen(home));
 		free(tmp);
 	}
+	tmp = g_mini.prompt_str;
 	g_mini.prompt_str = ft_strjoin(PROMPT_COLOR_PWD, cwd);
+	free(tmp);
 	free(cwd);
 	tmp = g_mini.prompt_str;
 	g_mini.prompt_str = ft_strjoin(g_mini.prompt_str, PROMPT_COLOR_PROMPT);

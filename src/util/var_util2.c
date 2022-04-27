@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:08:32 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 15:11:19 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:17:06 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,19 @@ void	add_var(char *name_and_value, int scope)
 
 void	update_var(char *name, char *new_value)
 {
-	t_var	*tmp;
+	t_var	*exist_var;
 	char	*new;
+	char	*tmp;
 
-	tmp = find_var(name);
-	if (!tmp)
+	exist_var = find_var(name);
+	if (!exist_var)
 		return ;
 	new = ft_strjoin(name, "=");
+	tmp = new;
 	new = ft_strjoin(new, new_value);
-	free(tmp->var);
-	tmp->var = new;
+	free(tmp);
+	free(exist_var->var);
+	exist_var->var = new;
 }
 
 char	**find_all_env(void)

@@ -15,9 +15,12 @@
 static void	increase_shlvl(void)
 {
 	int	prev_value;
+	char	*value;
 
 	prev_value = ft_atoi(getenv("SHLVL"));
-	update_var("SHLVL", ft_itoa(prev_value + 1));
+	value = ft_itoa(prev_value + 1);
+	update_var("SHLVL", value);
+	free(value);
 }
 
 void	init_env(char **envp)

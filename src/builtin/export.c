@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 14:20:03 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 16:16:51 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:53:01 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	execute_export(char *name)
 {
 	t_var	*tmp;
+	char	*tmp_name;
 
 	if (!is_valid_var_name(name))
 	{
@@ -26,8 +27,11 @@ static void	execute_export(char *name)
 	if (ft_strchr(name, '='))
 	{
 		if (tmp)
-			update_var(ft_strndup(name, ft_strchr(name, '=') - name), \
-			ft_strchr(name, '=') + 1);
+		{
+			tmp_name = ft_strndup(name, ft_strchr(name, '=') - name);
+			update_var(tmp_name, ft_strchr(name, '=') + 1);
+			free(tmp_name);
+		}
 		else
 			add_var(name, ENV_VAR);
 		return ;
