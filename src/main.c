@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/24 17:50:48 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 14:16:24 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	update_prompt_str(void)
 
 	cwd = getcwd(NULL, 0);
 	home = find_var_value("HOME");
-	if (ft_strncmp(cwd, home, ft_strlen(home)) == 0)
+	if (home && ft_strncmp(cwd, home, ft_strlen(home)) == 0)
 	{
 		tmp = cwd;
 		cwd = ft_strjoin("~", cwd + ft_strlen(home));
