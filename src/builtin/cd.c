@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:32:11 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 15:43:53 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:47:46 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,13 @@ static int	move_with_tilde(char *path)
 
 void	ft_cd(char **cmds)
 {
+	char	*tmp;
 	if ((!cmds[1] || ft_strcmp(cmds[1], "~") == 0) && find_var_value("HOME"))
-		ft_chdir(ft_strjoin(find_var_value("HOME"), "/"));
+	{
+		tmp = ft_strjoin(find_var_value("HOME"), "/");
+		ft_chdir(tmp);
+		free(tmp);
+	}
 	else if (ft_strcmp(cmds[1], "-") == 0)
 		move_to_oldpwd();
 	else
