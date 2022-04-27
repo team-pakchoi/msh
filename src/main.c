@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 14:16:24 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:10:09 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	update_prompt_str(void)
 		cwd = ft_strjoin("~", cwd + ft_strlen(home));
 		free(tmp);
 	}
+	tmp = g_mini.prompt_str;
 	g_mini.prompt_str = ft_strjoin(PROMPT_COLOR_PWD, cwd);
+	free(tmp);
 	free(cwd);
 	tmp = g_mini.prompt_str;
 	g_mini.prompt_str = ft_strjoin(g_mini.prompt_str, PROMPT_COLOR_PROMPT);
