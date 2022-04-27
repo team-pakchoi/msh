@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/27 12:08:10 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 14:44:26 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ int exec_execve(char **command)
     if (g_mini.cmd_len != g_mini.cmd_idx)
         set_pipeout_to_stdin(fds);
     waitpid(pid, &status, 0);
-    g_mini.exit_status = status;
+    g_mini.exit_status = WEXITSTATUS(status);
     return (1);
 }
 
 int is_assign_cmd(char *str)
 {
     int idx;
-    
+
     idx = 0;
     while (str[idx])
     {
