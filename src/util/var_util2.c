@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   var_util2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:08:32 by sarchoi           #+#    #+#             */
 /*   Updated: 2022/04/27 15:17:06 by sarchoi          ###   ########seoul.kr  */

@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/27 12:08:13 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:58:53 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ int set_cmd_list(char *str)
         str += get_len_to_next(&str, is_op);
         str += is_op(str, &sep);
         idx += 1;
-        // free strarr
+        strarr = 0;
     }
-    // free arr
+    ft_free_arr(arr);
     return (1);
 }
 
