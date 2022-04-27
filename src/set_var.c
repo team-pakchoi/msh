@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:13:09 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 18:46:08 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 15:52:50 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	execute_set(char *name)
 {
 	t_var	*tmp;
+	char	*tmp_name;
 
 	if (!is_valid_var_name(name))
 	{
@@ -26,8 +27,11 @@ static void	execute_set(char *name)
 	if (ft_strchr(name, '='))
 	{
 		if (tmp)
-			update_var(ft_strndup(name, ft_strchr(name, '=') - name), \
-			ft_strchr(name, '=') + 1);
+		{
+			tmp_name = ft_strndup(name, ft_strchr(name, '=') - name);
+			update_var(tmp_name, ft_strchr(name, '=') + 1);
+			free(tmp_name);
+		}
 		else
 			add_var(name, SHELL_VAR);
 		return ;
