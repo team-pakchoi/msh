@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 14:20:03 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 15:53:01 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 01:52:17 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_export(char **cmds)
 	g_mini.exit_status = 0;
 	if (!cmds[1])
 	{
-		ft_env();
+		print_sorted_env();
 		return ;
 	}
 	while (*cmds)
