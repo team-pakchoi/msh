@@ -1,0 +1,4 @@
+export TEST_EXPORT=4242
+echo $TEST_EXPORT
+unset TEST_EXPORT
+echo $TEST_EXPORT

@@ -1,0 +1,2 @@
+export EVAL=42
+echo $EVAL
