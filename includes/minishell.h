@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 23:45:28 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 01:52:58 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,11 @@ void	update_var(char *name, char *new_value);
 char	**find_all_env(void);
 int		is_valid_var_format(char *str);
 int		is_valid_var_name(const char *str);
+
+/*
+** util: export
+*/
+void	print_sorted_env(void);
 
 /*
 ** util: print
