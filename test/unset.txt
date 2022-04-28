@@ -1,4 +1,4 @@
-export TEST_EXPORT=4242
-echo $TEST_EXPORT
-unset TEST_EXPORT
-echo $TEST_EXPORT
+export TEST_EXPORT=4242 >> result.txt
+echo $TEST_EXPORT >> result.txt
+unset TEST_EXPORT >> result.txt
+echo $TEST_EXPORT >> result.txt

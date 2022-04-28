@@ -1,2 +1,2 @@
-export EVAL=42
-echo $EVAL
+export EVAL=42 >> result.txt
+echo $EVAL >> result.txt

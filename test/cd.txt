@@ -1,1 +1,1 @@
-cd src
+cd src >> result.txt
