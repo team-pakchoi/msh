@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 18:45:00 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 16:26:06 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 03:20:31 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char			*ft_strncpy(char *dst, const char *src, size_t n)
+static char	*ft_strncpy(char *dst, const char *src, size_t n)
 {
 	size_t	i;
 
@@ -65,7 +65,7 @@ static unsigned int	ft_get_next_str_len(char const **str, char delim)
 	return (i);
 }
 
-char			**ft_split_free(char **tab)
+char	**ft_split_free(char **tab)
 {
 	unsigned int	i;
 
@@ -80,7 +80,7 @@ char			**ft_split_free(char **tab)
 	return ((char **)0);
 }
 
-char				**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char			**tab;
 	unsigned int	i;

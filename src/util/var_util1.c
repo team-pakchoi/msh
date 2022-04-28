@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/24 15:08:28 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 16:53:33 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*find_var_value(char *name)
 
 	tmp = find_var(name);
 	if (!tmp)
-		return ((char *)NULL);
+		return ((char *) NULL);
 	return (tmp->var + name_len(tmp->var) + 1);
 }
 

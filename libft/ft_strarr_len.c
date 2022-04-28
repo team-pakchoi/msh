@@ -6,18 +6,18 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 19:32:30 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:09:54 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 03:02:18 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_strarr_len(char *str[])
+int	ft_strarr_len(char *str[])
 {
-    int len;
+	int	len;
 
-    len = 0;
-    if (str == 0)
-        return (0);
-    while (str[len])
-        len += 1;
-    return (len);
+	len = 0;
+	if (str == 0)
+		return (0);
+	while (str[len])
+		len += 1;
+	return (len);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:07:47 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/05 00:11:07 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 03:05:59 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static int	ft_isspace(int c)
 	return (0);
 }
 
-long long			ft_atol(const char *str)
+long long	ft_atol(const char *str)
 {
 	unsigned long long	r;
-	int				sign;
+	int					sign;
 
 	r = 0;
 	sign = 1;
