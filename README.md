@@ -70,12 +70,12 @@ The objective of this project is for you to create a simple shell. Yes, your own
 
 ```
 ./
-├── includes/	# header files
-├── libft/		# library files
-├── src/		# source files
-│   ├── builtin/  # builtin commands
-│   └── util/     # utility functions
-├── test/		# test command files
+├── includes/		# header files
+├── libft/			# library files
+├── src/			# source files
+│   ├── builtin/	# builtin commands
+│   └── util/		# utility functions
+├── test/			# test command files
 └── Makefile
 ```
 
