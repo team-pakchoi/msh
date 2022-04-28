@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 19:34:33 by sarchoi           #+#    #+#             */
-/*   Updated: 2021/05/11 12:09:59 by sarchoi          ###   ########.fr       */
+/*   Updated: 2022/04/28 03:17:24 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 static unsigned int	ft_nbrlen(int n)
 {
-	unsigned int count;
-	unsigned int num;
+	unsigned int	count;
+	unsigned int	num;
 
 	if (n == 0)
 		return (1);
-	count = n < 0 ? 1 : 0;
-	num = n < 0 ? -n : n;
+	if (n < 0)
+	{
+		count = 1;
+		num = -n;
+	}
+	else
+	{
+		count = 0;
+		num = n;
+	}
 	while (num)
 	{
 		count++;
@@ -29,7 +37,7 @@ static unsigned int	ft_nbrlen(int n)
 	return (count);
 }
 
-static char			*return_zero(char *r)
+static char	*return_zero(char *r)
 {
 	r = (char *)malloc(sizeof(char) * 2);
 	r[0] = '0';
@@ -37,7 +45,7 @@ static char			*return_zero(char *r)
 	return (r);
 }
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	unsigned int	num;
 	unsigned int	num_len;

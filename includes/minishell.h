@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/25 23:45:28 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 05:42:25 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,57 +24,55 @@
 # include <sys/stat.h>
 # include "libft.h"
 
-# define  FT_SUCCESS 1
-# define  FT_ERROR -1
-# define  FT_TRUE 1
-# define  FT_FALSE 0
+# define  FT_SUCCESS	1
+# define  FT_ERROR		-1
+# define  FT_TRUE		1
+# define  FT_FALSE		0
+
 typedef int	t_bool;
 
-# define  PROMPT_STRING " $ "
-# define  PROMPT_QUOTE "quote> "
-# define  PROMPT_QUOTE_D "dquote> "
-# define  PROMPT_HEREDOC "heredoc> "
+# define  PROMPT_STRING		" $ "
+# define  PROMPT_HEREDOC	"heredoc> "
 
-# define  PROMPT_COLOR_PWD "\033[1;32m"
-# define  PROMPT_COLOR_PROMPT "\033[1;35m"
-# define  PROMPT_COLOR_RESET "\033[0m"
+# define  PROMPT_COLOR_PWD		"\033[1;32m"
+# define  PROMPT_COLOR_PROMPT	"\033[1;35m"
+# define  PROMPT_COLOR_RESET	"\033[0m"
 
-typedef enum  e_op
+typedef enum e_op
 {
-	PIPE = 1,
-	INPUT = 2,
-	INPUT_D = 3,
-	OUTPUT = 4,
-	OUTPUT_D = 5
+	PIPE =		1,
+	INPUT =		2,
+	INPUT_D =	3,
+	OUTPUT =	4,
+	OUTPUT_D =	5
 }	t_op;
 
 typedef struct s_cmd
 {
-  char            **strarr;
-  t_op            op;
-  struct s_cmd    *next;
-  struct s_cmd    *prev;
-} t_cmd;
-
+	char			**strarr;
+	t_op			op;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}					t_cmd;
 
 typedef struct s_var
 {
 	char			*var;
 	int				scope;
 	struct s_var	*next;
-}				t_var;
+}					t_var;
 
 /*
 ** value for `scope` the member of structure `t_var`
 */
-# define  SHELL_VAR 0
-# define  ENV_VAR 1
+# define  SHELL_VAR	0
+# define  ENV_VAR	1
 
 typedef struct s_history
 {
-	char	*prev_input;
-	int		fd;
-}			t_history;
+	char			*prev_input;
+	int				fd;
+}					t_history;
 
 typedef struct s_minishell
 {
@@ -155,19 +153,22 @@ int		deal_prompt(void);
 int		set_cmd_list(char *str);
 int		deal_command(void);
 
-int     add_cmd(char **strarr, t_op op);
-void    remove_cmd_list();
-t_cmd   *find_nth_cmd(int idx);
-t_cmd   *find_last_cmd();
-void    read_all_cmd();
-void    read_arr(char **str);
+int		add_cmd(char **strarr, t_op op);
+void	remove_cmd_list(void);
+t_cmd	*find_nth_cmd(int idx);
+t_cmd	*find_last_cmd(void);
+void	read_all_cmd(void);
+void	read_arr(char **str);
 
 /*
 ** parse
 */
 void	set_quotes_flag(char c, int *flag);
+char	*change_str(char *str, char *str_tar, char *str_src);
 int		parse_cmd_env(char **cmd);
 int		parse_str_env(char **str);
+int		trans_all_env(char **str);
+int		set_cmd_list(char *str);
 
 /*
 ** split
@@ -184,24 +185,27 @@ int		save_history(void);
 /*
 ** pipex
 */
-void	  set_pipein_to_stdout(int *fds);
-void	  set_pipeout_to_stdin(int *fds);
-void	  set_fileout_to_fd(char *path, int fd);
-void	  set_filein_to_fd(char *path, int fd);
-void    read_fd(int fd);
-void	  print_file(char *path);
-char	  *find_command_path(char *command);
+void	set_pipein_to_stdout(int *fds);
+void	set_pipeout_to_stdin(int *fds);
+void	set_fileout_to_fd(char *path, int fd);
+void	set_filein_to_fd(char *path, int fd);
+void	read_fd(int fd);
+void	print_file(char *path);
+char	*find_command_path(char *command);
 
-void    set_self_pipe();
-void	  keep_ori_std();
-void	  restore_ori_stdin();
-void	  restore_ori_stdout();
+void	set_self_pipe(void);
+void	keep_ori_std(void);
+void	restore_ori_stdin(void);
+void	restore_ori_stdout(void);
 
-int 	exec_assign(char **command, t_cmd *cmd);
-int     exec_builtin(char **cmd);
-int     exec_execve(char **command);
-int     exec_output_redir(char *command[], t_op op);
-int     exec_input_redir(char *command[], t_op op);
-void    exec_heredoc(char *command[], int out_fd);
+int		exec_assign(char **command, t_cmd *cmd);
+int		exec_builtin(char **cmd);
+int		exec_execve(char **command);
+int		exec_output_redir(char *command[], t_op op);
+int		exec_input_redir(char *command[], t_op op);
+void	exec_heredoc(char *command[], int out_fd);
+
+int		is_op(char *str, int *sep_num);
+int		is_white_space(char *str, int *sep_num);
 
 #endif

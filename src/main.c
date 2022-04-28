@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 16:04:11 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 16:54:50 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	free_global(void)
 	free(g_mini.history.prev_input);
 }
 
-void	update_prompt_str(void)
+static void	update_prompt_str(void)
 {
 	char	*cwd;
 	char	*home;
@@ -75,5 +75,5 @@ int	main(int argc, char **argv, char **envp)
 		g_mini.cmd_idx = 1;
 	}
 	free_global();
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

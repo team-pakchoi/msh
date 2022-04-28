@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 16:13:09 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 15:52:50 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 16:55:55 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ static void	execute_set(char *name)
 void	set_var(char **cmds)
 {
 	g_mini.exit_status = 0;
-	// if (!cmds[1])
-	// {
-	// 	ft_env();
-	// 	return ;
-	// }
 	while (*cmds)
 	{
 		execute_set(*cmds);

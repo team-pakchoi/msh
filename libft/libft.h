@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:04:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 15:57:44 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 05:13:37 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 
 int				ft_atoi(const char *str);
-long long	ft_atol(const char *str);
+long long		ft_atol(const char *str);
 void			ft_bzero(void *b, size_t len);
 void			*ft_calloc(size_t count, size_t size);
 int				ft_isalnum(int c);
@@ -58,7 +58,7 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -73,14 +73,13 @@ void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(
-	t_list *lst, void *(*f)(void *), void (*del)(void *));
+					t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-int             get_next_line(int fd, char **line);
-int             ft_strarr_len(char *str[]);
+int				get_next_line(int fd, char **line);
+int				ft_strarr_len(char *str[]);
 size_t			ft_strarr_lcpy(char *dest[], char *src[], size_t size);
-char    		**ft_strarr_join(char *a1[], char *a2[]);
-char    		**ft_strarr_shift(char ***strarr);
+char			**ft_strarr_join(char *a1[], char *a2[]);
+char			**ft_strarr_shift(char ***strarr);
 void			ft_free_arr(char **arr);
-
 
 #endif
