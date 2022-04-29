@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_with_quote_flag.c                            :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:38:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 07:25:05 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 02:53:03 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_nums_splited(char *str, int (*sep_func)(char *, int *))
+static int	get_nums_splited(char *str, int (*sep_func)(char *, int *))
 {
 	int	nums;
 	int	sep;
@@ -33,7 +33,7 @@ int	get_nums_splited(char *str, int (*sep_func)(char *, int *))
 	return (nums);
 }
 
-char	*get_str(char *str, int len)
+static char	*get_str(char *str, int len)
 {
 	char	*result;
 

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_command.c                                     :+:      :+:    :+:   */
+/*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 07:18:03 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 01:38:34 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_builtin(char **cmd)
+static int	is_builtin(char **cmd)
 {
 	if (!ft_strcmp(*cmd, "cd"))
 		return (1);
@@ -31,7 +31,7 @@ int	is_builtin(char **cmd)
 	return (0);
 }
 
-void	route_builtin(char **cmd, int n)
+static void	route_builtin(char **cmd, int n)
 {
 	if (n == 1)
 		return (ft_cd(cmd));
@@ -62,6 +62,32 @@ int	exec_builtin(char **cmd)
 		restore_ori_stdout();
 	}
 	return (n);
+}
+
+static char	*find_command_path(char *command)
+{
+	char	**paths;
+	char	*path;
+	int		i;
+
+	path = find_var_value("PATH");
+	if (path == 0)
+		return (0);
+	paths = ft_split(path, ':');
+	i = 0;
+	while (paths[i])
+	{
+		path = ft_strjoin("/", command);
+		if (i == 0)
+			path = ft_strjoin(ft_strtrim(paths[i], "PATH="), path);
+		else
+			path = ft_strjoin(paths[i], path);
+		free(paths[i]);
+		if (access(path, X_OK) == 0)
+			break ;
+		i += 1;
+	}
+	return (path);
 }
 
 int	exec_execve(char **command)

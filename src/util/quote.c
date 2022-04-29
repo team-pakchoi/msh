@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_len_to_next.c                                  :+:      :+:    :+:   */
+/*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:24:50 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/29 18:20:46 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 02:52:27 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_quote_closed(char *str, int *flag)
 	return (0);
 }
 
-void	deal_sep_func(char **str, int (*sep_func)(char *, int *))
+static void	deal_sep_func(char **str, int (*sep_func)(char *, int *))
 {
 	int	sep_len;
 	int	sep;

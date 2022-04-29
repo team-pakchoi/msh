@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_cmd_list.c                                     :+:      :+:    :+:   */
+/*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 04:54:50 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 02:52:58 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_args_to_prev_cmd(char **strarr)
+static void	set_args_to_prev_cmd(char **strarr)
 {
 	t_cmd	*node;
 	char	**new_arr;
@@ -29,7 +29,7 @@ void	set_args_to_prev_cmd(char **strarr)
 	add_cmd(strarr, 1);
 }
 
-int	set_new_cmd(char **strarr, int sep)
+static int	set_new_cmd(char **strarr, int sep)
 {
 	char	**shifted;
 
@@ -48,7 +48,7 @@ int	set_new_cmd(char **strarr, int sep)
 	return (1);
 }
 
-void	set_next_op(char **str, int *sep)
+static void	set_next_op(char **str, int *sep)
 {
 	*str += get_len_to_next(str, is_op);
 	*str += is_op(*str, sep);

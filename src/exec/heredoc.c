@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_heredoc.c                                     :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:58:58 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 04:59:21 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 01:38:38 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	write_prompt_to_heredoc(char *delimiter)
+static void	write_prompt_to_heredoc(char *delimiter)
 {
 	int		fd;
 	char	*str;

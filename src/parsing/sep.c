@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_func.c                                          :+:      :+:    :+:   */
+/*   sep.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 01:00:21 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 02:58:17 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 02:53:02 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_op_input(char *str, int *sep_num, int *len)
+static int	is_op_input(char *str, int *sep_num, int *len)
 {
 	if (str[0] == '<')
 	{
@@ -33,7 +33,7 @@ int	is_op_input(char *str, int *sep_num, int *len)
 	return (1);
 }
 
-int	is_op_output(char *str, int *sep_num, int *len)
+static int	is_op_output(char *str, int *sep_num, int *len)
 {
 	if (str[0] == '>')
 	{

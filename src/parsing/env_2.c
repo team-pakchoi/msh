@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trans_all_env.c                                    :+:      :+:    :+:   */
+/*   env_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/29 17:52:32 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 02:53:01 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*change_str(char *str, char *str_tar, char *str_src)
 	return (new);
 }
 
-char	*trans_env_name_to_value(char *str, int *start, int *end)
+static char	*trans_env_name_to_value(char *str, int *start, int *end)
 {
 	char	*env_name;
 	char	*env_value;
@@ -57,14 +57,14 @@ char	*trans_env_name_to_value(char *str, int *start, int *end)
 	return (parsed_str);
 }
 
-int	is_valid_env_name(char c)
+static int	is_valid_env_name(char c)
 {
 	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
 		return (1);
 	return (0);
 }
 
-int	get_next_env_point(char *str, int *start, int *end)
+static int	get_next_env_point(char *str, int *start, int *end)
 {
 	while (str[*start] && str[*start] != '$')
 		*start += 1;

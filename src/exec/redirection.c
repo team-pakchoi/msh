@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_redir.c                                       :+:      :+:    :+:   */
+/*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:10:36 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 07:15:12 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 01:38:40 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	open_output_fd(char *path, t_op op)
+static int	open_output_fd(char *path, t_op op)
 {
 	int	file_fd;
 

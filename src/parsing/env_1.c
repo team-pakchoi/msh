@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_env.c                                        :+:      :+:    :+:   */
+/*   env_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:41:00 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/29 19:38:26 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 02:52:59 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_next_str(char *str, int *idx, int *sep)
+static char	*get_next_str(char *str, int *idx, int *sep)
 {
 	int	len;
 
