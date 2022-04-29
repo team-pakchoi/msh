@@ -6,15 +6,20 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 07:24:50 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 07:48:51 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/29 18:20:46 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	is_quote(char c)
+{
+	return (c == '"' || c == '\'');
+}
+
 void	set_quotes_flag(char c, int *flag)
 {
-	if (c == 34 || c == 39)
+	if (is_quote(c))
 	{
 		if (*flag == c)
 			*flag = 0;
@@ -25,15 +30,15 @@ void	set_quotes_flag(char c, int *flag)
 
 int	check_quote_closed(char *str, int *flag)
 {
-	int	idx;
+	int	len;
 
-	idx = 0;
-	while (str[idx] && *flag != 0)
+	len = 0;
+	while (str[len] && *flag != 0)
 	{
-		idx += 1;
-		set_quotes_flag(str[idx], flag);
+		len += 1;
+		set_quotes_flag(str[len], flag);
 		if (*flag == 0)
-			return (idx);
+			return (len);
 	}
 	return (0);
 }

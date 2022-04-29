@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/28 05:42:25 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/29 18:20:32 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,12 +168,14 @@ void	read_arr(char **str);
 /*
 ** parse
 */
+int		is_quote(char c);
 void	set_quotes_flag(char c, int *flag);
 char	*change_str(char *str, char *str_tar, char *str_src);
 int		parse_cmd_env(char **cmd);
 int		parse_str_env(char **str);
 int		trans_all_env(char **str);
 int		set_cmd_list(char *str);
+int		check_quote_closed(char *str, int *flag);
 
 /*
 ** split
