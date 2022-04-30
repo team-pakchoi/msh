@@ -1,5 +1,6 @@
 
 ## Team Pakchoi 🥬
+
 - [cpak](https://github.com/PCHANUL)
 - [sarchoi](https://github.com/srngch)
 
@@ -20,6 +21,7 @@
     <li><a href="#compile">Compile</a></li>
 		<li><a href="#execute">Execute</a></li>
 		<li><a href="#example">Example</a></li>
+		<li><a href="#test">Test</a></li>
 		<li><a href="#links">Links</a></li>
   </ol>
 </details>
@@ -117,6 +119,87 @@ README.md	libft		src
 ~/path_to_pwd/minishell $ exit
 ```
 
+## Test
+
+### Test command
+
+Test using files with multiple lines of command in `test` directory. Each line of the file is in the following format: `command >> result.txt`
+
+```bash
+$ bash -i < test.txt # run interactive mode bash with test file
+$ mv result.txt result_bash.txt # change file name to keep result of bash
+$ ./minishell < test.txt # run minishell with test file
+$ diff result.txt result_bash.txt # compare result of bash and minishell
+$ cat result.txt # show result if you want
+```
+
+### Check memory leak
+
+```bash
+$ leaks -atExit -- ./minishell
+```
+
+## Logics
+
+### Flow Chart
+
+#### Entire
+
+```mermaid
+graph LR
+    e1([Start]) --> e2[initial]
+    e2 --> e3[[Command Loop]]
+    e3  --> e4[free]
+    e4 --> e5([Exit])
+```
+
+#### Command Loop
+
+```mermaid
+graph TD
+    start([Command Loop]) --> s1[update prompt string]
+    s1 --> s2{"<code>deal_prompt()</code><br/>readline"}
+    s2 -- string --> s3["<code>save_history()</code>"]
+    s3 --> s4["<code>deal_command()</code><br/>parse input & run command. <br/>if redir, change pipe"]
+    s4 --> s5["<code>remove_cmd_list()</code><br/>free t_cmd list"]
+    s5 --> s6["<code>restore_ori_stdin()</code><br/>if redir, restore pipe"]
+    s6 --> s7[free input<br/>that be allocated<br/>from readline]
+    s7 --> s2
+    s2 -- "eof<br/>(ctrl-d)" ------> return
+    return([return])
+```
+
+### Steps to parse input
+
+1. String `char *g_mini.prompt_input` is allocated from `readline`
+	```c
+	"echo hello $USER | cat -e > out.txt" // g_mini.prompt_input
+	```
+2. `g_mini.prompt_input` is split by a operator(`>`, `>>`, `<`, `<<`, `|`), into string array `char **arr`
+	```c
+	"echo hello $USER" // arr[0]
+	"cat -e" // arr[1]
+	"out.txt" // arr[2]
+	```
+3. Elements of `arr` is split by white space into a string array `char **strarr`
+	```c
+	"echo" // strarr[0] 
+	"hello" // strarr[1] 
+	"$USER" // strarr[2] 
+	```
+4. Translate environment variables name to value if `$` is found in the element of `strarr`
+	```c
+	"echo" // strarr[0] 
+	"hello" // strarr[1] 
+	"pakchoi" // strarr[2] 
+	```
+5. Keep `strarr` and a operator data in `t_cmd` structure and add it to the list `t_cmd *g_mini.cmd`
+
+### Priority of command execution
+
+1. `exec_assign()`: If string is input in the form `name=[value]`, assign it as a environment variable
+2. `exec_builtin()`: If the command is builtin command of minishell, then run it
+3. `exec_execve()`: If the command is not builtin command, then run it with `execve()`
 
 ## Links
 
