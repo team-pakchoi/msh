@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:28 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/02 02:34:49 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ void	remove_var(char *name)
 		before_tmp = tmp;
 		tmp = tmp->next;
 	}
-	before_tmp->next = tmp->next;
-	free(tmp->var);
-	free(tmp);
+	if (tmp)
+	{
+		before_tmp->next = tmp->next;
+		free(tmp->var);
+		free(tmp);
+	}
 }
 
 void	remove_var_list(void)

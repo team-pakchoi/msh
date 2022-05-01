@@ -1,1 +1,59 @@
-cd src >> result.txt
+cd .a
+echo $?
+cd 
+echo $?
+cd .. 
+echo $?
+cd . 
+echo $?
+cd /Users 
+echo $?
+cd // 
+echo $?
+cd '//' 
+echo $?
+cd ////// 
+echo $?
+cd ./././ 
+echo $?
+cd /
+echo $?
+cd '/etc' 
+echo $?
+cd '/var' 
+echo $?
+cd "$PWD/file_tests" 
+echo $?
+cd "doesntexist" 
+echo $?
+cd "doesntexist">/dev/null 
+echo $?
+cd ../../..
+echo $?
+cd "wtf" >/dev/null 
+cd
+cd ../../../../../../../../../../../../../../..
+echo $?
+echo $?
+cd .. 
+echo $?
+cd ..
+echo $?
+cd ?
+echo $?
+cd +
+echo $?
+cd _
+echo $?
+cd woof
+echo $?
+cd bark bark
+echo $?
+cd '/' 
+echo $?
+cd $PWD/file_tests 
+echo $?
+cd $OLDPWD/something 
+rm tmp1 tmp2 tmp3 tmp4 tmp5
+
+exit
