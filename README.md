@@ -201,6 +201,38 @@ graph TD
 2. `exec_builtin()`: If the command is builtin command of minishell, then run it
 3. `exec_execve()`: If the command is not builtin command, then run it with `execve()`
 
+### File Descriptor and pipe
+
+<details>
+  <summary>Detail</summary>
+  <div>
+		<section>
+			<h4>The default setting of STDIN and STDOUT</h4>
+			<img src="./images/diagram01.png" alt="The default setting of STDIN and STDOUT">
+		</section>
+		<section>
+			<h4>Pipe to execute a command with $PATH</h4>
+			<img src="./images/diagram02.png" alt="Pipe to execute a command with $PATH">
+			<ul>
+				<li><code>loop 1-1</code>: The child process to execute the command is forked. At this moment, the STDIN and STDOUT setting of the child process are the same as the main process.</li>
+				<li><code>loop 1-2</code>: A pipe is used to keep the result of the child process. The output of the child process and the in of the pipe are connected.</li>
+				<li><code>loop 1-3</code>:The child process executes the command program and then terminates. The result is sent to the connected pipe.</li>
+				<li><code>loop 1-4</code>: The out of the pipe and the input of the main process are connected.</li>
+				<li><code>loop 2-1</code>: The loop is repeated if there is a command thereafter. From the second iteration, the input received from the previous child process is used instead of the STDIN.</li>
+				<li>And it repeats like loop 1...</li>
+			</ul>
+		</section>
+		<section>
+			<h4>Pipe to assign env var and to execute a builtin command</h4>
+			<img src="./images/diagram03.png" alt="Pipe to assign env var and to execute a builtin command">
+			<ul>
+				<li>In order to assign environmental variables or to execute a builtin command, it is not necessary to fork the process. A pipe is used to receive the result of STDOUT as its own STDIN. If there is a command to be executed next, it will look at this STDIN.</li>
+				<li>Restore to default STDOUT for printing on the terminal.</li>
+			</ul>
+		</section>
+	</div>
+</details>
+
 ## Links
 
 - [Subject - 42 Intra](https://projects.intra.42.fr/projects/42cursus-minishell)
