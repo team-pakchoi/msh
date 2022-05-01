@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:41:00 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/28 06:29:54 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/29 19:38:26 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,30 @@
 
 char	*get_next_str(char *str, int *idx, int *sep)
 {
-	int	start;
+	int	len;
 
-	start = *idx;
 	*sep = 0;
-	if (str[*idx] == '"' || str[*idx] == '\'')
+	len = 0;
+	set_quotes_flag(str[*idx], sep);
+	if (*sep != 0)
 	{
-		*sep = str[*idx];
-		*idx += 1;
+		len = check_quote_closed(str + (*idx), sep);
+		set_quotes_flag(str[*idx], sep);
+		if (len)
+			return (ft_strndup(str + (*idx), len + 1));
 	}
-	while (str[*idx])
-	{
-		if (*sep == str[*idx])
-			return (ft_strndup(str + start, *idx - start + 1));
-		else if (*sep == 0 && (str[*idx] == '"' || str[*idx] == '\''))
-			return (ft_strndup(str + start, *idx - start));
-		*idx += 1;
-	}
+	len += 1;
+	while (str[*idx + len] && !is_quote(str[*idx + len]))
+		len += 1;
 	*sep = 0;
-	return (ft_strndup(str + start, *idx - start));
+	return (ft_strndup(str + (*idx), len));
 }
 
 int	parse_str_env(char **str)
 {
 	int		idx;
 	char	*tar;
-	char	*src;
+	char	*new;
 	int		sep;
 
 	idx = 0;
@@ -49,14 +47,12 @@ int	parse_str_env(char **str)
 		tar = get_next_str(*str, &idx, &sep);
 		if (tar == 0)
 			continue ;
-		src = ft_strtrim(tar, (const char *)&sep);
-		if (sep != '\'' && trans_all_env(&src) == 0)
+		new = ft_strtrim(tar, (const char *)&sep);
+		if (sep != '\'' && trans_all_env(&new) == 0)
 			return (0);
-		*str = change_str(*str, tar, src);
-		idx -= ft_strlen(tar) - ft_strlen(src);
-		if (sep != 0)
-			idx += 1;
-		free(src);
+		*str = change_str(*str, tar, new);
+		idx += ft_strlen(new);
+		free(new);
 		free(tar);
 	}
 	return (1);
