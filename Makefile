@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/04/13 21:33:57 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/04/30 03:25:58 by cpak             ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ $(NAME): $(OBJS)
 
 $(LIBFT):
 	@make all --silent --directory=$(LIBFT)
-	@make bonus --silent --directory=$(LIBFT)
 	$(info $(green)<MAKE> Libft - make$(reset))
 
 clean:

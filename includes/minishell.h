@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/29 18:20:32 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/04/30 01:14:18 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void	ft_echo(char **cmds);
 void	ft_cd(char **cmds);
 void	ft_pwd(void);
 
-void	set_var(char **cmds);
-
 /*
 ** util: cd
 */
@@ -155,7 +153,6 @@ int		deal_prompt(void);
 /*
 ** cmd
 */
-int		set_cmd_list(char *str);
 int		deal_command(void);
 
 int		add_cmd(char **strarr, t_op op);
@@ -198,7 +195,6 @@ void	set_fileout_to_fd(char *path, int fd);
 void	set_filein_to_fd(char *path, int fd);
 void	read_fd(int fd);
 void	print_file(char *path);
-char	*find_command_path(char *command);
 
 void	set_self_pipe(void);
 void	keep_ori_std(void);
