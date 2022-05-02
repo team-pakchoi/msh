@@ -6,13 +6,13 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/24 17:35:15 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/02 19:23:24 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_term(void)
+static void	init_term(void)
 {
 	struct termios	term;
 
@@ -21,7 +21,7 @@ void	init_term(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-void	sigint_handler(int signo)
+static void	sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
