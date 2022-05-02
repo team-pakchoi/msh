@@ -1,2 +1,65 @@
-export EVAL=42 >> result.txt
-echo $EVAL >> result.txt
+unset _
+
+export TESTFCGFCSGFC
+echo $?
+export TESTNBKJNLJ='rferfh$re"f'
+echo $?
+export TESTNBKJNLJdgf="'rferfh$ref'"
+echo $?
+export TESTNBKJNLJtcfgvhjbk="rferfh$re'f"
+echo $?
+export =
+echo $?
+export 1TESTHBGUHBUHB=
+echo $?
+export TESTOUHOSIOUNXJKNK 34khh -deded
+echo $?
+export ""=""
+echo $?
+export "="
+echo $?
+export TESTFGCHVJKNLJKHVJGCHFGVJBKNL2='"'
+echo $?
+export TESTFGCHVJKNLJKHVJGCHFGVJBKNL3="'"
+echo $?
+
+export "$"
+echo $?
+export TESTJHBSJCBJHSC111=T=""
+echo $?
+export TESTNJNCKJDCKDCKDJN222+S=T=""
+echo $?
+export TESTKXSLXSLX333=LOL 
+echo $?
+export TESTYGVSBNJKHBXGJHN444=LOL 
+echo $?
+export TESTREDTUHINJO555=LOL
+echo $?
+export TESTYRFTGUIHUJOKL666=lol
+echo $?
+export TESTYRFTGUIHUJOKL666=LOLdfgtgh
+echo $?
+export TESTYTFUGYHIUNJ777="ls       -l     - a" 
+echo $?
+
+export | grep TEST
+env | grep TEST | sort
+
+export arg='"hello"'
+echo $arg
+
+touch ls
+chmod 777 ls
+export ORIGINALPATH=$PATH
+export PATH="$PATH:$PWD"
+ls
+export PATH=$ORIGINALPATH
+export PATH="$PWD:$PATH"
+ls
+rm ls
+
+
+exit
+
+weird case : 
+export TESTFGCHVJKNLJKHVJGCHFGVJBKNL4="$"
