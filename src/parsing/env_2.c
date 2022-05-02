@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:53:01 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/02 16:44:54 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ static int	get_next_env_point(char *str, int *start, int *end)
 	while (str[*start] && str[*start] != '$')
 		*start += 1;
 	*end = *start + 1;
+	if (str[*end] && str[*end] == '?')
+	{
+		*end += 1;
+		return (1);
+	}
 	while (str[*end] && is_valid_env_name(str[*end]))
 		*end += 1;
 	if (!str[*start])
