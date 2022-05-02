@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
 /*   Updated: 2022/05/03 03:35:09 by cpak             ###   ########seoul.kr  */
@@ -29,11 +29,8 @@
 # define  FT_TRUE		1
 # define  FT_FALSE		0
 
-typedef int	t_bool;
-
 # define  PROMPT_STRING		" $ "
 # define  PROMPT_HEREDOC	"heredoc> "
-
 # define  PROMPT_COLOR_PWD		"\033[1;32m"
 # define  PROMPT_COLOR_PROMPT	"\033[1;35m"
 # define  PROMPT_COLOR_RESET	"\033[0m"
@@ -89,55 +86,9 @@ typedef struct s_minishell
 t_minishell	g_mini;
 
 /*
-** init: env
+** env
 */
 void	init_env(char **envp);
-
-/*
-** builtin
-*/
-void	ft_env(void);
-void	ft_unset(char **cmds);
-void	ft_export(char **cmds);
-void	ft_exit(char **cmds);
-void	ft_echo(char **cmds);
-void	ft_cd(char **cmds);
-void	ft_pwd(void);
-
-/*
-** util: cd
-*/
-int		valid_directory(char *path);
-int		valid_permission(char *path);
-int		has_directory(char *path);
-void	set_pwd_env(void);
-
-/*
-** util: var
-*/
-t_var	*find_var(char *name);
-char	*find_var_value(char *name);
-void	remove_var(char *name);
-void	remove_var_list(void);
-void	add_var(char *name_and_value, int scope);
-void	update_var(char *name, char *new_value);
-char	**find_all_env(void);
-int		is_valid_var_format(char *str);
-int		is_valid_var_name(const char *str);
-
-/*
-** util: export
-*/
-void	print_sorted_env(void);
-
-/*
-** util: print
-*/
-void	print_strerror(char *cmd_str);
-void	print_error(char *cmd_str, char *msg);
-void	print_error2(char *cmd_str, char *arg_str, char *msg);
-void	print_prompt(void);
-void	print_cwd(void);
 
 /*
 ** signal
@@ -155,12 +106,16 @@ int		deal_prompt(void);
 */
 int		deal_command(void);
 
-int		add_cmd(char **strarr, t_op op);
-void	remove_cmd_list(void);
-t_cmd	*find_nth_cmd(int idx);
-t_cmd	*find_last_cmd(void);
-void	read_all_cmd(void);
-void	read_arr(char **str);
+/*
+** builtin
+*/
+void	ft_env(void);
+void	ft_unset(char **cmds);
+void	ft_export(char **cmds);
+void	ft_exit(char **cmds);
+void	ft_echo(char **cmds);
+void	ft_cd(char **cmds);
+void	ft_pwd(void);
 
 /*
 ** parse
@@ -210,5 +165,49 @@ void	exec_heredoc(char *command[], int out_fd);
 
 int		is_op(char *str, int *sep_num);
 int		is_white_space(char *str, int *sep_num);
+
+/*
+** util: cd
+*/
+int		valid_directory(char *path);
+int		valid_permission(char *path);
+int		has_directory(char *path);
+void	set_pwd_env(void);
+
+/*
+** util: var
+*/
+t_var	*find_var(char *name);
+char	*find_var_value(char *name);
+void	remove_var(char *name);
+void	remove_var_list(void);
+void	add_var(char *name_and_value, int scope);
+void	update_var(char *name, char *new_value);
+char	**find_all_env(void);
+int		is_valid_var_name(const char *str);
+
+/*
+** util: export
+*/
+void	print_sorted_env(void);
+
+/*
+** util: print
+*/
+void	print_strerror(char *cmd_str);
+void	print_error(char *cmd_str, char *msg);
+void	print_error2(char *cmd_str, char *arg_str, char *msg);
+void	print_cwd(void);
+
+/*
+** util: cmd
+*/
+int		add_cmd(char **strarr, t_op op);
+void	remove_cmd_list(void);
+t_cmd	*find_nth_cmd(int idx);
+t_cmd	*find_last_cmd(void);
+void	read_all_cmd(void);
+void	read_arr(char **str);
+
 
 #endif

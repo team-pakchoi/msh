@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:08:32 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:29 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/02 19:34:55 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,24 @@ char	**find_all_env(void)
 		idx += 1;
 	}
 	return (arr);
+}
+
+int	is_valid_var_name(const char *str)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!str)
+		return (FT_FALSE);
+	if (str[0] == '=' || ft_isdigit(str[0]))
+		return (FT_FALSE);
+	while (str[i])
+	{
+		if (str[i] == '=')
+			break ;
+		if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
+			return (FT_FALSE);
+		i++;
+	}
+	return (FT_TRUE);
 }
