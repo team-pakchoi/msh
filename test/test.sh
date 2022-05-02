@@ -8,7 +8,7 @@ function test {
 		./minishell < tmp
 	done < "$input"
 
-	name="echo_$1.diff"
+	name="result_$1.diff"
 	diff -u result_bash result_mini > $name
 	rm tmp result_bash result_mini
 }
