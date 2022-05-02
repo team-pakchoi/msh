@@ -9,10 +9,11 @@ function test {
 	done < "$input"
 
 	name="result_$1.diff"
-	diff -u result_bash result_mini > $name
+	diff -u -s result_bash result_mini > $name
 	rm tmp result_bash result_mini
 }
 
+make re
 ls ./test | grep txt | sed s/.txt//g > test_files
 files="test_files"
 while IFS= read -r file
@@ -22,3 +23,4 @@ do
 done < "$files"
 
 rm test_files
+make fclean

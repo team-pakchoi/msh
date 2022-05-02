@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:04:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/30 03:24:51 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 03:20:58 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int				ft_strarr_len(char *str[]);
 size_t			ft_strarr_lcpy(char *dest[], char *src[], size_t size);
 char			**ft_strarr_join(char *a1[], char *a2[]);
 char			**ft_strarr_shift(char ***strarr);
+int				ft_strarr_remove(char ***strarr, int idx);
 void			ft_free_arr(char **arr);
 
 #endif

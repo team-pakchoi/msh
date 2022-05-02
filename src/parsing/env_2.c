@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/02 16:44:54 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/02 22:01:49 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ int	trans_all_env(char **str)
 	end = 0;
 	while (get_next_env_point(*str, &start, &end))
 	{
+		if (end - start == 1)
+		{
+			start = end;
+			continue ;
+		}
 		*str = trans_env_name_to_value(*str, &start, &end);
 		if (*str == 0)
 			return (0);

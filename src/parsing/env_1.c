@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:41:00 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:59 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 03:59:42 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,18 @@ int	parse_str_env(char **str)
 	return (1);
 }
 
-int	parse_cmd_env(char **cmd)
+int	parse_cmd_env(char ***strarr)
 {
 	int	idx;
 
 	idx = 0;
-	while (cmd[idx])
+	while ((*strarr)[idx])
 	{
-		parse_str_env(&cmd[idx]);
-		idx += 1;
+		parse_str_env(&(*strarr)[idx]);
+		if (idx != ft_strarr_len(*strarr) - 1 && ft_strlen((*strarr)[idx]) == 0)
+			ft_strarr_remove(strarr, idx);
+		else
+			idx += 1;
 	}
 	return (1);
 }
