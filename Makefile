@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/04/30 03:25:58 by cpak             ###   ########seoul.kr   #
+#    Updated: 2022/05/02 21:12:35 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,18 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-# TODO: edit wildcard to src files
-SRCS = $(wildcard src/*.c) $(wildcard src/*/*.c)
+SRCS_ROOT = main.c prompt.c command.c signal.c
+SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c pwd.c unset.c
+SRCS_EXEC = assign.c command.c heredoc.c redirection.c
+SRCS_PARSING = cmd.c env_1.c env_2.c sep.c split.c
+SRCS_UTIL = cd.c cmd.c export.c fd_1.c fd_2.c \
+	history.c print.c quote.c var_1.c var_2.c
+SRCS = $(addprefix ./src/, $(SRCS_ROOT)) \
+	$(addprefix ./src/builtin/, $(SRCS_BUILTIN)) \
+	$(addprefix ./src/exec/, $(SRCS_EXEC)) \
+	$(addprefix ./src/parsing/, $(SRCS_PARSING)) \
+	$(addprefix ./src/util/, $(SRCS_UTIL))
+
 OBJS = $(SRCS:.c=.o)
 
 LIBFT = libft
