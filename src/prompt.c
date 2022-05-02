@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:09 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:40 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/02 19:23:51 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_str_quote_closed(char *str, int *quote)
+static void	check_str_quote_closed(char *str, int *quote)
 {
 	while (*str)
 	{
