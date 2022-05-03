@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:59:56 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/06 00:48:19 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 16:51:12 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	check_n_option(char *str)
+{
+	int	idx;
+
+	idx = 1;
+	if (str[0] != '-' || str[1] == '-')
+		return (0);
+	while (str[idx] && str[idx] == 'n')
+		idx += 1;
+	if (str[idx - 1] != 'n')
+		return (0);
+	return (1);
+}
 
 void	ft_echo(char **cmds)
 {
@@ -18,7 +32,7 @@ void	ft_echo(char **cmds)
 
 	is_n_option = FT_FALSE;
 	cmds++;
-	if (*cmds && ft_strcmp(*cmds, "-n") == 0)
+	if (*cmds && check_n_option(*cmds))
 	{
 		is_n_option = FT_TRUE;
 		cmds++;
