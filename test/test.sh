@@ -2,25 +2,15 @@ function test {
 	input="./test/$1.txt"
 	while IFS= read -r line
 	do
-		if [ $1 == "env" ]
-		then
-			echo "export TEST=BLA" > tmp
-			echo "$line >> result_bash" >> tmp
-			bash -i < tmp
-			echo "export TEST=BLA" > tmp
-			echo "$line >> result_mini" >> tmp
-			./minishell < tmp
-		else
-			echo "$line >> result_bash" > tmp
-			bash -i < tmp
-			echo "$line >> result_mini" > tmp
-			./minishell < tmp
-		fi
+		echo "$line >> result_bash" >> tmp_bash
+		echo "$line >> result_mini" >> tmp_mini
 	done < "$input"
+	bash -i < tmp_bash
+	./minishell < tmp_mini
 
 	name="result_$1.diff"
 	diff -u -s result_bash result_mini > $name
-	rm tmp result_bash result_mini
+	rm tmp_bash tmp_mini result_bash result_mini
 }
 
 make re
