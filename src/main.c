@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 16:54:50 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 18:13:02 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ static void	update_prompt_str(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	(void)argc;
-	(void)argv;
 	keep_ori_std();
-	init_env(envp);
+	init_env(argc, argv, envp);
 	init_history();
 	init_signal();
 	while (1)
