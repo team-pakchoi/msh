@@ -73,11 +73,11 @@ The objective of this project is for you to create a simple shell. Yes, your own
 ```
 ./
 ├── includes/		# header files
-├── libft/			# library files
-├── src/			# source files
+├── libft/		# library files
+├── src/		# source files
 │   ├── builtin/	# builtin commands
 │   └── util/		# utility functions
-├── test/			# test command files
+├── test/		# test command files
 └── Makefile
 ```
 
@@ -139,6 +139,8 @@ $ cat result.txt # show result if you want
 $ leaks -atExit -- ./minishell
 ```
 
+Runs leaks when the Minishell exits.
+
 ## Logics
 
 ### Flow Chart
@@ -158,12 +160,12 @@ graph LR
 ```mermaid
 graph TD
     start([Command Loop]) --> s1[update prompt string]
-    s1 --> s2{"<code>deal_prompt()</code><br/>readline"}
+    s1 --> s2{"<code>deal_prompt()</code><br/>print prompt string<br/>receive input(readline)"}
     s2 -- string --> s3["<code>save_history()</code>"]
-    s3 --> s4["<code>deal_command()</code><br/>parse input & run command. <br/>if redir, change pipe"]
+    s3 --> s4["<code>deal_command()</code><br/>parse input string<br/>run command<br/>if redir, set a pipe"]
     s4 --> s5["<code>remove_cmd_list()</code><br/>free t_cmd list"]
     s5 --> s6["<code>restore_ori_stdin()</code><br/>if redir, restore pipe"]
-    s6 --> s7[free input<br/>that be allocated<br/>from readline]
+    s6 --> s7[free input string<br/>that was allocated<br/>from readline]
     s7 --> s2
     s2 -- "eof<br/>(ctrl-d)" ------> return
     return([return])
