@@ -23,4 +23,3 @@ do
 done < "$files"
 
 rm test_files
-make fclean
