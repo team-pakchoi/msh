@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:59:56 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/03 17:14:13 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 19:01:40 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static int	check_n_option(char *str)
 	int	idx;
 
 	idx = 1;
-	if (str[0] != '-' || str[1] == '-')
+	if (str[0] != '-' || str[1] != 'n')
 		return (0);
 	while (str[idx] && str[idx] == 'n')
 		idx += 1;
-	if (str[idx] && str[idx] != 'n')
+	if (str[idx])
 		return (0);
 	return (1);
 }
