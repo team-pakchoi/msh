@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 01:43:29 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:24 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 18:07:01 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int	init_history(void)
 	while (result > 0)
 	{
 		result = get_next_line(g_mini.history.fd, &line);
-		if (result == 0)
-			g_mini.history.prev_input = ft_strdup(line);
-		else
-			add_history(line);
+		g_mini.history.prev_input = ft_strndup(line, ft_strlen(line) - 1);
+		add_history(g_mini.history.prev_input);
 		free(line);
 	}
 	return (1);

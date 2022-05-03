@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 03:40:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:21 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 18:03:02 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	read_fd(int fd)
 
 	while (get_next_line(fd, &line) > 0)
 	{
-		printf("%s\n", line);
+		printf("%s", line);
 		free(line);
 		line = 0;
 	}
