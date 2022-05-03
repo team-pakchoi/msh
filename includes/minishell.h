@@ -123,7 +123,7 @@ void	ft_pwd(void);
 int		is_quote(char c);
 void	set_quotes_flag(char c, int *flag);
 char	*change_str(char *str, char *str_tar, char *str_src);
-int		parse_cmd_env(char **cmd);
+int		parse_cmd_env(char ***strarr);
 int		parse_str_env(char **str);
 int		trans_all_env(char **str);
 int		set_cmd_list(char *str);
