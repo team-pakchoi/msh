@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:10:36 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 01:38:40 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 18:02:01 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ static int	open_output_fd(char *path, t_op op)
 	return (file_fd);
 }
 
+static void	print_line_to_output(char *line, int file_fd)
+{
+	ft_putstr_fd(line, file_fd);
+	printf("%s", line);
+	free(line);
+}
+
 int	exec_output_redir(char *command[], t_op op)
 {
 	int		file_fd;
@@ -38,12 +45,9 @@ int	exec_output_redir(char *command[], t_op op)
 	dup2(fds[1], STDOUT_FILENO);
 	close(fds[1]);
 	while (get_next_line(STDIN_FILENO, &line) > 0)
-	{
-		ft_putstr_fd(line, file_fd);
-		ft_putstr_fd("\n", file_fd);
-		printf("%s\n", line);
-		free(line);
-	}
+		print_line_to_output(line, file_fd);
+	if (ft_strlen(line) > 0)
+		print_line_to_output(line, file_fd);
 	close(file_fd);
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[0]);
