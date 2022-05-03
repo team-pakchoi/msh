@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/02 20:00:36 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 15:34:39 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_pwd(void);
 int		is_quote(char c);
 void	set_quotes_flag(char c, int *flag);
 char	*change_str(char *str, char *str_tar, char *str_src);
-int		parse_cmd_env(char **cmd);
+int		parse_cmd_env(char ***strarr);
 int		parse_str_env(char **str);
 int		trans_all_env(char **str);
 int		set_cmd_list(char *str);
