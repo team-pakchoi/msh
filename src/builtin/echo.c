@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:59:56 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/03 19:01:40 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 19:18:39 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	ft_echo(char **cmds)
 
 	is_n_option = FT_FALSE;
 	cmds++;
-	if (*cmds && check_n_option(*cmds))
+	while (*cmds && check_n_option(*cmds))
 	{
-		is_n_option = FT_TRUE;
+		if (is_n_option == 0)
+			is_n_option = FT_TRUE;
 		cmds++;
 	}
 	while (*cmds)
