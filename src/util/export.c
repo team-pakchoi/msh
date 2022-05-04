@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 23:12:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/30 01:28:55 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 20:10:21 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	print_array(char **array)
 	i = 0;
 	while (array[i])
 	{
+		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(array[i], 1);
 		ft_putchar_fd('\n', 1);
 		i++;
