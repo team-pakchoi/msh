@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 03:19:14 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/04 16:21:34 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 21:53:52 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	ft_strarr_remove(char ***strarr, int tar_idx)
 			new_arr[idx_n] = (*strarr)[idx];
 			idx_n += 1;
 		}
+		else
+			free((*strarr)[idx]);
 		idx += 1;
 	}
 	free(*strarr);

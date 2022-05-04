@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:46:40 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/03 18:01:48 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 22:49:57 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	get_new_buf(int *fd, t_line *tline, t_memo **tmemo)
 	{
 		result = read(*fd, tmp_buf, BUFFER_SIZE);
 		if (result == -1)
-			return (-1);
+			break ;
 		tmp_buf[result] = 0;
 		if (result)
 		{
@@ -84,7 +84,6 @@ static int	get_new_buf(int *fd, t_line *tline, t_memo **tmemo)
 			memo_line(tmemo, tmp_buf, *fd);
 	}
 	free(tmp_buf);
-	tmp_buf = 0;
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 03:40:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/03 18:03:02 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 22:32:29 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	read_fd(int fd)
 	{
 		printf("%s", line);
 		free(line);
-		line = 0;
 	}
+	free(line);
 }
 
 void	print_file(char *path)

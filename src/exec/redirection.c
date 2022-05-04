@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:10:36 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/03 18:02:01 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 22:28:14 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	exec_output_redir(char *command[], t_op op)
 		print_line_to_output(line, file_fd);
 	if (ft_strlen(line) > 0)
 		print_line_to_output(line, file_fd);
+	free(line);
 	close(file_fd);
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[0]);
