@@ -6,13 +6,13 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/02 22:01:49 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 17:32:49 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*change_str(char *str, char *str_tar, char *str_src)
+char	*change_str(char *str, char *str_tar, char *str_src, int idx)
 {
 	char	*new;
 	int		len_tar;
@@ -26,7 +26,7 @@ char	*change_str(char *str, char *str_tar, char *str_src)
 			ft_strlen(str) - len_tar + len_src + 1, sizeof(char));
 	if (!new)
 		return (0);
-	while (ft_strncmp(str + i, str_tar, len_tar) != 0)
+	while (i < idx)
 	{
 		new[i] = str[i];
 		i += 1;
@@ -49,7 +49,7 @@ static char	*trans_env_name_to_value(char *str, int *start, int *end)
 		env_value = ft_itoa((int)g_mini.exit_status);
 	else
 		env_value = find_var_value(env_name + 1);
-	parsed_str = change_str(str, env_name, env_value);
+	parsed_str = change_str(str, env_name, env_value, *start);
 	*start = *end + ft_strlen(env_value) - ft_strlen(env_name);
 	if (env_name[1] == '?')
 		free(env_value);
@@ -74,6 +74,11 @@ static int	get_next_env_point(char *str, int *start, int *end)
 		*end += 1;
 		return (1);
 	}
+	if (str[*end] && ft_isdigit(str[*end]))
+	{
+		*end += 1;
+		return (1);
+	}
 	while (str[*end] && is_valid_env_name(str[*end]))
 		*end += 1;
 	if (!str[*start])
@@ -91,13 +96,13 @@ int	trans_all_env(char **str)
 	while (get_next_env_point(*str, &start, &end))
 	{
 		if (end - start == 1)
-		{
 			start = end;
-			continue ;
+		else
+		{
+			*str = trans_env_name_to_value(*str, &start, &end);
+			if (*str == 0)
+				return (0);
 		}
-		*str = trans_env_name_to_value(*str, &start, &end);
-		if (*str == 0)
-			return (0);
 	}
 	return (1);
 }

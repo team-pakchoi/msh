@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:41:00 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/03 14:33:29 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 17:43:39 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ int	parse_str_env(char **str)
 		if (tar == 0)
 			continue ;
 		new = ft_strtrim(tar, (const char *)&sep);
+		if (ft_strlen(new) == 1 && new[0] == '$' && is_quote((*str)[idx + 1]))
+			new[0] = 0;
 		if (sep != '\'' && trans_all_env(&new) == 0)
 			return (-1);
-		*str = change_str(*str, tar, new);
+		*str = change_str(*str, tar, new, idx);
 		idx += ft_strlen(new);
 		free(new);
 		free(tar);
@@ -69,10 +71,12 @@ int	parse_cmd_env(char ***strarr)
 	while ((*strarr)[idx])
 	{
 		sep = parse_str_env(&(*strarr)[idx]);
-		if (ft_strlen((*strarr)[idx]) == 0 && sep == 0 && idx != arr_len - 1)
+		if (ft_strlen((*strarr)[idx]) == 0 && sep == 0)
 		{
 			ft_strarr_remove(strarr, idx);
 			arr_len = ft_strarr_len(*strarr);
+			if (arr_len == idx)
+				break ;
 		}
 		else
 			idx += 1;
