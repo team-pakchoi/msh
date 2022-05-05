@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 16:26:22 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/03 18:01:02 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 21:47:26 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int	gnl_strcpy(char *dst, char *src, int *start_idx, int size)
 		*start_idx += 1;
 		i += 1;
 	}
-	if (src[i] == '\n' && src[i] && i < size)
+	if (src[i] && src[i] == '\n' && i < size)
 	{
 		dst[*start_idx] = src[i];
 		*start_idx += 1;
-		i += 1;
 		dst[*start_idx] = 0;
 		return (1);
 	}

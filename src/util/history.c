@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 01:43:29 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/03 18:07:01 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 21:48:04 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,21 @@ int	init_history(void)
 	char	*line;
 	int		result;
 
-	result = 1;
 	g_mini.history.fd = open(".history", O_RDWR | O_CREAT | O_EXCL, 0644);
 	if (g_mini.history.fd == -1)
 		g_mini.history.fd = open(".history", O_RDWR);
+	result = 1;
+	result = get_next_line(g_mini.history.fd, &line);
 	while (result > 0)
 	{
-		result = get_next_line(g_mini.history.fd, &line);
+		if (g_mini.history.prev_input)
+			free(g_mini.history.prev_input);
 		g_mini.history.prev_input = ft_strndup(line, ft_strlen(line) - 1);
 		add_history(g_mini.history.prev_input);
 		free(line);
+		result = get_next_line(g_mini.history.fd, &line);
 	}
+	free(line);
 	return (1);
 }
 

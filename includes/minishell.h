@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/04 15:13:42 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 23:02:53 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,5 @@ t_cmd	*find_nth_cmd(int idx);
 t_cmd	*find_last_cmd(void);
 void	read_all_cmd(void);
 void	read_arr(char **str);
-
 
 #endif
