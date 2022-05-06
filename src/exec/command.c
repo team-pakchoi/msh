@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 01:38:34 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/06 15:29:53 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static char	*find_command_path(char *command)
 		return (0);
 	paths = ft_split(path, ':');
 	i = 0;
+	if (ft_strnstr(command, "/", ft_strlen(command)) && !access(command, X_OK))
+		return (command);
 	while (paths[i])
 	{
 		path = ft_strjoin("/", command);
