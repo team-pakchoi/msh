@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 01:38:34 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/06 15:53:34 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	exec_builtin(char **cmd)
 	return (n);
 }
 
-static char	*find_command_path(char *command)
+static char	*find_cmd_path(char *command)
 {
 	char	**paths;
 	char	*path;
@@ -104,8 +104,7 @@ int	exec_execve(char **command)
 			set_pipein_to_stdout(fds);
 		if (**command == 0)
 			return (0);
-		if (execve(
-				find_command_path(command[0]), command, find_all_env()) == -1)
+		if (execve(find_cmd_path(command[0]), command, find_all_env()) == -1)
 		{
 			print_error(command[0], "command not found");
 			exit (127);
@@ -115,6 +114,7 @@ int	exec_execve(char **command)
 	if (g_mini.cmd_len != g_mini.cmd_idx)
 		set_pipeout_to_stdin(fds);
 	waitpid(pid, &status, 0);
-	g_mini.exit_status = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		g_mini.exit_status = WEXITSTATUS(status);
 	return (1);
 }
