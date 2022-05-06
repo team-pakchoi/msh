@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 14:04:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/03 03:20:58 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/05 21:47:55 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ typedef struct s_list
 int				get_next_line(int fd, char **line);
 int				ft_strarr_len(char *str[]);
 size_t			ft_strarr_lcpy(char *dest[], char *src[], size_t size);
+char			*ft_strarr_to_str(char *arr[], char *sep);
 char			**ft_strarr_join(char *a1[], char *a2[]);
 char			**ft_strarr_shift(char ***strarr);
-int				ft_strarr_remove(char ***strarr, int idx);
+int				ft_strarr_remove(char ***strarr, int len, int tar_idx);
 void			ft_free_arr(char **arr);
 
 #endif
