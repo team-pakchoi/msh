@@ -75,6 +75,8 @@ static char	*find_cmd_path(char *command)
 		return (0);
 	paths = ft_split(path, ':');
 	i = 0;
+	if (ft_strnstr(command, "/", ft_strlen(command)) && !access(command, X_OK))
+		return (command);
 	while (paths[i])
 	{
 		path = ft_strjoin("/", command);

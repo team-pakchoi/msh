@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/03 03:32:23 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/05 22:06:24 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	set_cmd_list(char *str)
 		strarr = split_with_quote(arr[idx], is_white_space);
 		if (!strarr)
 			return (0);
-		if (!parse_cmd_env(&strarr))
+		if (!parse_cmd(&strarr))
 			return (0);
 		if (!set_new_cmd(strarr, sep))
 			return (0);
