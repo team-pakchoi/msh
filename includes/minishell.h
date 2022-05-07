@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/05 17:34:01 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/07 16:19:02 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 
 # define  PROMPT_STRING		" $ "
 # define  PROMPT_HEREDOC	"heredoc> "
-# define  PROMPT_COLOR_PWD		"\033[1;32m"
-# define  PROMPT_COLOR_PROMPT	"\033[1;35m"
-# define  PROMPT_COLOR_RESET	"\033[0m"
+# define  PROMPT_COLOR_PWD		"\001\e[01;32m\002"
+# define  PROMPT_COLOR_PROMPT	"\001\e[01;35m\002"
+# define  PROMPT_COLOR_RESET	"\001\e[0m\002"
 
 typedef enum e_op
 {
