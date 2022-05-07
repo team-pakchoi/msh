@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 02:33:43 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/02 02:34:49 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/06 18:10:41 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	remove_var(char *name)
 	t_var	*before_tmp;
 
 	tmp = g_mini.env;
+	before_tmp = (t_var *) NULL;
 	while (tmp)
 	{
 		if (!ft_strncmp(name, tmp->var, name_len(tmp->var)))
@@ -66,7 +67,10 @@ void	remove_var(char *name)
 	}
 	if (tmp)
 	{
-		before_tmp->next = tmp->next;
+		if (before_tmp)
+			before_tmp->next = tmp->next;
+		else
+			g_mini.env = tmp->next;
 		free(tmp->var);
 		free(tmp);
 	}
