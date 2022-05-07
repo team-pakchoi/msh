@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/07 16:19:02 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 01:15:08 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,5 +208,10 @@ t_cmd	*find_nth_cmd(int idx);
 t_cmd	*find_last_cmd(void);
 void	read_all_cmd(void);
 void	read_arr(char **str);
+
+/*
+** util: exit
+*/
+void	exit_with_status(void);
 
 #endif
