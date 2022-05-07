@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/02 19:23:24 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/06 16:47:26 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ static void	init_term(void)
 
 static void	sigint_handler(int signo)
 {
-	if (signo != SIGINT)
+	if (signo != SIGINT || errno != EINTR)
+	{
+		g_mini.exit_status = 130;
 		return ;
+	}
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -32,11 +35,21 @@ static void	sigint_handler(int signo)
 	g_mini.exit_status = 1;
 }
 
+static void	sigquit_handler(int signo)
+{
+	if (signo != SIGQUIT || errno != EINTR)
+	{
+		ft_putstr_fd("Quit: 3\n", 1);
+		g_mini.exit_status = 131;
+		return ;
+	}
+}
+
 void	init_signal(void)
 {
 	init_term();
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, sigquit_handler);
 }
 
 void	eof_handler(void)
