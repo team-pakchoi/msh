@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/05 22:06:24 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 23:45:31 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	set_cmd_list(char *str)
 		sep = 1;
 	idx = 0;
 	arr = split_with_quote(str, is_op);
+	if (ft_strarr_len(arr) == 0)
+		g_mini.exit_status = (unsigned char)95;
 	while (arr[idx])
 	{
 		strarr = split_with_quote(arr[idx], is_white_space);

@@ -6,70 +6,52 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 01:00:21 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:53:02 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 21:31:10 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_op_input(char *str, int *sep_num, int *len)
+int	get_op_len(char *str)
 {
-	if (str[0] == '<')
-	{
-		*sep_num = 2;
-		*len = 1;
-		if (str[1] == '<')
-		{
-			*sep_num = 3;
-			*len = 2;
-		}
-		else if (str[1] == '>')
-		{
-			*sep_num = -1;
-			*len = 2;
-			g_mini.exit_status = 1;
-		}
-	}
-	return (1);
-}
+	int		len;
+	char	c;
 
-static int	is_op_output(char *str, int *sep_num, int *len)
-{
-	if (str[0] == '>')
+	len = 0;
+	c = str[len];
+	while (c)
 	{
-		*sep_num = 4;
-		*len = 1;
-		if (str[1] == '>')
-		{
-			*sep_num = 5;
-			*len = 2;
-		}
-		else if (str[1] == '<')
-		{
-			*sep_num = -1;
-			*len = 2;
-			g_mini.exit_status = 1;
-		}
+		if (c != '|' && c != '<' && c != '>')
+			break ;
+		len += 1;
+		c = str[len];
 	}
-	return (1);
+	return (len);
 }
 
 int	is_op(char *str, int *sep_num)
 {
 	int	len;
 
-	len = 0;
+	len = get_op_len(str);
 	*sep_num = 0;
-	if (str[0] == '|')
-	{
+	if (!ft_strncmp(str, "|", len))
 		*sep_num = 1;
-		return (1);
+	else if (!ft_strncmp(str, "<", len))
+		*sep_num = 2;
+	else if (!ft_strncmp(str, "<<", len))
+		*sep_num = 3;
+	else if (!ft_strncmp(str, ">", len))
+		*sep_num = 4;
+	else if (!ft_strncmp(str, ">>", len))
+		*sep_num = 5;
+	else
+	{
+		*sep_num = -1;
+		g_mini.exit_status = (unsigned char)95;
+		return (0);
 	}
-	if (is_op_input(str, sep_num, &len) && len != 0)
-		return (len);
-	if (is_op_output(str, sep_num, &len) && len != 0)
-		return (len);
-	return (0);
+	return (len);
 }
 
 int	is_white_space(char *str, int *sep_num)

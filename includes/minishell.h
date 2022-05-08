@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/05 17:34:01 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 21:16:25 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_minishell
 	int				cmd_idx;
 	t_var			*env;
 	unsigned char	exit_status;
+	int				syntax_error;
 }					t_minishell;
 
 t_minishell	g_mini;
@@ -206,7 +207,7 @@ int		add_cmd(char **strarr, t_op op);
 void	remove_cmd_list(void);
 t_cmd	*find_nth_cmd(int idx);
 t_cmd	*find_last_cmd(void);
-void	read_all_cmd(void);
-void	read_arr(char **str);
+void	read_cmd_list(void);
+void	read_arr(char **arr);
 
 #endif
