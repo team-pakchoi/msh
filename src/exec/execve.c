@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 03:53:42 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/08 03:53:45 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 23:08:46 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ static int	ft_execve(char *cmd, char **cmds)
 	if (stat(cmd, &buf) != 0)
 	{
 		if (find_var_value("PATH") == NULL)
-			print_error(cmd, "No such file or directory");
+			print_error(cmds[0], "No such file or directory");
 		else
-			print_error(cmd, "command not found!!");
+			print_error(cmds[0], "command not found");
 		g_mini.exit_status = 127;
 		return (FT_ERROR);
 	}
 	if (!(buf.st_mode & S_IXUSR || buf.st_mode & S_IXGRP
 			|| buf.st_mode & S_IXOTH))
 	{
-		print_error(cmd, "Permission denied");
+		print_error(cmds[0], "Permission denied");
 		g_mini.exit_status = 126;
 		return (FT_ERROR);
 	}
 	if (execve(cmd, cmds, find_all_env()) == FT_ERROR)
 	{
-		print_error(cmd, "command not found");
+		print_error(cmds[0], "command not found");
 		g_mini.exit_status = 127;
 		return (FT_ERROR);
 	}
