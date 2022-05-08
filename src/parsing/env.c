@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_2.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/04 17:32:49 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 03:16:57 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,12 @@ static char	*trans_env_name_to_value(char *str, int *start, int *end)
 
 	env_name = ft_strndup(str + *start, *end - *start);
 	if (env_name[1] == '?')
-		env_value = ft_itoa((int)g_mini.exit_status);
+	{
+		if (!g_mini.syntax_error)
+			env_value = ft_itoa((int)g_mini.exit_status);
+		else
+			env_value = ft_itoa(258);
+	}
 	else
 		env_value = find_var_value(env_name + 1);
 	parsed_str = change_str(str, env_name, env_value, *start);
