@@ -6,13 +6,13 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 02:11:58 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 06:06:18 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_args_to_prev_cmd(char **strarr)
+static int	set_args_to_prev_cmd(char **strarr)
 {
 	t_cmd	*node;
 	char	**new_arr;
@@ -21,12 +21,15 @@ static void	set_args_to_prev_cmd(char **strarr)
 	if (node)
 	{
 		new_arr = ft_strarr_join(node->strarr, strarr);
+		if (!new_arr)
+			return (0);
 		free(node->strarr);
 		free(strarr);
 		node->strarr = new_arr;
-		return ;
+		return (1);
 	}
 	add_cmd(strarr, 1);
+	return (1);
 }
 
 static int	set_new_cmd(char **strarr, int sep)
@@ -36,9 +39,15 @@ static int	set_new_cmd(char **strarr, int sep)
 	if (sep != 1)
 	{
 		shifted = ft_strarr_shift(&strarr);
-		set_args_to_prev_cmd(strarr);
-		if (!add_cmd(shifted, sep))
+		if (!shifted)
 			return (0);
+		if (!set_args_to_prev_cmd(strarr))
+			return (0);
+		if (!add_cmd(shifted, sep))
+		{
+			ft_free_arr(shifted);
+			return (0);
+		}
 	}
 	else
 	{
@@ -68,7 +77,10 @@ static int	set_strarr_to_list(char **arr, char *str, int sep)
 		if (!parse_cmd(&strarr))
 			return (0);
 		if (!set_new_cmd(strarr, sep))
+		{
+			ft_free_arr(strarr);
 			return (0);
+		}
 		set_next_op(&str, &sep);
 		idx += 1;
 		if (sep != 0 && arr[idx] == 0)
@@ -90,10 +102,15 @@ int	set_cmd_list(char *str)
 	else if (sep == 0)
 		sep = 1;
 	arr = split_with_quote(str, is_op);
+	if (!arr)
+		return (0);
 	if (ft_strarr_len(arr) == 0)
 		g_mini.exit_status = (unsigned char)95;
 	if (!set_strarr_to_list(arr, str, sep))
+	{
+		ft_free_arr(arr);
 		return (0);
+	}
 	ft_free_arr(arr);
 	return (1);
 }
