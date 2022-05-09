@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 03:53:42 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/08 23:08:46 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:05:22 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,17 @@ static void	run_command(char **cmds)
 	ft_execve(cmds[0], cmds);
 }
 
+static void	set_exit_status(int status)
+{
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+	{
+		ft_putstr_fd("Quit: 3\n", 1);
+		g_mini.exit_status = 131;
+	}
+	if (WIFEXITED(status))
+		g_mini.exit_status = WEXITSTATUS(status);
+}
+
 int	exec_execve(char **command)
 {
 	pid_t	pid;
@@ -94,6 +105,7 @@ int	exec_execve(char **command)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (g_mini.cmd_len != g_mini.cmd_idx)
 			set_pipein_to_stdout(fds);
 		if (**command == 0)
@@ -106,7 +118,6 @@ int	exec_execve(char **command)
 	if (g_mini.cmd_len != g_mini.cmd_idx)
 		set_pipeout_to_stdin(fds);
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		g_mini.exit_status = WEXITSTATUS(status);
+	set_exit_status(status);
 	return (1);
 }
