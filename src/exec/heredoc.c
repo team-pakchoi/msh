@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:58:58 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/05 17:34:29 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:13:27 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,4 @@ void	exec_heredoc(char *command[], int out_fd)
 	close(out_fd);
 	print_file(".heredoc");
 	unlink(".heredoc");
-	return ;
 }
