@@ -6,13 +6,13 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:46:40 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:10:27 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 22:49:57 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	check_memo(t_line **tline, t_memo **tmemo, int fd)
+static int	check_memo(t_line **tline, t_memo **tmemo, int fd)
 {
 	t_memo		*p_tmemo;
 	int			result;
@@ -39,7 +39,7 @@ int	check_memo(t_line **tline, t_memo **tmemo, int fd)
 	return (result);
 }
 
-void	memo_line(t_memo **tmemo, char *src, int fd)
+static void	memo_line(t_memo **tmemo, char *src, int fd)
 {
 	t_memo	*p_tmemo;
 	int		i;
@@ -59,7 +59,7 @@ void	memo_line(t_memo **tmemo, char *src, int fd)
 	p_tmemo->size = j;
 }
 
-int	get_new_buf(int *fd, t_line *tline, t_memo **tmemo)
+static int	get_new_buf(int *fd, t_line *tline, t_memo **tmemo)
 {
 	char	*tmp_buf;
 	int		result;
@@ -72,7 +72,7 @@ int	get_new_buf(int *fd, t_line *tline, t_memo **tmemo)
 	{
 		result = read(*fd, tmp_buf, BUFFER_SIZE);
 		if (result == -1)
-			return (-1);
+			break ;
 		tmp_buf[result] = 0;
 		if (result)
 		{
@@ -84,11 +84,10 @@ int	get_new_buf(int *fd, t_line *tline, t_memo **tmemo)
 			memo_line(tmemo, tmp_buf, *fd);
 	}
 	free(tmp_buf);
-	tmp_buf = 0;
 	return (result);
 }
 
-void	check_and_free_memo(t_memo **tmemo, int fd)
+static void	check_and_free_memo(t_memo **tmemo, int fd)
 {
 	t_memo		*next_tmemo;
 	int			all_is_done;

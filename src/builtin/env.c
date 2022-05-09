@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:54:44 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/27 16:46:45 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/03 18:24:03 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,37 @@ static void	increase_shlvl(void)
 	free(value);
 }
 
-void	init_env(char **envp)
+static void	update_shell(char **argv)
 {
+	char	*cwd;
+	char	*tmp;
+	char	*tmp2;
+
+	if (argv[0][0] == '/')
+	{
+		update_var("SHELL", argv[0]);
+		return ;
+	}
+	cwd = getcwd(NULL, 0);
+	if (ft_strncmp(argv[0], "./", 2) == 0)
+	{
+		tmp = ft_strjoin(cwd, argv[0] + 1);
+		update_var("SHELL", tmp);
+		free(tmp);
+		free(cwd);
+		return ;
+	}
+	tmp = ft_strjoin(cwd, "/");
+	tmp2 = ft_strjoin(tmp, argv[0]);
+	update_var("SHELL", tmp2);
+	free(tmp);
+	free(tmp2);
+	free(cwd);
+}
+
+void	init_env(int argc, char **argv, char **envp)
+{
+	(void)argc;
 	add_var(*envp, ENV_VAR);
 	envp++;
 	while (*envp)
@@ -33,6 +62,7 @@ void	init_env(char **envp)
 		envp++;
 	}
 	increase_shlvl();
+	update_shell(argv);
 	remove_var("OLDPWD");
 }
 

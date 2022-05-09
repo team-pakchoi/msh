@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/05/02 21:12:35 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/05/09 16:17:32 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ $(LIBFT):
 
 clean:
 	@rm -f $(OBJS)
+	@rm -f result.txt result_*.diff
 	$(info $(green)<MAKE> clean$(reset))
 	@make clean --silent --directory=$(LIBFT)
 	$(info $(green)<MAKE> Libft - clean$(reset))
@@ -68,4 +69,9 @@ fclean: clean
 re: fclean all
 	$(info $(red)<MAKE> re$(reset))
 
-.PHONY: all clean fclean re $(LIBFT) $(NAME)
+test: $(NAME)
+	$(info $(green)<MAKE> test$(reset))
+	./test/test.sh
+	$(info $(green)<MAKE> test - Complete! Check `result_` files$(reset))
+
+.PHONY: all clean fclean re test $(LIBFT) $(NAME)

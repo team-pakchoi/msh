@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:22:27 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/04/30 01:29:06 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 03:19:58 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ int	valid_directory(char *path)
 	if (buf.st_mode & S_IFDIR)
 		return (FT_TRUE);
 	print_error2("cd", path, "Not a directory");
+	g_mini.exit_status = 1;
+	return (FT_FALSE);
+}
+
+int	valid_executable(char *path)
+{
+	struct stat	buf;
+
+	if (stat(path, &buf) == -1)
+		return (FT_FALSE);
+	if (buf.st_mode & S_IFREG)
+		return (FT_TRUE);
+	print_error2("cd", path, "Not a file");
 	g_mini.exit_status = 1;
 	return (FT_FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 16:06:39 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/25 00:10:28 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/04 20:51:53 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 1
 
 typedef struct s_line
 {

@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:38:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:53:03 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 04:13:24 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,41 @@ static char	*get_str(char *str, int len)
 	return (result);
 }
 
+static int	set_splited_arr(char *str, char ***result, int nums,
+								int (*sep_func)(char *, int *))
+{
+	int		idx;
+	int		len;
+	int		sep;
+
+	idx = 0;
+	sep = 0;
+	while (idx < nums)
+	{
+		len = get_len_to_next(&str, sep_func);
+		(*result)[idx] = get_str(str, len + 1);
+		if (!(*result)[idx])
+			return (0);
+		str += sep_func(str + len, &sep) + len;
+		idx += 1;
+	}
+	(*result)[nums] = 0;
+	return (1);
+}
+
 char	**split_with_quote(char *str, int (*sep_func)(char *, int *))
 {
 	char	**result;
 	int		nums_splited;
-	int		idx;
-	int		len;
-	int		sep;
 
 	nums_splited = get_nums_splited(str, sep_func);
 	result = (char **)ft_calloc(nums_splited + 1, sizeof(char *));
 	if (result == 0)
 		return (0);
-	idx = 0;
-	sep = 0;
-	while (idx < nums_splited)
+	if (!set_splited_arr(str, &result, nums_splited, sep_func))
 	{
-		len = get_len_to_next(&str, sep_func);
-		result[idx] = get_str(str, len + 1);
-		if (!result[idx])
-			return (0);
-		str += len;
-		str += sep_func(str, &sep);
-		idx += 1;
+		ft_free_arr(result);
+		return (0);
 	}
-	result[nums_splited] = 0;
 	return (result);
 }

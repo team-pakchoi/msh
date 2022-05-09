@@ -13,7 +13,7 @@ SRCS = $(addprefix gnl/, $(GNL)) \
 	ft_split.c ft_itoa.c \
 	ft_putchar_fd.c ft_putstr_fd.c \
 	ft_strarr_len.c ft_strarr_lcpy.c ft_strarr_join.c ft_strarr_shift.c \
-	ft_free_arr.c
+	ft_free_arr.c ft_strarr_remove.c ft_strarr_to_str.c
 OBJS = ${SRCS:.c=.o}
 
 all: $(NAME)

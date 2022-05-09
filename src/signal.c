@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/02 19:23:24 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:04:54 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ static void	init_term(void)
 
 static void	sigint_handler(int signo)
 {
-	if (signo != SIGINT)
+	if (signo != SIGINT || errno != EINTR)
+	{
+		g_mini.exit_status = 130;
 		return ;
+	}
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

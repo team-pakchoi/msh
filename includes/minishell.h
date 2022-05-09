@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/02 20:00:36 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 03:24:29 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 
 # define  PROMPT_STRING		" $ "
 # define  PROMPT_HEREDOC	"heredoc> "
-# define  PROMPT_COLOR_PWD		"\033[1;32m"
-# define  PROMPT_COLOR_PROMPT	"\033[1;35m"
-# define  PROMPT_COLOR_RESET	"\033[0m"
+# define  PROMPT_COLOR_PWD		"\001\e[01;32m\002"
+# define  PROMPT_COLOR_PROMPT	"\001\e[01;35m\002"
+# define  PROMPT_COLOR_RESET	"\001\e[0m\002"
 
 typedef enum e_op
 {
@@ -81,14 +81,17 @@ typedef struct s_minishell
 	int				cmd_idx;
 	t_var			*env;
 	unsigned char	exit_status;
+	int				syntax_error;
 }					t_minishell;
 
 t_minishell	g_mini;
 
+void	free_global(void);
+
 /*
 ** env
 */
-void	init_env(char **envp);
+void	init_env(int argc, char **argv, char **envp);
 
 /*
 ** signal
@@ -122,9 +125,9 @@ void	ft_pwd(void);
 */
 int		is_quote(char c);
 void	set_quotes_flag(char c, int *flag);
-char	*change_str(char *str, char *str_tar, char *str_src);
-int		parse_cmd_env(char **cmd);
-int		parse_str_env(char **str);
+char	*change_str(char *str, char *str_tar, char *str_src, int idx);
+int		parse_cmd(char ***strarr);
+int		parse_str(char **str);
 int		trans_all_env(char **str);
 int		set_cmd_list(char *str);
 int		check_quote_closed(char *str, int *flag);
@@ -170,6 +173,7 @@ int		is_white_space(char *str, int *sep_num);
 ** util: cd
 */
 int		valid_directory(char *path);
+int		valid_executable(char *path);
 int		valid_permission(char *path);
 int		has_directory(char *path);
 void	set_pwd_env(void);
@@ -206,8 +210,12 @@ int		add_cmd(char **strarr, t_op op);
 void	remove_cmd_list(void);
 t_cmd	*find_nth_cmd(int idx);
 t_cmd	*find_last_cmd(void);
-void	read_all_cmd(void);
-void	read_arr(char **str);
+void	read_cmd_list(void);
+void	read_arr(char **arr);
 
+/*
+** util: exit
+*/
+void	exit_with_status(void);
 
 #endif

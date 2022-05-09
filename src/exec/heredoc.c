@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:58:58 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 01:38:38 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:13:27 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ static void	write_prompt_to_heredoc(char *delimiter)
 			break ;
 		if (ft_strcmp(str, delimiter) == 0)
 			break ;
-		if (parse_str_env(&str) == 0)
+		if (parse_str(&str) == -1)
 			break ;
 		ft_putstr_fd(str, fd);
 		ft_putstr_fd("\n", fd);
 		free(str);
 		str = 0;
 	}
+	free(str);
 	close(fd);
 }
 
@@ -49,5 +50,4 @@ void	exec_heredoc(char *command[], int out_fd)
 	close(out_fd);
 	print_file(".heredoc");
 	unlink(".heredoc");
-	return ;
 }

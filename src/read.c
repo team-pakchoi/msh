@@ -1,25 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 11:57:59 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/04 18:34:51 by cpak             ###   ########seoul.kr  */
+/*   Created: 2022/05/08 21:00:01 by cpak              #+#    #+#             */
+/*   Updated: 2022/05/09 13:36:37 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	read_arr(char **arr)
 {
-	if (!s1 || !s2)
-		return (1);
-	while (*s1 && *s2 && *s1 == *s2)
+	int	idx;
+
+	idx = 0;
+	while (arr[idx])
 	{
-		s1++;
-		s2++;
+		printf("idx: %d\n", idx);
+		printf("|%s|\n", arr[idx]);
+		idx += 1;
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	printf("=\n");
+}
+
+void	read_cmd_list(void)
+{
+	t_cmd	*node;
+
+	node = g_mini.cmd;
+	printf("----cmd----\n");
+	while (node != 0)
+	{
+		printf("op: %d\n", node->op);
+		printf("-\n");
+		read_arr(node->strarr);
+		node = node->next;
+	}
+	printf("----cmd----\n");
 }

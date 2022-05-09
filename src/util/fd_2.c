@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 03:40:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:21 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:16:59 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	read_fd(int fd)
 
 	while (get_next_line(fd, &line) > 0)
 	{
-		printf("%s\n", line);
+		printf("%s", line);
 		free(line);
-		line = 0;
 	}
+	free(line);
 }
 
 void	print_file(char *path)
@@ -47,9 +47,11 @@ void	print_file(char *path)
 	file_fd = open(path, O_RDONLY);
 	if (file_fd == -1)
 	{
-		perror("no such file or directory");
-		g_mini.exit_status = 127;
+		perror("minishell: file error");
+		g_mini.exit_status = 1;
+		return ;
 	}
+	read_fd(STDIN_FILENO);
 	read_fd(file_fd);
 	close(file_fd);
 }
