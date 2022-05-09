@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:08:32 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/02 19:34:55 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 10:55:20 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	add_var(char *name_and_value, int scope)
 
 	tmp = g_mini.env;
 	new = var_new(ft_strdup(name_and_value), scope);
+	if (!new)
+	{
+		ft_putstr_fd("minishell: malloc error", 2);
+		return ;
+	}
 	if (!tmp)
 	{
 		g_mini.env = new;
