@@ -89,6 +89,24 @@ Developed and tested in this environment.
 
 ## Compile
 
+Install the following dependencies:
+
+```bash
+$ brew install readline
+$ brew info readline
+# export LDFLAGS="-L/usr/local/opt/readline/lib"
+# export CPPFLAGS="-I/usr/local/opt/readline/include"
+```
+
+Check flag `LDFLAGS` and `CPPFLAGS` in `Makefile` is same as on `brew info readline`.
+
+If you want to run Minishell at 42 Cluster Mac, you need to change the following:
+
+```Makefile
+READLINE_FLAGS = -l readline -L ${HOME}/.brew/opt/readline/lib
+
+INC_FLAGS = -I includes -I $(LIBFT) -I ${HOME}/.brew/opt/readline/include
+```
 ### Mandatory
 
 ```bash
