@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 03:24:29 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 16:07:31 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	set_pipeout_to_stdin(int *fds);
 void	set_fileout_to_fd(char *path, int fd);
 void	set_filein_to_fd(char *path, int fd);
 void	read_fd(int fd);
-void	print_file(char *path);
+int		print_file(char *path);
 
 void	set_self_pipe(void);
 void	keep_ori_std(void);
@@ -164,7 +164,7 @@ int		exec_builtin(char **cmd);
 int		exec_execve(char **command);
 int		exec_output_redir(char *command[], t_op op);
 int		exec_input_redir(char *command[], t_op op);
-void	exec_heredoc(char *command[], int out_fd);
+int		exec_heredoc(char *command[], int out_fd);
 
 int		is_op(char *str, int *sep_num);
 int		is_white_space(char *str, int *sep_num);

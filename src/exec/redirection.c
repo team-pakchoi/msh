@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:10:36 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 15:16:21 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 16:08:22 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int	exec_output_redir(char *command[], t_op op)
 int	exec_input_redir(char *command[], t_op op)
 {
 	int	fds[2];
+	int	result;
 
+	result = 1;
 	pipe(fds);
 	if (g_mini.cmd_idx == 1)
 		close(STDIN_FILENO);
@@ -74,13 +76,13 @@ int	exec_input_redir(char *command[], t_op op)
 	if (op == INPUT)
 	{
 		close(fds[1]);
-		print_file(command[0]);
+		result = print_file(command[0]);
 	}
 	else
-		exec_heredoc(command, fds[1]);
+		result = exec_heredoc(command, fds[1]);
 	dup2(fds[0], STDIN_FILENO);
 	close(fds[0]);
 	close(STDOUT_FILENO);
 	restore_ori_stdout();
-	return (1);
+	return (result);
 }
