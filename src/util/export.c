@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 23:12:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/07 15:24:27 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 10:57:21 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static char	**list_to_array(t_var *list)
 		tmp = tmp->next;
 	}
 	array = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!array)
+		return (NULL);
 	tmp = list;
 	i = 0;
 	while (tmp)
@@ -93,6 +95,8 @@ void	print_sorted_env(void)
 	char	**array;
 
 	array = list_to_array(g_mini.env);
+	if (!array)
+		return ;
 	sort_array(array);
 	print_array(array);
 	free_array(array);
