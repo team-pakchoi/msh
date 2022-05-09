@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/06 16:47:26 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:04:54 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,11 @@ static void	sigint_handler(int signo)
 	g_mini.exit_status = 1;
 }
 
-static void	sigquit_handler(int signo)
-{
-	if (signo != SIGQUIT || errno != EINTR)
-	{
-		ft_putstr_fd("Quit: 3\n", 1);
-		g_mini.exit_status = 131;
-		return ;
-	}
-}
-
 void	init_signal(void)
 {
 	init_term();
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	eof_handler(void)
