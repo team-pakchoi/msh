@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 13:39:25 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 16:27:51 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*change_str(char *str, char *str_tar, char *str_src, int idx)
 	int		len_src;
 	int		i;
 
-	i = 0;
+	i = -1;
 	len_tar = ft_strlen(str_tar);
 	len_src = ft_strlen(str_src);
 	new = (char *)ft_calloc(
@@ -29,11 +29,8 @@ char	*change_str(char *str, char *str_tar, char *str_src, int idx)
 		free(str);
 		return (0);
 	}
-	while (i < idx)
-	{
+	while (++i < idx)
 		new[i] = str[i];
-		i += 1;
-	}
 	i += ft_strlcpy(new + i, str_src, len_src + 1);
 	i += ft_strlcpy(new + i, str + i - len_src + len_tar,
 			ft_strlen(str + i - len_src + len_tar) + 1);

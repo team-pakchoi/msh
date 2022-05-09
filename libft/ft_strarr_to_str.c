@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strarr_to_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:53:06 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/05 22:33:19 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 16:23:33 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static int	get_total_str_len(char *arr[], int len_arr, char *sep)
 {
