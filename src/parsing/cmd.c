@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/05 22:06:24 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 02:11:58 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,12 @@ static void	set_next_op(char **str, int *sep)
 	*str += is_op(*str, sep);
 }
 
-int	set_cmd_list(char *str)
+static int	set_strarr_to_list(char **arr, char *str, int sep)
 {
-	char	**arr;
-	int		sep;
 	char	**strarr;
 	int		idx;
 
-	while (is_white_space(str, &sep))
-		str += 1;
-	if (!is_op(str, &sep))
-		sep = 1;
 	idx = 0;
-	arr = split_with_quote(str, is_op);
 	while (arr[idx])
 	{
 		strarr = split_with_quote(arr[idx], is_white_space);
@@ -78,7 +71,29 @@ int	set_cmd_list(char *str)
 			return (0);
 		set_next_op(&str, &sep);
 		idx += 1;
+		if (sep != 0 && arr[idx] == 0)
+			g_mini.exit_status = (unsigned char)95;
 	}
+	return (1);
+}
+
+int	set_cmd_list(char *str)
+{
+	char	**arr;
+	int		sep;
+
+	while (is_white_space(str, &sep))
+		str += 1;
+	is_op(str, &sep);
+	if (sep == 1)
+		g_mini.exit_status = (unsigned char)95;
+	else if (sep == 0)
+		sep = 1;
+	arr = split_with_quote(str, is_op);
+	if (ft_strarr_len(arr) == 0)
+		g_mini.exit_status = (unsigned char)95;
+	if (!set_strarr_to_list(arr, str, sep))
+		return (0);
 	ft_free_arr(arr);
 	return (1);
 }

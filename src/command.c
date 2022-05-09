@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:33 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 23:45:34 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ int	deal_command(void)
 		return (0);
 	if (!set_cmd_list(g_mini.prompt_input))
 		return (0);
+	if (g_mini.exit_status == 95)
+	{
+		g_mini.syntax_error = 1;
+		g_mini.exit_status = 0;
+		ft_putstr_fd("minishell: syntax error: unexpected token\n", 2);
+		return (0);
+	}
 	g_mini.cmd_idx = 1;
 	cmd = g_mini.cmd;
 	while (cmd)
@@ -49,5 +56,7 @@ int	deal_command(void)
 		cmd = cmd->next;
 		g_mini.cmd_idx += 1;
 	}
+	if (g_mini.syntax_error)
+		g_mini.syntax_error = 0;
 	return (1);
 }
