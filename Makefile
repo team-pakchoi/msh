@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/05/09 16:17:32 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/05/09 16:25:23 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS_ROOT = main.c prompt.c command.c signal.c
 SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c pwd.c unset.c
-SRCS_EXEC = assign.c command.c heredoc.c redirection.c
-SRCS_PARSING = cmd.c env_1.c env_2.c sep.c split.c
-SRCS_UTIL = cd.c cmd.c export.c fd_1.c fd_2.c \
+SRCS_EXEC = assign.c builtin.c execve.c heredoc.c redirection.c
+SRCS_PARSING = cmd.c env.c parse_cmd.c parse_str.c sep.c split.c
+SRCS_UTIL = cd.c cmd.c exit.c export.c fd_1.c fd_2.c \
 	history.c print.c quote.c var_1.c var_2.c
 SRCS = $(addprefix ./src/, $(SRCS_ROOT)) \
 	$(addprefix ./src/builtin/, $(SRCS_BUILTIN)) \
