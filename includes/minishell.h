@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/08 01:15:08 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/08 03:20:43 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int		is_white_space(char *str, int *sep_num);
 ** util: cd
 */
 int		valid_directory(char *path);
+int		valid_executable(char *path);
 int		valid_permission(char *path);
 int		has_directory(char *path);
 void	set_pwd_env(void);
