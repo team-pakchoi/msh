@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 03:53:42 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 15:05:22 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:35:30 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ static int	ft_execve(char *cmd, char **cmds)
 		g_mini.exit_status = 126;
 		return (FT_ERROR);
 	}
-	if (execve(cmd, cmds, find_all_env()) == FT_ERROR)
+	printf("%s\n", cmd);
+	read_arr(cmds);
+	char **tmp;
+	tmp = find_all_env();
+	read_arr(tmp);
+	if (execve(cmd, cmds, tmp) == FT_ERROR)
 	{
 		print_error(cmds[0], "command not found");
 		g_mini.exit_status = 127;
