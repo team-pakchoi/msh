@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 03:40:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 02:41:12 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:16:59 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void	print_file(char *path)
 	if (file_fd == -1)
 	{
 		perror("minishell: file error");
-		g_mini.exit_status = 127;
+		g_mini.exit_status = 1;
 		return ;
 	}
+	read_fd(STDIN_FILENO);
 	read_fd(file_fd);
 	close(file_fd);
 }

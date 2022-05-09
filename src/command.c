@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 06:03:39 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 13:51:24 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ static int	deal_cmd_node(t_cmd *cmd)
 
 static int	deal_syntax_error(void)
 {
-	if (g_mini.exit_status == 95)
+	if (g_mini.exit_status > 90)
 	{
+		if (g_mini.exit_status == 95)
+			ft_putstr_fd("minishell: syntax error: unexpected token\n", 2);
+		if (g_mini.exit_status == 94)
+			ft_putstr_fd("minishell: ambiguous redirect\n", 2);
 		g_mini.syntax_error = 1;
 		g_mini.exit_status = 0;
-		ft_putstr_fd("minishell: syntax error: unexpected token\n", 2);
 		return (0);
 	}
 	return (1);

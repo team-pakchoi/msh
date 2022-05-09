@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:10:36 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/05 20:34:05 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:16:21 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ static int	open_output_fd(char *path, t_op op)
 	file_fd = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644);
 	if (file_fd == -1)
 	{
-		if (op == OUTPUT)
+		if (ft_strlen(path) == 0)
+		{
+			perror("minishell: ");
+			g_mini.exit_status = 1;
+			return (-1);
+		}
+		else if (op == OUTPUT)
 			file_fd = open(path, O_WRONLY | O_TRUNC);
 		else
 			file_fd = open(path, O_WRONLY | O_APPEND);
@@ -41,6 +47,8 @@ int	exec_output_redir(char *command[], t_op op)
 	char	*line;
 
 	file_fd = open_output_fd(command[0], op);
+	if (file_fd == -1)
+		return (0);
 	pipe(fds);
 	dup2(fds[1], STDOUT_FILENO);
 	close(fds[1]);
@@ -57,13 +65,12 @@ int	exec_output_redir(char *command[], t_op op)
 
 int	exec_input_redir(char *command[], t_op op)
 {
-	int		fds[2];
+	int	fds[2];
 
 	pipe(fds);
 	if (g_mini.cmd_idx == 1)
 		close(STDIN_FILENO);
 	dup2(fds[1], STDOUT_FILENO);
-	read_fd(STDIN_FILENO);
 	if (op == INPUT)
 	{
 		close(fds[1]);

@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 05:25:34 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 13:39:25 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*change_str(char *str, char *str_tar, char *str_src, int idx)
 	i += ft_strlcpy(new + i, str_src, len_src + 1);
 	i += ft_strlcpy(new + i, str + i - len_src + len_tar,
 			ft_strlen(str + i - len_src + len_tar) + 1);
+	new[ft_strlen(str) - len_tar + len_src] = 0;
 	free(str);
 	return (new);
 }
