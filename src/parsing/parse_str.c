@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 16:41:00 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/05 22:33:33 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 05:50:45 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*get_next_str(char *str, int *idx, int *sep)
 {
-	int	len;
+	int		len;
 
 	*sep = 0;
 	len = 0;
@@ -52,16 +52,20 @@ static void	remove_str_quotes(char **str)
 	}
 }
 
-int	parse_quotes(char **str)
+static int	parse_quotes(char **str)
 {
 	char	**strarr;
 	int		i;
 
 	strarr = split_with_quote((*str), is_white_space);
+	if (!strarr)
+		return (0);
 	i = 0;
 	while (strarr[i])
 	{
 		remove_str_quotes(&strarr[i]);
+		if (!strarr[i])
+			return (0);
 		i += 1;
 	}
 	free(*str);
@@ -70,52 +74,43 @@ int	parse_quotes(char **str)
 	return (1);
 }
 
+static int	parse_str_env(char **str, int *idx, int *sep)
+{
+	char	*tar;
+	char	*new;
+
+	tar = get_next_str(*str, idx, sep);
+	if (tar == 0)
+		return (0);
+	new = ft_strdup(tar);
+	if (ft_strlen(new) == 1 && new[0] == '$' && is_quote((*str)[(*idx) + 1]))
+		new[0] = 0;
+	if ((*sep) != '\'' && trans_all_env(&new) == 0)
+	{
+		free(tar);
+		return (0);
+	}
+	*str = change_str(*str, tar, new, (*idx));
+	if (!*str)
+		return (0);
+	(*idx) += ft_strlen(new);
+	free(new);
+	free(tar);
+	return (1);
+}
+
 int	parse_str(char **str)
 {
 	int		idx;
-	char	*tar;
-	char	*new;
 	int		sep;
 
 	idx = 0;
 	sep = 0;
 	while ((*str)[idx])
 	{
-		tar = get_next_str(*str, &idx, &sep);
-		if (tar == 0)
-			continue ;
-		new = ft_strdup(tar);
-		if (ft_strlen(new) == 1 && new[0] == '$' && is_quote((*str)[idx + 1]))
-			new[0] = 0;
-		if (sep != '\'' && trans_all_env(&new) == 0)
+		if (!parse_str_env(str, &idx, &sep))
 			return (-1);
-		*str = change_str(*str, tar, new, idx);
-		idx += ft_strlen(new);
-		free(new);
-		free(tar);
 	}
 	parse_quotes(&(*str));
 	return (sep);
-}
-
-int	parse_cmd(char ***strarr)
-{
-	int	idx;
-	int	sep;
-	int	arr_len;
-
-	idx = 0;
-	arr_len = ft_strarr_len(*strarr);
-	while ((*strarr)[idx])
-	{
-		sep = parse_str(&(*strarr)[idx]);
-		if (ft_strlen((*strarr)[idx]) == 0 && sep == 0)
-		{
-			ft_strarr_remove(strarr, arr_len, idx);
-			arr_len -= 1;
-		}
-		else
-			idx += 1;
-	}
-	return (1);
 }

@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strarr_remove.c                                 :+:      :+:    :+:   */
+/*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 03:19:14 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 14:09:31 by cpak             ###   ########seoul.kr  */
+/*   Created: 2022/05/09 05:50:03 by cpak              #+#    #+#             */
+/*   Updated: 2022/05/09 05:50:25 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strarr_remove(char ***strarr, int len, int tar_idx)
+int	parse_cmd(char ***strarr)
 {
-	char	**new_arr;
-	int		idx_n;
-	int		idx;
+	int	idx;
+	int	sep;
+	int	arr_len;
 
-	new_arr = (char **)ft_calloc(len, sizeof(char **));
-	if (!new_arr)
-		return (0);
 	idx = 0;
-	idx_n = 0;
-	while (idx < len)
+	arr_len = ft_strarr_len(*strarr);
+	while ((*strarr)[idx])
 	{
-		if (idx != tar_idx)
+		sep = parse_str(&(*strarr)[idx]);
+		if (sep == -1)
 		{
-			new_arr[idx_n] = ft_strdup((*strarr)[idx]);
-			idx_n += 1;
+			ft_free_arr(*strarr);
+			return (0);
 		}
-		idx += 1;
+		if (ft_strlen((*strarr)[idx]) == 0 && sep == 0)
+		{
+			ft_strarr_remove(strarr, arr_len, idx);
+			arr_len -= 1;
+		}
+		else
+			idx += 1;
 	}
-	ft_free_arr(*strarr);
-	new_arr[len - 1] = 0;
-	*strarr = new_arr;
 	return (1);
 }

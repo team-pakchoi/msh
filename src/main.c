@@ -3,21 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/03 18:13:02 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 04:26:31 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	free_global(void)
+void	free_global(void)
 {
 	remove_var_list();
 	remove_cmd_list();
 	free(g_mini.prompt_str);
 	free(g_mini.history.prev_input);
+}
+
+void	free_and_exit(void)
+{
+	free_global();
+	exit(1);
 }
 
 static void	update_prompt_str(void)
