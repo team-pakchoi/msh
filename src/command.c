@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 13:51:24 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 16:12:15 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static int	deal_cmd_node(t_cmd *cmd)
 {
 	char	**command;
 	int		idx;
+	int		result;
 
+	result = 1;
 	command = cmd->strarr;
 	if (cmd->op == PIPE)
 	{
@@ -27,10 +29,10 @@ static int	deal_cmd_node(t_cmd *cmd)
 			exec_execve(command);
 	}
 	else if (cmd->op == INPUT || cmd->op == INPUT_D)
-		exec_input_redir(command, cmd->op);
+		result = exec_input_redir(command, cmd->op);
 	else if (cmd->op == OUTPUT || cmd->op == OUTPUT_D)
-		exec_output_redir(command, cmd->op);
-	return (1);
+		result = exec_output_redir(command, cmd->op);
+	return (result);
 }
 
 static int	deal_syntax_error(void)
@@ -65,7 +67,8 @@ int	deal_command(void)
 	cmd = g_mini.cmd;
 	while (cmd)
 	{
-		deal_cmd_node(cmd);
+		if (!deal_cmd_node(cmd))
+			return (0);
 		cmd = cmd->next;
 		g_mini.cmd_idx += 1;
 	}

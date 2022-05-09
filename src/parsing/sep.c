@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 01:00:21 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 01:19:18 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:58:33 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ int	is_op(char *str, int *sep_num)
 	if (len == 0)
 		*sep_num = 0;
 	else if (!ft_strncmp(str, "|", len))
-		*sep_num = 1;
+		*sep_num = PIPE;
 	else if (!ft_strncmp(str, "<", len))
-		*sep_num = 2;
+		*sep_num = INPUT;
 	else if (!ft_strncmp(str, "<<", len))
-		*sep_num = 3;
+		*sep_num = INPUT_D;
 	else if (!ft_strncmp(str, ">", len))
-		*sep_num = 4;
+		*sep_num = OUTPUT;
 	else if (!ft_strncmp(str, ">>", len))
-		*sep_num = 5;
+		*sep_num = OUTPUT_D;
 	else
 	{
 		*sep_num = -1;
