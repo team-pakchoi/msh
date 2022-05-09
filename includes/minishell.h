@@ -210,4 +210,9 @@ t_cmd	*find_last_cmd(void);
 void	read_all_cmd(void);
 void	read_arr(char **str);
 
+/*
+** util: exit
+*/
+void	exit_with_status(void);
+
 #endif
