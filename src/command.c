@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 16:12:15 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 16:33:49 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	deal_cmd_node(t_cmd *cmd)
 
 static int	deal_syntax_error(void)
 {
-	if (g_mini.exit_status > 90)
+	if (g_mini.exit_status == 94 || g_mini.exit_status == 95)
 	{
 		if (g_mini.exit_status == 95)
 			ft_putstr_fd("minishell: syntax error: unexpected token\n", 2);
