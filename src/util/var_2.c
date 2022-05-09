@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:08:32 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 10:55:20 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/09 15:40:43 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	**find_all_env(void)
 		return ((char **) NULL);
 	idx = 0;
 	tmp = g_mini.env;
+	arr[idx] = 0;
 	while (tmp)
 	{
 		arr[idx] = ft_strdup(tmp->var);
