@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 03:40:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 16:11:28 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 07:28:21 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	print_file(char *path)
 		g_mini.exit_status = 1;
 		return (0);
 	}
-	read_fd(STDIN_FILENO);
 	read_fd(file_fd);
 	close(file_fd);
 	return (1);

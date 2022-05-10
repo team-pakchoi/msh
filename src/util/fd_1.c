@@ -6,11 +6,17 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 13:22:24 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:18 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 00:24:07 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	set_fd_to_stdin(int fd)
+{
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+}
 
 void	set_pipein_to_stdout(int *fds)
 {

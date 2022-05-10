@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 01:00:21 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 15:58:33 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 07:56:01 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_op(char *str, int *sep_num)
 	else
 	{
 		*sep_num = -1;
-		g_mini.exit_status = (unsigned char)95;
+		g_mini.exit_status = 258;
 		return (0);
 	}
 	return (len);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:09:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/08 03:53:18 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/10 16:50:14 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_builtin(char **cmd)
+int	is_builtin(char **cmd)
 {
 	if (!ft_strcmp(*cmd, "cd"))
 		return (1);
@@ -31,35 +31,23 @@ static int	is_builtin(char **cmd)
 	return (0);
 }
 
-static void	route_builtin(char **cmd, int n)
+int	exec_builtin(char **cmd, int n)
 {
-	if (n == 1)
-		return (ft_cd(cmd));
-	if (n == 2)
-		return (ft_echo(cmd));
-	if (n == 3)
-		return (ft_env());
-	if (n == 4)
-		return (ft_exit(cmd));
-	if (n == 5)
-		return (ft_export(cmd));
-	if (n == 6)
-		return (ft_pwd());
-	if (n == 7)
-		return (ft_unset(cmd));
-}
-
-int	exec_builtin(char **cmd)
-{
-	int	n;
-
-	n = is_builtin(cmd);
-	if (n)
-	{
-		if (g_mini.cmd_len != g_mini.cmd_idx)
-			set_self_pipe();
-		route_builtin(cmd, n);
-		restore_ori_stdout();
-	}
-	return (n);
+	if (n == 0)
+		return (0);
+	else if (n == 1)
+		ft_cd(cmd);
+	else if (n == 2)
+		ft_echo(cmd);
+	else if (n == 3)
+		ft_env();
+	else if (n == 4)
+		ft_exit(cmd);
+	else if (n == 5)
+		ft_export(cmd);
+	else if (n == 6)
+		ft_pwd();
+	else if (n == 7)
+		ft_unset(cmd);
+	return (1);
 }

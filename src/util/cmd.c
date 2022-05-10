@@ -6,13 +6,13 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:17 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 02:52:15 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 07:44:24 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_input_redir_node(t_cmd *node)
+static void	set_input_redir_node(t_cmd *node)
 {
 	t_cmd	*tar;
 	t_cmd	*prev_tar;
@@ -104,4 +104,20 @@ t_cmd	*find_last_cmd(void)
 	while (node != 0 && node->next != 0)
 		node = node->next;
 	return (node);
+}
+
+t_cmd	*find_cmd_has_heredoc(void)
+{
+	int		idx;
+	t_cmd	*cmd;
+
+	idx = 0;
+	while (idx < g_mini.cmd_len)
+	{
+		cmd = find_nth_cmd(idx);
+		if (cmd->op == INPUT_D)
+			return (cmd);
+		idx += 1;
+	}
+	return (0);
 }

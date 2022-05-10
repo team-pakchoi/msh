@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 04:26:31 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 04:13:46 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	main(int argc, char **argv, char **envp)
 		restore_ori_stdin();
 		free(g_mini.prompt_input);
 		g_mini.prompt_input = 0;
-		g_mini.cmd_idx = 1;
 	}
 	free_global();
 	return (EXIT_SUCCESS);

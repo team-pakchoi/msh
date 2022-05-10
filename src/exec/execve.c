@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 03:53:42 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 15:51:41 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 05:30:09 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	run_command(char **cmds)
 	ft_execve(cmds[0], cmds);
 }
 
-static void	set_exit_status(int status)
+void	set_exit_status(int status)
 {
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 	{
@@ -97,27 +97,11 @@ static void	set_exit_status(int status)
 
 int	exec_execve(char **command)
 {
-	pid_t	pid;
-	int		fds[2];
-	int		status;
-
-	pipe(fds);
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		if (g_mini.cmd_len != g_mini.cmd_idx)
-			set_pipein_to_stdout(fds);
-		if (**command == 0)
-			return (0);
-		run_command(command);
-		if (g_mini.exit_status != 0)
-			exit (g_mini.exit_status);
+	signal(SIGQUIT, SIG_DFL);
+	if (**command == 0)
 		return (0);
-	}
-	if (g_mini.cmd_len != g_mini.cmd_idx)
-		set_pipeout_to_stdin(fds);
-	waitpid(pid, &status, 0);
-	set_exit_status(status);
-	return (1);
+	run_command(command);
+	if (g_mini.exit_status != 0)
+		exit (g_mini.exit_status);
+	return (0);
 }
