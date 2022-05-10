@@ -11,6 +11,8 @@
 [![code-size](https://img.shields.io/github/languages/code-size/42pakchoi/minishell?style=flat-square)](https://github.com/42pakchoi/minishell)
 [![last-commit](https://img.shields.io/github/last-commit/42pakchoi/minishell?style=flat-square)](https://github.com/42pakchoi/minishell)
 
+![pakchoi cover image](./images/pakchoi_cover.jpg)
+
 <details>
   <summary>Table of Contents</summary>
   <ol>
