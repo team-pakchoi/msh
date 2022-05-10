@@ -22,7 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
-# include "libft.h"
+# include "../../libft/libft.h"
 
 # define  FT_SUCCESS	1
 # define  FT_ERROR		-1
