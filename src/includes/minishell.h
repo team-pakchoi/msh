@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/10 15:33:36 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/10 16:56:12 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	init_env(int argc, char **argv, char **envp);
 /*
 ** signal
 */
-void	init_signal(void);
+void	init_signal(int is_child_process);
 void	eof_handler(void);
 
 /*

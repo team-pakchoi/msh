@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 03:53:42 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 15:51:41 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/10 16:59:27 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ static void	run_command(char **cmds)
 
 static void	set_exit_status(int status)
 {
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		ft_putchar_fd('\n', 1);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 	{
 		ft_putstr_fd("Quit: 3\n", 1);
@@ -105,7 +107,7 @@ int	exec_execve(char **command)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGQUIT, SIG_DFL);
+		init_signal(FT_TRUE);
 		if (g_mini.cmd_len != g_mini.cmd_idx)
 			set_pipein_to_stdout(fds);
 		if (**command == 0)
