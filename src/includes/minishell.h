@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 16:07:31 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/10 15:00:35 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,6 @@ void	read_arr(char **arr);
 /*
 ** util: exit
 */
-void	exit_with_status(void);
+void	exit_with_status(unsigned char status)
 
 #endif
