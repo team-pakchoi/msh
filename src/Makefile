@@ -6,7 +6,7 @@
 #    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/05/09 16:25:23 by sarchoi          ###   ########seoul.kr   #
+#    Updated: 2022/05/10 14:56:18 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,9 @@ OBJS = $(SRCS:.c=.o)
 
 LIBFT = ../libft/libft.a
 LIBFT_FLAGS = -l ft -L ../libft
-READLINE_FLAGS = -l readline -L ${HOME}/.brew/opt/readline/lib
+READLINE_FLAGS = -l readline -L $(shell brew --prefix readline)/lib
 
-INC_FLAGS = -I includes -I $(LIBFT) -I ${HOME}/.brew/opt/readline/include
+INC_FLAGS = -I includes -I $(LIBFT) -I $(shell brew --prefix readline)/include
 
 green:=$(shell tput setaf 2)
 reset:=$(shell tput sgr0)
