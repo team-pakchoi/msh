@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_multi.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 06:37:57 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 07:33:18 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 11:18:23 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	child_exec(int *fds, int pre_pipeout, int cmd_idx)
 {
 	t_cmd	*cmd;
 
+	g_mini.is_main_process = FT_FALSE;
 	cmd = find_nth_cmd(cmd_idx);
 	if (pre_pipeout != -1)
 		set_fd_to_stdin(pre_pipeout);
