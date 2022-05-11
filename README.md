@@ -166,7 +166,7 @@ Runs leaks when the Minishell exits.
 $ cp /bin/cat /tmp/ls # copy cat to /tmp/ls
 
 $ ./minishell
-~/path_to_pwd/minishell $ unset $PATH
+~/path_to_pwd/minishell $ unset PATH
 ~/path_to_pwd/minishell $ export PATH=/tmp:/bin
 ~/path_to_pwd/minishell $ ls # should be /tmp/ls (it is cat actually) and not /bin/ls
 ```
