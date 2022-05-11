@@ -6,24 +6,33 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:41:40 by cpak              #+#    #+#             */
-/*   Updated: 2022/04/30 01:38:32 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 15:51:47 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_assign_cmd(char *str)
+int	is_assign_cmd(char **cmd)
 {
-	int	idx;
+	int	i;
+	int	j;
 
-	idx = 0;
-	while (str[idx])
+	i = 0;
+	j = 0;
+	while (cmd[i])
 	{
-		if (!ft_isalpha(str[idx]) && !ft_isdigit(str[idx]) && str[idx] != '_')
+		while (cmd[i][j])
+		{
+			if (!ft_isalpha(cmd[i][j]) && !ft_isdigit(cmd[i][j]) 
+					&& cmd[i][j] != '_')
+				break ;
+			j += 1;
+		}
+		if (cmd[i][j] != '=')
 			break ;
-		idx += 1;
+		i += 1;
 	}
-	return (str[idx] == '=');
+	return (i);
 }
 
 static void	exec_set(char *name)
@@ -69,13 +78,7 @@ int	exec_assign(char **command, t_cmd *cmd)
 {
 	int	idx;
 
-	idx = 0;
-	while (command[idx])
-	{
-		if (!is_assign_cmd(command[idx]))
-			break ;
-		idx += 1;
-	}
+	idx = is_assign_cmd(command);
 	if (!command[idx])
 	{
 		if (cmd->prev && cmd->prev->op == 1)
