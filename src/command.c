@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 16:10:41 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:56:51 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static int	deal_syntax_error(void)
 {
-	if (g_mini.exit_status == 258)
+	if (g_mini.has_token_error)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected token\n", 2);
+		g_mini.has_token_error = 0;
 		return (0);
 	}
 	if (g_mini.has_redir_error)

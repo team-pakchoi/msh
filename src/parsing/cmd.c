@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 14:35:56 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:56:24 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	set_strarr_to_list(char **arr, char *str, int sep)
 		set_next_op(&str, &sep);
 		idx += 1;
 		if (sep != 0 && arr[idx] == 0)
-			g_mini.exit_status = 258;
+			g_mini.has_token_error = 1;
 	}
 	return (1);
 }
@@ -103,12 +103,12 @@ int	parse_prompt_input(char *str)
 		str += 1;
 	is_op(str, &sep);
 	if (sep == 1)
-		g_mini.exit_status = 258;
+		g_mini.has_token_error = 1;
 	arr = split_with_quote(str, is_op);
 	if (!arr)
 		return (0);
 	if (ft_strarr_len(arr) == 0 && sep > 0)
-		g_mini.exit_status = 258;
+		g_mini.has_token_error = 1;
 	if (sep == 0)
 		sep = 1;
 	if (!set_strarr_to_list(arr, str, sep))

@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 15:52:05 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:55:23 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_minishell
 	t_var			*env;
 	int				exit_status;
 	int				has_redir_error;
+	int				has_token_error;
 }					t_minishell;
 
 t_minishell	g_mini;
