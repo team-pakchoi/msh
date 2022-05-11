@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 11:22:04 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 14:00:15 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	init_env(argc, argv, envp);
 	init_history();
 	g_mini.is_main_process = FT_TRUE;
+	print_welcome();
 	while (1)
 	{
 		init_signal(FT_FALSE);
