@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 07:47:26 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 11:22:21 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_history
 
 typedef struct s_minishell
 {
+	int				is_main_process;
 	t_history		history;
 	char			*prompt_str;
 	char			*prompt_input;

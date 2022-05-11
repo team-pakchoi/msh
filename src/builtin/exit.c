@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:04:18 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 10:37:21 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 11:25:38 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static int	check_range(const char *str)
 
 static void	too_many_args(char *str)
 {
-	ft_putstr_fd("exit\n", 2);
+	if (g_mini.is_main_process)
+		ft_putstr_fd("exit\n", 2);
 	print_error("exit", "too many arguments");
 	g_mini.exit_status = 1;
 	free(str);
@@ -81,7 +82,8 @@ void	ft_exit(char **cmds)
 	str = ft_strtrim(cmds[1], " ");
 	if (!str_isdigit(str) || !check_range(str))
 	{
-		ft_putstr_fd("exit\n", 2);
+		if (g_mini.is_main_process)
+			ft_putstr_fd("exit\n", 2);
 		print_error2("exit", cmds[1], "numeric argument required");
 		free(str);
 		exit(255);
