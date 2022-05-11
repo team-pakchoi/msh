@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 14:45:26 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:09:24 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	exec_single_cmd(void)
 		pid = fork();
 		if (pid == 0)
 		{
+			init_signal(FT_TRUE);
 			g_mini.is_main_process = FT_FALSE;
 			exec_cmd_node(cmd);
 			return (1);
