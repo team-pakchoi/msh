@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 11:22:21 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 12:00:46 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,15 @@ int		is_builtin(char **cmd);
 ** util: cd
 */
 int		valid_directory(char *path);
-int		valid_executable(char *path);
 int		valid_permission(char *path);
 int		has_directory(char *path);
 void	set_pwd_env(void);
+
+/*
+** util: execve
+*/
+int		valid_executable(char *path);
+int		valid_execute_permission(char *path);
 
 /*
 ** util: var
