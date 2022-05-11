@@ -6,7 +6,11 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/05/11 14:35:19 by cpak             ###   ########seoul.kr  */
+=======
 /*   Updated: 2022/05/11 14:00:05 by sarchoi          ###   ########seoul.kr  */
+>>>>>>> develop
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +34,7 @@
 # define  FT_FALSE		0
 
 # define  PROMPT_STRING		" $ "
-# define  PROMPT_HEREDOC	"heredoc> "
+# define  PROMPT_HEREDOC	"> "
 # define  PROMPT_COLOR_PWD		"\001\e[01;32m\002"
 # define  PROMPT_COLOR_PROMPT	"\001\e[01;35m\002"
 # define  PROMPT_COLOR_RESET	"\001\e[0m\002"
@@ -81,7 +85,7 @@ typedef struct s_minishell
 	int				cmd_len;
 	t_var			*env;
 	int				exit_status;
-	int				syntax_error;
+	int				has_redir_error;
 }					t_minishell;
 
 t_minishell	g_mini;

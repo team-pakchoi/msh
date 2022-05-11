@@ -6,7 +6,11 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/05/11 14:36:12 by cpak             ###   ########seoul.kr  */
+=======
 /*   Updated: 2022/05/11 11:18:26 by sarchoi          ###   ########seoul.kr  */
+>>>>>>> develop
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +18,15 @@
 
 static int	deal_syntax_error(void)
 {
-	if (g_mini.exit_status == 94 || g_mini.exit_status == 258)
+	if (g_mini.exit_status == 258)
 	{
-		if (g_mini.exit_status == 258)
-			ft_putstr_fd("minishell: syntax error: unexpected token\n", 2);
-		if (g_mini.exit_status == 94)
-			ft_putstr_fd("minishell: ambiguous redirect\n", 2);
-		g_mini.syntax_error = 1;
-		g_mini.exit_status = 0;
+		ft_putstr_fd("minishell: syntax error: unexpected token\n", 2);
+		return (0);
+	}
+	if (g_mini.has_redir_error)
+	{
+		ft_putstr_fd("minishell: ambiguous redirect\n", 2);
+		g_mini.has_redir_error = 0;
 		return (0);
 	}
 	return (1);
@@ -101,7 +106,5 @@ int	deal_command(void)
 	if (!deal_syntax_error())
 		return (0);
 	exec_command();
-	if (g_mini.syntax_error)
-		g_mini.syntax_error = 0;
 	return (1);
 }

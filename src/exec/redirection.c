@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:10:36 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 07:16:40 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 13:33:16 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	open_output_fd(char *path, t_op op)
 static void	print_line_to_output(char *line, int file_fd)
 {
 	ft_putstr_fd(line, file_fd);
-	printf("%s", line);
 	free(line);
 }
 

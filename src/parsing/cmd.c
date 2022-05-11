@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 07:55:52 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 14:35:56 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ static int	set_new_cmd(char **strarr, int sep)
 {
 	char	**shifted;
 
-	if (ft_strarr_len(strarr) == 0)
-		g_mini.exit_status = 94;
+	if (!ft_strarr_len(strarr) && sep != 1)
+	{
+		g_mini.exit_status = 1;
+		g_mini.has_redir_error = 1;
+	}
 	else if (sep != 1)
 	{
 		shifted = ft_strarr_shift(&strarr);
