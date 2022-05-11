@@ -6,13 +6,12 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 06:37:57 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 07:33:18 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 14:37:32 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// 모든 프로세스가 종료되기까지 기다린다.
 static void	wait_child(pid_t *pid_arr)
 {
 	int	idx;
@@ -28,11 +27,6 @@ static void	wait_child(pid_t *pid_arr)
 	free(pid_arr);
 }
 
-	// 이전 pipeout을 stdin에 연결
-	// 그러나 첫번째이고 cat 명령어라면 stdin을 닫는다.
-	// 현재 pipein을 stdout에 연결
-	// 마지막 명령어는 stdout을 사용하므로 pipe을 모두 닫는다.
-	// 명령어를 실행한다.
 static int	child_exec(int *fds, int pre_pipeout, int cmd_idx)
 {
 	t_cmd	*cmd;
@@ -54,9 +48,6 @@ static int	child_exec(int *fds, int pre_pipeout, int cmd_idx)
 	return (0);
 }
 
-// 이전 pipeout을 닫기
-// 현재 pipein을 닫기
-// 현재 pipeout을 pre_pipout에 저장
 static void	parent_set(int *fds, int *pre_pipeout)
 {
 	if (*pre_pipeout != -1)
