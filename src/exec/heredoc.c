@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:58:58 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 05:09:48 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:39:18 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	open_error(void)
+{
+	perror("no such file or directory");
+	g_mini.exit_status = 127;
+}
 
 void	write_prompt_to_heredoc(char *delimiter)
 {
@@ -19,10 +25,8 @@ void	write_prompt_to_heredoc(char *delimiter)
 
 	fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-	{
-		perror("no such file or directory");
-		g_mini.exit_status = 127;
-	}
+		open_error();
+	signal(SIGINT, sigint_heredoc_handler);
 	while (1)
 	{
 		str = readline(PROMPT_HEREDOC);
