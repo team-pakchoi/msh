@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:36 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 04:13:46 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 14:00:15 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ int	main(int argc, char **argv, char **envp)
 	keep_ori_std();
 	init_env(argc, argv, envp);
 	init_history();
-	init_signal();
+	g_mini.is_main_process = FT_TRUE;
+	print_welcome();
 	while (1)
 	{
+		init_signal(FT_FALSE);
 		update_prompt_str();
 		if (deal_prompt() == 0)
 		{

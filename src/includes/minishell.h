@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/11 14:35:19 by cpak             ###   ########seoul.kr  */
+=======
+/*   Updated: 2022/05/11 14:00:05 by sarchoi          ###   ########seoul.kr  */
+>>>>>>> develop
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +77,7 @@ typedef struct s_history
 
 typedef struct s_minishell
 {
+	int				is_main_process;
 	t_history		history;
 	char			*prompt_str;
 	char			*prompt_input;
@@ -86,6 +91,7 @@ typedef struct s_minishell
 t_minishell	g_mini;
 
 void	free_global(void);
+void	print_welcome(void);
 
 /*
 ** env
@@ -95,7 +101,7 @@ void	init_env(int argc, char **argv, char **envp);
 /*
 ** signal
 */
-void	init_signal(void);
+void	init_signal(int is_child_process);
 void	eof_handler(void);
 
 /*
@@ -179,10 +185,15 @@ int		is_builtin(char **cmd);
 ** util: cd
 */
 int		valid_directory(char *path);
-int		valid_executable(char *path);
 int		valid_permission(char *path);
 int		has_directory(char *path);
 void	set_pwd_env(void);
+
+/*
+** util: execve
+*/
+int		valid_executable(char *path);
+int		valid_execute_permission(char *path);
 
 /*
 ** util: var
@@ -223,6 +234,6 @@ t_cmd	*find_cmd_has_heredoc(void);
 /*
 ** util: exit
 */
-void	exit_with_status(void);
+void	exit_with_status(unsigned char status);
 
 #endif

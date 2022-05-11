@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 19:18:15 by sarchoi           #+#    #+#              #
-#    Updated: 2022/05/11 06:42:11 by cpak             ###   ########seoul.kr   #
+#    Updated: 2022/05/11 14:01:07 by sarchoi          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ SRCS_ROOT = main.c prompt.c command.c command_multi.c signal.c
 SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRCS_EXEC = assign.c builtin.c execve.c heredoc.c redirection.c
 SRCS_PARSING = cmd.c env.c parse_cmd.c parse_str.c sep.c split.c
-SRCS_UTIL = cd.c cmd.c exit.c export.c fd_1.c fd_2.c \
-	history.c print.c quote.c var_1.c var_2.c
+SRCS_UTIL = cd.c cmd_1.c cmd_2.c execve.c exit.c export.c \
+	fd_1.c fd_2.c fd_3.c history.c print.c quote.c var_1.c var_2.c welcome.c
 SRCS = $(SRCS_ROOT) \
 	$(addprefix ./builtin/, $(SRCS_BUILTIN)) \
 	$(addprefix ./exec/, $(SRCS_EXEC)) \

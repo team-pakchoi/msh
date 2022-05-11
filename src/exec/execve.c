@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 03:53:42 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 05:30:09 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 13:01:14 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,10 @@ static int	ft_execve(char *cmd, char **cmds)
 		g_mini.exit_status = 127;
 		return (FT_ERROR);
 	}
-	if (!(buf.st_mode & S_IXUSR || buf.st_mode & S_IXGRP
-			|| buf.st_mode & S_IXOTH))
-	{
-		print_error(cmds[0], "Permission denied");
-		g_mini.exit_status = 126;
+	if (!valid_execute_permission(cmd))
 		return (FT_ERROR);
-	}
-	if (execve(cmd, cmds, find_all_env()) == FT_ERROR)
+	if ((cmd[0] != '.' && cmd[0] != '/' && cmd[0] != '~')
+		|| execve(cmd, cmds, find_all_env()) == FT_ERROR)
 	{
 		print_error(cmds[0], "command not found");
 		g_mini.exit_status = 127;
@@ -71,8 +67,16 @@ static int	execve_with_path(char **cmds)
 
 static void	run_command(char **cmds)
 {
-	if (cmds[0][0] == '/')
+	char	*tmp;
+
+	if (cmds[0][0] == '/' || cmds[0][0] == '~')
 	{
+		if (cmds[0][0] == '~')
+		{
+			tmp = cmds[0];
+			cmds[0] = ft_strjoin(find_var_value("HOME"), cmds[0] + 1);
+			free(tmp);
+		}
 		if (ft_execve(cmds[0], cmds))
 			return ;
 	}
@@ -86,6 +90,8 @@ static void	run_command(char **cmds)
 
 void	set_exit_status(int status)
 {
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		ft_putchar_fd('\n', 1);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 	{
 		ft_putstr_fd("Quit: 3\n", 1);

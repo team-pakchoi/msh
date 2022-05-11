@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/11 14:36:12 by cpak             ###   ########seoul.kr  */
+=======
+/*   Updated: 2022/05/11 11:18:26 by sarchoi          ###   ########seoul.kr  */
+>>>>>>> develop
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +67,7 @@ static int	exec_single_cmd(void)
 		pid = fork();
 		if (pid == 0)
 		{
+			g_mini.is_main_process = FT_FALSE;
 			exec_cmd_node(cmd);
 			return (1);
 		}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   cmd_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:17 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 13:26:12 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 14:42:30 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,43 +98,4 @@ void	remove_cmd_list(void)
 	}
 	g_mini.cmd = 0;
 	g_mini.cmd_len = 0;
-}
-
-t_cmd	*find_nth_cmd(int idx)
-{
-	t_cmd	*node;
-
-	node = g_mini.cmd;
-	while (node != 0 && node->next != 0 && idx > 0)
-	{
-		node = node->next;
-		idx -= 1;
-	}
-	return (node);
-}
-
-t_cmd	*find_last_cmd(void)
-{
-	t_cmd	*node;
-
-	node = g_mini.cmd;
-	while (node != 0 && node->next != 0)
-		node = node->next;
-	return (node);
-}
-
-t_cmd	*find_cmd_has_heredoc(void)
-{
-	int		idx;
-	t_cmd	*cmd;
-
-	idx = 0;
-	while (idx < g_mini.cmd_len)
-	{
-		cmd = find_nth_cmd(idx);
-		if (cmd->op == INPUT_D)
-			return (cmd);
-		idx += 1;
-	}
-	return (0);
 }
