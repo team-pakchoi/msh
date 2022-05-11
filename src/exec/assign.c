@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:41:40 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 15:51:47 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:39:41 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_assign_cmd(char **cmd)
 	{
 		while (cmd[i][j])
 		{
-			if (!ft_isalpha(cmd[i][j]) && !ft_isdigit(cmd[i][j]) 
+			if (!ft_isalpha(cmd[i][j]) && !ft_isdigit(cmd[i][j])
 					&& cmd[i][j] != '_')
 				break ;
 			j += 1;

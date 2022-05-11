@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 16:55:23 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 17:00:36 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	init_env(int argc, char **argv, char **envp);
 /*
 ** signal
 */
+void	sigint_heredoc_handler(int signo);
 void	init_signal(int is_child_process);
 void	eof_handler(void);
 
