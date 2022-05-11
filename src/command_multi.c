@@ -32,6 +32,7 @@ static int	child_exec(int *fds, int pre_pipeout, int cmd_idx)
 	t_cmd	*cmd;
 
 	g_mini.is_main_process = FT_FALSE;
+	init_signal(FT_TRUE);
 	cmd = find_nth_cmd(cmd_idx);
 	if (pre_pipeout != -1)
 	{

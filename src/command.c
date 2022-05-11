@@ -64,6 +64,7 @@ static int	exec_single_cmd(void)
 		pid = fork();
 		if (pid == 0)
 		{
+			init_signal(FT_TRUE);
 			g_mini.is_main_process = FT_FALSE;
 			exec_cmd_node(cmd, 2);
 			return (1);
