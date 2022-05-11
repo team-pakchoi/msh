@@ -1,73 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 15:22:27 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 11:56:41 by sarchoi          ###   ########seoul.kr  */
+/*   Created: 2022/05/11 11:58:27 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/05/11 11:58:28 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	valid_directory(char *path)
+int	valid_executable(char *path)
 {
 	struct stat	buf;
 
 	if (stat(path, &buf) == -1)
 		return (FT_FALSE);
-	if (buf.st_mode & S_IFDIR)
+	if (buf.st_mode & S_IFREG)
 		return (FT_TRUE);
-	print_error2("cd", path, "Not a directory");
+	print_error(path, "Not a file");
 	g_mini.exit_status = 1;
 	return (FT_FALSE);
 }
 
-int	valid_permission(char *path)
+int	valid_execute_permission(char *path)
 {
 	struct stat	buf;
 
 	if (stat(path, &buf) == -1)
 		return (FT_FALSE);
-	if (buf.st_mode & S_IRUSR)
+	if (buf.st_mode & S_IXUSR || buf.st_mode & S_IXGRP
+		|| buf.st_mode & S_IXOTH)
 		return (FT_TRUE);
 	print_error2("cd", path, "Permission denied");
 	g_mini.exit_status = 1;
 	return (FT_FALSE);
-}
-
-int	has_directory(char *path)
-{
-	struct stat	buf;
-
-	if (stat(path, &buf) == -1)
-		return (FT_FALSE);
-	if (valid_directory(path) == FT_TRUE)
-		return (FT_TRUE);
-	return (FT_FALSE);
-}
-
-void	set_pwd_env(void)
-{
-	char	*cwd;
-	char	*tmp;
-
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-	{
-		print_strerror("cd");
-		return ;
-	}
-	if (find_var_value("OLDPWD") == NULL)
-	{
-		tmp = ft_strjoin("OLDPWD=", find_var_value("PWD"));
-		add_var(tmp, ENV_VAR);
-		free(tmp);
-	}
-	else
-		update_var("OLDPWD", find_var_value("PWD"));
-	update_var("PWD", cwd);
-	free(cwd);
 }
