@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 23:12:28 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 10:57:21 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 15:31:09 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static char	**list_to_array(t_var *list)
 	i = 0;
 	while (tmp)
 	{
-		array[i] = ft_strdup(tmp->var);
+		if (tmp->scope == ENV_VAR || tmp->scope == EXPORT_VAR)
+			array[i++] = ft_strdup(tmp->var);
 		tmp = tmp->next;
-		i++;
 	}
 	array[i] = NULL;
 	return (array);

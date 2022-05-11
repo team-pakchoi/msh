@@ -64,6 +64,7 @@ typedef struct s_var
 */
 # define  SHELL_VAR	0
 # define  ENV_VAR	1
+# define  EXPORT_VAR	2
 
 typedef struct s_history
 {
