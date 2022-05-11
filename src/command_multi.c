@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_multi.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 06:37:57 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 16:09:34 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:10:21 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,23 @@ static int	child_exec(int *fds, int pre_pipeout, int cmd_idx)
 	init_signal(FT_TRUE);
 	cmd = find_nth_cmd(cmd_idx);
 	if (pre_pipeout != -1)
-		set_fd_to_stdin(pre_pipeout);
+	{
+		if (!set_fd_to_stdin(pre_pipeout))
+			return (0);
+	}
 	else if (ft_strcmp(cmd->strarr[0], "cat"))
 		close(STDIN_FILENO);
 	if (cmd_idx != g_mini.cmd_len - 1)
-		set_pipein_to_stdout(fds);
-	else
 	{
-		close(fds[0]);
-		close(fds[1]);
+		if (!set_pipein_to_stdout(fds))
+			return (0);
+		exec_cmd_node(cmd, -1);
+		exit(g_mini.exit_status);
+		return (0);
 	}
-	exec_cmd_node(cmd);
+	close(fds[0]);
+	close(fds[1]);
+	exec_cmd_node(cmd, 1);
 	exit(g_mini.exit_status);
 	return (0);
 }

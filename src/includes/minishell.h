@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 15:17:14 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 15:52:05 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		deal_command(void);
 int		exec_multi_cmd(void);
 void	write_prompt_to_heredoc(char *delimiter);
 void	set_exit_status(int status);
-int		exec_cmd_node(t_cmd *cmd);
+int		exec_cmd_node(t_cmd *cmd, int has_std);
 
 /*
 ** builtin
@@ -156,11 +156,11 @@ int		save_history(void);
 /*
 ** pipex
 */
-void	set_fd_to_stdin(int fd);
-void	set_pipein_to_stdout(int *fds);
-void	set_pipeout_to_stdin(int *fds);
-void	set_fileout_to_fd(char *path, int fd);
-void	set_filein_to_fd(char *path, int fd);
+int		set_fd_to_stdin(int fd);
+int		set_pipein_to_stdout(int *fds);
+int		set_pipeout_to_stdin(int *fds);
+int		set_fileout_to_fd(char *path, int fd);
+int		set_filein_to_fd(char *path, int fd);
 void	read_fd(int fd);
 int		print_file(char *path);
 
@@ -172,11 +172,12 @@ void	restore_ori_stdout(void);
 int		exec_assign(char **command, t_cmd *cmd);
 int		exec_builtin(char **cmd, int n);
 int		exec_execve(char **command);
-int		exec_output_redir(char *command[], t_op op);
-int		exec_input_redir(char *command[], t_op op);
+int		exec_output_redir(char *command[], t_op op, int has_std);
+int		exec_input_redir(char *command[], t_op op, int has_std);
 int		exec_heredoc(void);
 
 int		is_builtin(char **cmd);
+int		is_assign_cmd(char **cmd);
 
 /*
 ** util: cd
