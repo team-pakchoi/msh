@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:10:36 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 13:33:16 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:03:55 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	print_line_to_output(char *line, int file_fd)
 	free(line);
 }
 
-int	exec_output_redir(char *command[], t_op op)
+int	exec_output_redir(char *command[], t_op op, int has_std)
 {
 	int		file_fd;
 	char	*line;
@@ -47,6 +47,8 @@ int	exec_output_redir(char *command[], t_op op)
 	file_fd = open_output_fd(command[0], op);
 	if (file_fd == -1)
 		return (0);
+	if (has_std == 2)
+		close(STDIN_FILENO);
 	while (get_next_line(STDIN_FILENO, &line) > 0)
 		print_line_to_output(line, file_fd);
 	if (ft_strlen(line) > 0)
@@ -55,11 +57,13 @@ int	exec_output_redir(char *command[], t_op op)
 	return (1);
 }
 
-int	exec_input_redir(char *command[], t_op op)
+int	exec_input_redir(char *command[], t_op op, int has_std)
 {
 	int	result;
 
 	result = 1;
+	if (has_std == 2)
+		return (0);
 	if (op == INPUT)
 		result = print_file(command[0]);
 	else

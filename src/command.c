@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:39:03 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/11 14:45:26 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:10:41 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	deal_syntax_error(void)
 	return (1);
 }
 
-int	exec_cmd_node(t_cmd *cmd)
+int	exec_cmd_node(t_cmd *cmd, int has_std)
 {
 	char	**command;
 	int		idx;
@@ -45,9 +45,9 @@ int	exec_cmd_node(t_cmd *cmd)
 			exec_execve(command);
 	}
 	else if (cmd->op == INPUT || cmd->op == INPUT_D)
-		result = exec_input_redir(command, cmd->op);
+		result = exec_input_redir(command, cmd->op, has_std);
 	else if (cmd->op == OUTPUT || cmd->op == OUTPUT_D)
-		result = exec_output_redir(command, cmd->op);
+		result = exec_output_redir(command, cmd->op, has_std);
 	return (result);
 }
 
@@ -58,20 +58,21 @@ static int	exec_single_cmd(void)
 	int		status;
 
 	cmd = find_nth_cmd(0);
-	if (cmd->op == PIPE && !is_builtin(cmd->strarr))
+	if (cmd->op == PIPE
+		&& !is_builtin(cmd->strarr) && !is_assign_cmd(cmd->strarr))
 	{
 		pid = fork();
 		if (pid == 0)
 		{
 			g_mini.is_main_process = FT_FALSE;
-			exec_cmd_node(cmd);
+			exec_cmd_node(cmd, 2);
 			return (1);
 		}
 		waitpid(pid, &status, 0);
 		set_exit_status(status);
 	}
 	else
-		exec_cmd_node(cmd);
+		exec_cmd_node(cmd, 2);
 	return (1);
 }
 
