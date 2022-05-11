@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 12:00:46 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 14:00:05 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_minishell
 t_minishell	g_mini;
 
 void	free_global(void);
+void	print_welcome(void);
 
 /*
 ** env
