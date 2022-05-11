@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/10 16:55:52 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 16:43:14 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,21 @@ static void	sigint_handler(int signo)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_mini.exit_status = 1;
+}
+
+void	sigint_heredoc_handler(int signo)
+{
+	if (signo != SIGINT || errno != EINTR)
+	{
+		g_mini.exit_status = 130;
+		return ;
+	}
+	close(STDIN_FILENO);
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	unlink(".heredoc");
 	g_mini.exit_status = 1;
 }
 
