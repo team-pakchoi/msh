@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
 /*   Updated: 2022/05/11 07:47:26 by cpak             ###   ########seoul.kr  */
@@ -95,7 +95,7 @@ void	init_env(int argc, char **argv, char **envp);
 /*
 ** signal
 */
-void	init_signal(void);
+void	init_signal(int is_child_process);
 void	eof_handler(void);
 
 /*
@@ -223,6 +223,6 @@ t_cmd	*find_cmd_has_heredoc(void);
 /*
 ** util: exit
 */
-void	exit_with_status(void);
+void	exit_with_status(unsigned char status);
 
 #endif

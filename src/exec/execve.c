@@ -86,6 +86,8 @@ static void	run_command(char **cmds)
 
 void	set_exit_status(int status)
 {
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		ft_putchar_fd('\n', 1);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
 	{
 		ft_putstr_fd("Quit: 3\n", 1);

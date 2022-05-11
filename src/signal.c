@@ -6,17 +6,23 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 14:37:51 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/09 15:04:54 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/10 16:55:52 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_term(void)
+static void	init_term(int is_child_process)
 {
 	struct termios	term;
 
 	tcgetattr(STDIN_FILENO, &term);
+	if (is_child_process)
+	{
+		term.c_lflag |= ECHOCTL;
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
+		return ;
+	}
 	term.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
@@ -35,9 +41,15 @@ static void	sigint_handler(int signo)
 	g_mini.exit_status = 1;
 }
 
-void	init_signal(void)
+void	init_signal(int is_child_process)
 {
-	init_term();
+	init_term(is_child_process);
+	if (is_child_process)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		return ;
+	}
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

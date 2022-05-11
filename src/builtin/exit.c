@@ -75,22 +75,18 @@ void	ft_exit(char **cmds)
 	char			*str;
 
 	if (!cmds[1])
-	{
-		g_mini.exit_status = 0;
-		exit_with_status();
-	}
+		exit_with_status(0);
 	str = ft_strtrim(cmds[1], " ");
 	if (!str_isdigit(str) || !check_range(str))
 	{
 		ft_putstr_fd("exit\n", 2);
 		print_error2("exit", cmds[1], "numeric argument required");
 		free(str);
-		g_mini.exit_status = 255;
-		exit(g_mini.exit_status);
+		exit(255);
 	}
 	if (cmds[2])
 		return (too_many_args(str));
 	g_mini.exit_status = (int)((unsigned char)ft_atoi(str));
 	free(str);
-	exit_with_status();
+	exit_with_status(status);
 }
