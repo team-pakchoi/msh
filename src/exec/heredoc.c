@@ -6,13 +6,13 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:58:58 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 16:11:18 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 05:09:48 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	write_prompt_to_heredoc(char *delimiter)
+void	write_prompt_to_heredoc(char *delimiter)
 {
 	int		fd;
 	char	*str;
@@ -41,13 +41,8 @@ static void	write_prompt_to_heredoc(char *delimiter)
 	close(fd);
 }
 
-int	exec_heredoc(char *command[], int out_fd)
+int	exec_heredoc(void)
 {
-	restore_ori_stdin();
-	restore_ori_stdout();
-	write_prompt_to_heredoc(command[0]);
-	dup2(out_fd, STDOUT_FILENO);
-	close(out_fd);
 	if (!print_file(".heredoc"))
 		return (0);
 	unlink(".heredoc");

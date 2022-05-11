@@ -6,7 +6,7 @@
 /*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 04:54:47 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 13:51:15 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 07:55:52 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	set_args_to_prev_cmd(char **strarr)
 		node->strarr = new_arr;
 		return (1);
 	}
-	add_cmd(strarr, 1);
+	if (ft_strarr_len(strarr) != 0)
+		add_cmd(strarr, 1);
 	return (1);
 }
 
@@ -68,6 +69,8 @@ static int	set_strarr_to_list(char **arr, char *str, int sep)
 	int		idx;
 
 	idx = 0;
+	if (sep == 0)
+		sep = 1;
 	while (arr[idx])
 	{
 		strarr = split_with_quote(arr[idx], is_white_space);
@@ -83,12 +86,12 @@ static int	set_strarr_to_list(char **arr, char *str, int sep)
 		set_next_op(&str, &sep);
 		idx += 1;
 		if (sep != 0 && arr[idx] == 0)
-			g_mini.exit_status = (unsigned char)95;
+			g_mini.exit_status = 258;
 	}
 	return (1);
 }
 
-int	set_cmd_list(char *str)
+int	parse_prompt_input(char *str)
 {
 	char	**arr;
 	int		sep;
@@ -97,14 +100,14 @@ int	set_cmd_list(char *str)
 		str += 1;
 	is_op(str, &sep);
 	if (sep == 1)
-		g_mini.exit_status = (unsigned char)95;
-	else if (sep == 0)
-		sep = 1;
+		g_mini.exit_status = 258;
 	arr = split_with_quote(str, is_op);
 	if (!arr)
 		return (0);
-	if (ft_strarr_len(arr) == 0)
-		g_mini.exit_status = (unsigned char)95;
+	if (ft_strarr_len(arr) == 0 && sep > 0)
+		g_mini.exit_status = 258;
+	if (sep == 0)
+		sep = 1;
 	if (!set_strarr_to_list(arr, str, sep))
 	{
 		ft_free_arr(arr);

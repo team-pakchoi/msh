@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 05:38:27 by cpak              #+#    #+#             */
-/*   Updated: 2022/05/09 16:27:51 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 07:56:36 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*trans_env_name_to_value(char *str, int *start, int *end)
 	if (env_name[1] == '?')
 	{
 		if (!g_mini.syntax_error)
-			env_value = ft_itoa((int)g_mini.exit_status);
+			env_value = ft_itoa(g_mini.exit_status);
 		else
 			env_value = ft_itoa(258);
 	}

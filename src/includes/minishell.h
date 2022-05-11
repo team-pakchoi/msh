@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/10 16:56:12 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 07:47:26 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ typedef struct s_minishell
 	char			*prompt_input;
 	t_cmd			*cmd;
 	int				cmd_len;
-	int				cmd_idx;
 	t_var			*env;
-	unsigned char	exit_status;
+	int				exit_status;
 	int				syntax_error;
 }					t_minishell;
 
@@ -108,6 +107,10 @@ int		deal_prompt(void);
 ** cmd
 */
 int		deal_command(void);
+int		exec_multi_cmd(void);
+void	write_prompt_to_heredoc(char *delimiter);
+void	set_exit_status(int status);
+int		exec_cmd_node(t_cmd *cmd);
 
 /*
 ** builtin
@@ -124,12 +127,15 @@ void	ft_pwd(void);
 ** parse
 */
 int		is_quote(char c);
+int		is_op(char *str, int *sep_num);
+int		is_white_space(char *str, int *sep_num);
+
 void	set_quotes_flag(char c, int *flag);
 char	*change_str(char *str, char *str_tar, char *str_src, int idx);
 int		parse_cmd(char ***strarr);
 int		parse_str(char **str);
 int		trans_all_env(char **str);
-int		set_cmd_list(char *str);
+int		parse_prompt_input(char *str);
 int		check_quote_closed(char *str, int *flag);
 
 /*
@@ -147,6 +153,7 @@ int		save_history(void);
 /*
 ** pipex
 */
+void	set_fd_to_stdin(int fd);
 void	set_pipein_to_stdout(int *fds);
 void	set_pipeout_to_stdin(int *fds);
 void	set_fileout_to_fd(char *path, int fd);
@@ -160,14 +167,13 @@ void	restore_ori_stdin(void);
 void	restore_ori_stdout(void);
 
 int		exec_assign(char **command, t_cmd *cmd);
-int		exec_builtin(char **cmd);
+int		exec_builtin(char **cmd, int n);
 int		exec_execve(char **command);
 int		exec_output_redir(char *command[], t_op op);
 int		exec_input_redir(char *command[], t_op op);
-int		exec_heredoc(char *command[], int out_fd);
+int		exec_heredoc(void);
 
-int		is_op(char *str, int *sep_num);
-int		is_white_space(char *str, int *sep_num);
+int		is_builtin(char **cmd);
 
 /*
 ** util: cd
@@ -212,6 +218,7 @@ t_cmd	*find_nth_cmd(int idx);
 t_cmd	*find_last_cmd(void);
 void	read_cmd_list(void);
 void	read_arr(char **arr);
+t_cmd	*find_cmd_has_heredoc(void);
 
 /*
 ** util: exit
