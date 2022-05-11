@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:04:18 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 11:25:38 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 13:10:06 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	ft_exit(char **cmds)
 {
 	char			*str;
 	unsigned char	status;
-
 
 	if (!cmds[1])
 		exit_with_status(0);
