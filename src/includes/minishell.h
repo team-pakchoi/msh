@@ -6,7 +6,7 @@
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 13:26:10 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 14:45:03 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 15:17:14 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_var
 */
 # define  SHELL_VAR	0
 # define  ENV_VAR	1
+# define  EXPORT_VAR	2
 
 typedef struct s_history
 {
