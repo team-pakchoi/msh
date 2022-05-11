@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:04:18 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 07:54:32 by cpak             ###   ########seoul.kr  */
+/*   Updated: 2022/05/11 10:37:21 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void	too_many_args(char *str)
 void	ft_exit(char **cmds)
 {
 	char			*str;
+	unsigned char	status;
+
 
 	if (!cmds[1])
 		exit_with_status(0);
@@ -86,7 +88,7 @@ void	ft_exit(char **cmds)
 	}
 	if (cmds[2])
 		return (too_many_args(str));
-	g_mini.exit_status = (int)((unsigned char)ft_atoi(str));
+	status = ft_atoi(str);
 	free(str);
 	exit_with_status(status);
 }
