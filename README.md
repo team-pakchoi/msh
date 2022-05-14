@@ -12,6 +12,7 @@
 [![last-commit](https://img.shields.io/github/last-commit/42pakchoi/minishell?style=flat-square)](https://github.com/42pakchoi/minishell)
 
 ![pakchoi cover image](./images/pakchoi_cover.jpg)
+Illustration by [sarchoi](https://github.com/srngch)
 
 <details>
   <summary>Table of Contents</summary>
@@ -24,6 +25,7 @@
 		<li><a href="#execute">Execute</a></li>
 		<li><a href="#example">Example</a></li>
 		<li><a href="#test">Test</a></li>
+		<li><a href="#logics">Logics</a></li>
 		<li><a href="#links">Links</a></li>
   </ol>
 </details>
@@ -198,6 +200,24 @@ graph TD
     s6 --> s7[free input string<br/>that was allocated<br/>from readline]
     s7 --> s2
     s2 -- "eof<br/>(ctrl-d)" ------> return
+    return([return])
+```
+
+#### `deal_command()`
+```mermaid
+graph TD
+    start(["deal_command() start"]) --> s1[parse_prompt_input]
+    s1 --> s2["check syntax error"]
+    s2 --> s3{"has heredoc?"}
+    s3 -- true --> s4["input from heredoc"]
+    s4 --> s5
+    s3 -- false --> s5{"number of commands?"}
+    s5 -- single --> s6["fork one child process"]
+    s6 --> s7["run command in child"]
+    s5 -- multi --> s8["fork processes and set pipes"]
+    s8 --> s9["run commands"]
+    s7--> return
+    s9 --> return
     return([return])
 ```
 
