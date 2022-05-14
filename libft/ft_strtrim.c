@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 18:32:55 by sarchoi           #+#    #+#             */
-/*   Updated: 2021/05/07 14:32:21 by sarchoi          ###   ########.fr       */
+/*   Updated: 2022/04/28 03:05:05 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int			ft_is_char_in_set(char c, char const *set)
+static int	ft_is_char_in_set(char c, char const *set)
 {
 	while (*set)
 	{
@@ -23,7 +23,7 @@ static int			ft_is_char_in_set(char c, char const *set)
 	return (0);
 }
 
-static int			ft_find_start_len(
+static int	ft_find_start_len(
 	char const **s1, char const **set, unsigned int *len)
 {
 	char const		*s_end;
@@ -39,7 +39,7 @@ static int			ft_find_start_len(
 	return (1);
 }
 
-char				*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char			*r;
 	unsigned int	s_len;

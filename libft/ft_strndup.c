@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 11:58:16 by sarchoi           #+#    #+#             */
-/*   Updated: 2021/05/05 12:09:08 by sarchoi          ###   ########.fr       */
+/*   Created: 2022/04/01 21:31:38 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/04/01 22:05:44 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
-{
-	int	i;
+#include "libft.h"
 
-	i = 0;
-	if (!str)
+char	*ft_strndup(char *src, size_t n)
+{
+	char			*dup;
+	char			*dup_start;
+	unsigned int	len;
+	unsigned int	i;
+
+	len = ft_strlen(src);
+	if (len < n)
+		n = len;
+	dup = (char *)malloc(sizeof(char) * (n + 1));
+	if (!dup)
 		return (0);
-	while (str[i])
+	dup_start = dup;
+	i = 0;
+	while (*src && i < n)
+	{
+		*dup = *src;
+		src++;
+		dup++;
 		i++;
-	return (i);
+	}
+	*dup = '\0';
+	return (dup_start);
 }

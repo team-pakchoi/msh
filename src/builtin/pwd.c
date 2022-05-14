@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 11:58:16 by sarchoi           #+#    #+#             */
-/*   Updated: 2021/05/05 12:09:08 by sarchoi          ###   ########.fr       */
+/*   Created: 2022/04/07 15:09:43 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/04/19 15:55:49 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
-{
-	int	i;
+#include "minishell.h"
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
+void	ft_pwd(void)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	ft_putstr_fd(pwd, 1);
+	ft_putchar_fd('\n', 1);
+	g_mini.exit_status = 0;
+	free(pwd);
 }

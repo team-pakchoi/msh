@@ -1,0 +1,9 @@
+*.o
+*.a
+.history
+.vscode
+minishell
+.DS_Store
+result.txt
+result_*.diff
+.heredoc

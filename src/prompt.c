@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 11:58:16 by sarchoi           #+#    #+#             */
-/*   Updated: 2021/05/05 12:09:08 by sarchoi          ###   ########.fr       */
+/*   Created: 2022/04/25 00:09:09 by cpak              #+#    #+#             */
+/*   Updated: 2022/05/11 14:31:50 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
-{
-	int	i;
+#include "minishell.h"
 
-	i = 0;
-	if (!str)
+int	deal_prompt(void)
+{
+	g_mini.prompt_input = readline(g_mini.prompt_str);
+	if (g_mini.prompt_input == 0)
 		return (0);
-	while (str[i])
-		i++;
-	return (i);
+	return (1);
 }

@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 11:58:16 by sarchoi           #+#    #+#             */
-/*   Updated: 2021/05/05 12:09:08 by sarchoi          ###   ########.fr       */
+/*   Created: 2022/05/08 00:55:50 by sarchoi           #+#    #+#             */
+/*   Updated: 2022/05/11 11:21:33 by sarchoi          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
-{
-	int	i;
+#include "minishell.h"
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
+void	exit_with_status(unsigned char status)
+{
+	if (g_mini.is_main_process)
+		ft_putstr_fd("exit\n", 1);
+	exit(status);
 }

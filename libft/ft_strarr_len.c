@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strarr_len.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 11:58:16 by sarchoi           #+#    #+#             */
-/*   Updated: 2021/05/05 12:09:08 by sarchoi          ###   ########.fr       */
+/*   Created: 2022/04/01 19:32:30 by cpak              #+#    #+#             */
+/*   Updated: 2022/04/28 03:02:18 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
+int	ft_strarr_len(char *str[])
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	if (!str)
+	len = 0;
+	if (str == 0)
 		return (0);
-	while (str[i])
-		i++;
-	return (i);
+	while (str[len])
+		len += 1;
+	return (len);
 }
