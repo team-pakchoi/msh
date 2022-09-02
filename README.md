@@ -1,18 +1,18 @@
 
 ## Team Pakchoi 🥬
 
-- [cpak](https://github.com/PCHANUL)
-- [sarchoi](https://github.com/srngch)
+- [PCHANUL](https://github.com/PCHANUL)
+- [srngch](https://github.com/srngch)
 
 [![42](https://img.shields.io/badge/BornToCode-3_Circle-00babc?style=flat-square&logo=42)](https://42seoul.kr/)
 [![result](https://img.shields.io/badge/Success-100/100-5cb85c?style=flat-square&logoWidth=12&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAylJREFUaEPtmDmLVEEUhb+LK+IG7qIibuCKYCYYOSoGomjimoggOgiKmYGhgYEMGqgYiJmIG4ig4IKGitsv8Ae4m7ocuWO108u8flWvu+030JXN9Kmqc+49devWM0b4sBHOn56Abmewl4FeBnIiIGk6cBtYCxwzs2vVU0ptIUkzgEfAmkBawFEzu1QRUVoBgfxjYHVdklzEETO77P8vpYAm5CtafgMH3U6lEyBpJuCRX5VzPH4BB0olIJB/AqyMrG4fSiNA0izAya+IJO+wp6UQkGCbam3vgL6uCyhgGxfxl7zZx64KCLbxAxvr+RryXS2jBT3/L/JdvcjaRX7YDEhaBJwB3gOnzexHQlXIhUqa69UDWJYLHgK8DZ7/VD+n5gxIWgfcB7yk+bgF7DaznwmbZUIlzQ6XVEqpbLDNsM2cpI2h65tcx+AmsKdVEYG81/nlCcHwyG/yapM1ZzADkvYBV4ExGcAbwF4z8+s7eUiaF2yzJGFypm1qMiCpH7gQ0di5wENm5o1U9ChI/k3w/Oe8jUzSd2BSHjD8fgU4bGbe0uYOSfND5BfngocA0eR9igu4C2xP2OAi0J8nQtKC0NukkH8dPJ8b+QpfFzABeABsSBBxHjieJaJg5KM8X8+xcoinhPLmZTR2DJjZiXpwwcgXIj9ooQqB8Hh+ltjOnjOzk1VruG38kvLLMHYUJl8jwP8It+RzIMW3Z4FTYc5DYGEsc+BV8PyXhDk10IZuVJITcBFeQWLH11DJRsVOaAf5hgxUWWEp4Haak0AoBeql0m/Yht4mZZFMAcFO/jnD/TwtddEcfFKdz9u76YNGkn8NcxFT8xaK/L2t5JtmoMpO6wE/nBMjSWbB2k4+SkCwUx9wDxhfUETyDRu7T/SbWNI2wFvrsbGLB9xLYLOZeaVq+4gWEDKxFbgDjItk0rHIV/ZPEhBE7AD8fZD1dqis/QLY0qnIFxYQROwErjcR0fHItyQgR8R/Ix9dhbL8LmlXyMTogPHexg9sdD8feZYyYclnoH4lSW6ngfC5b7+ZfWuVVMr8lgWkbNYJbE9AJ6KasmYvAynR6gR2xGfgD5kpEElZbxKNAAAAAElFTkSuQmCC)](https://projects.intra.42.fr/42cursus-minishell/sarchoi)
 
 
-[![code-size](https://img.shields.io/github/languages/code-size/42pakchoi/minishell?style=flat-square)](https://github.com/42pakchoi/minishell)
-[![last-commit](https://img.shields.io/github/last-commit/42pakchoi/minishell?style=flat-square)](https://github.com/42pakchoi/minishell)
+[![code-size](https://img.shields.io/github/languages/code-size/team-pakchoi/msh?style=flat-square)](https://github.com/team-pakchoi/msh)
+[![last-commit](https://img.shields.io/github/last-commit/team-pakchoi/msh?style=flat-square)](https://github.com/team-pakchoi/msh)
 
 ![pakchoi cover image](./images/pakchoi_cover.jpg)
-Illustration by [sarchoi](https://github.com/srngch)
+Illustration by [srngch](https://github.com/srngch)
 
 <details>
   <summary>Table of Contents</summary>
@@ -32,19 +32,18 @@ Illustration by [sarchoi](https://github.com/srngch)
 
 ---
 
-# Minishell
+# Msh
 
-The objective of this project is for you to create a simple shell. Yes, your own little bash or zsh. You will learn a lot about processes and file descriptors.
+We made a simple shell like a little bash to learn a lot about processes and file descriptors.
 
 ## Requirements
 
 |                      |                                           |
 | -------------------- | ----------------------------------------- |
-| **Program name**     | `minishell`                               |
+| **Program name**     | `msh`                                     |
 | **Makefile**         | `all`, `clean`, `fclean`, `re`            |
 | **Arguments**        | None                 |
 | **External functs.** | `readline`, `rl_on_new_line`, `rl_replace_line`, `rl_redisplay`, `add_history`, `printf`, `malloc`, `free`, `write`, `open`, `read`, `close`, `fork`, `wait`, `waitpid`, `wait3`, `wait4`, `signal`, `kill`, `exit`, `getcwd`, `chdir`, `stat`, `lstat`, `fstat`, `unlink`, `execve`, `dup`, `dup2`, `pipe`, `opendir`, `readdir`, `closedir`, `strerror`, `errno`, `isatty`, `ttyname`, `ttyslot`, `ioctl`, `getenv`, `tcsetattr`, `tcgetattr`, `tgetent`, `tgetflag`, `tgetnum`, `tgetstr`, `tgoto`, `tputs` |
-| **Libft authorized** | Yes                                       |
 
 ## Implementation
 
@@ -104,41 +103,35 @@ $ brew info readline
 
 Check flag `LDFLAGS` and `CPPFLAGS` in `Makefile` is same as on `brew info readline`.
 
-If you want to run Minishell at 42 Cluster Mac, you need to change the following:
-
-```Makefile
-READLINE_FLAGS = -l readline -L ${HOME}/.brew/opt/readline/lib
-
-INC_FLAGS = -I includes -I $(LIBFT) -I ${HOME}/.brew/opt/readline/include
-```
-### Mandatory
+### Clone
 
 ```bash
-$ git clone https://github.com/42pakchoi/minishell
+$ git clone https://github.com/42pakchoi/msh
+$ cd src
 $ make
 ```
 
 ## Execute
 
-Run compiled executable file in the root folder.
+Run compiled executable file in the `src` folder.
 
 ```bash
-$ ./minishell
-~/path_to_pwd/minishell $ 
+$ ./msh
+~/path_to_pwd/msh $ 
 ```
 
 ## Example
 
 ```bash
-# minishell builtin commands
-~/path_to_pwd/minishell $ echo "Hello world!"
+# msh builtin commands
+~/path_to_pwd/msh $ echo "Hello world!"
 Hello world!
 # commands in PATH
-~/path_to_pwd/minishell $ ls
-Makefile	includes	minishell	test
+~/path_to_pwd/msh $ ls
+Makefile	includes	msh	test
 README.md	libft		src
-# command `exit` or press `ctrl-d` to exit the minishell
-~/path_to_pwd/minishell $ exit
+# command `exit` or press `ctrl-d` to exit the msh
+~/path_to_pwd/msh $ exit
 ```
 
 ## Test
@@ -150,27 +143,27 @@ Test using files with multiple lines of command in `test` directory. Each line o
 ```bash
 $ bash -i < test.txt # run interactive mode bash with test file
 $ mv result.txt result_bash.txt # change file name to keep result of bash
-$ ./minishell < test.txt # run minishell with test file
-$ diff result.txt result_bash.txt # compare result of bash and minishell
+$ ./msh < test.txt # run msh with test file
+$ diff result.txt result_bash.txt # compare result of bash and msh
 $ cat result.txt # show result if you want
 ```
 
 ### Check memory leak
 
 ```bash
-$ leaks -atExit -- ./minishell
+$ leaks -atExit -- ./msh
 ```
 
-Runs leaks when the Minishell exits.
+Runs leaks when the msh exits.
 
 ### Check priority of `$PATH`
 ```bash
 $ cp /bin/cat /tmp/ls # copy cat to /tmp/ls
 
-$ ./minishell
-~/path_to_pwd/minishell $ unset PATH
-~/path_to_pwd/minishell $ export PATH=/tmp:/bin
-~/path_to_pwd/minishell $ ls # should be /tmp/ls (it is cat actually) and not /bin/ls
+$ ./msh
+~/path_to_pwd/msh $ unset PATH
+~/path_to_pwd/msh $ export PATH=/tmp:/bin
+~/path_to_pwd/msh $ ls # should be /tmp/ls (it is cat actually) and not /bin/ls
 ```
 
 ## Logics
@@ -250,7 +243,7 @@ graph TD
 ### Priority of command execution
 
 1. `exec_assign()`: If string is input in the form `name=[value]`, assign it as a environment variable
-2. `exec_builtin()`: If the command is builtin command of minishell, then run it
+2. `exec_builtin()`: If the command is builtin command of msh, then run it
 3. `exec_execve()`: If the command is not builtin command, then run it with `execve()`
 
 ### File Descriptor and pipe
@@ -260,7 +253,6 @@ graph TD
 
 ![Setting child process to execute commands 1](./images/diagram_multi01.png)
 
-#
 ## loop 1
 
 Create a child process and pipe to execute the first command. The input of the pipe is connected to the child process, and the output is connected to the main process for the subsequent child process.
@@ -282,12 +274,8 @@ In the child process, replicate the pipe input fd to the STDOUT fd and connect i
 
 </details>
 
-##
-##
-
 ![Setting child process to execute commands 2](./images/diagram_multi05.png)
 
-#
 ## loop 2
 
 Create a child process and pipe as before. The difference, however, is that it connects to previously generated pipes to the process generated.
@@ -305,12 +293,7 @@ Replicate the pipe fd to the STDIN and STDOUT of the child process. To STDIN, co
 
 </details>
 
-##
-##
-
 ![Setting child process to execute commands 3](./images/diagram_multi10.png)
-
-#
 
 ## loop 3
 
@@ -321,5 +304,4 @@ In the last loop, you don't connect the child process to the pipe. The command o
 ## Links
 
 - [Subject - 42 Intra](https://projects.intra.42.fr/projects/42cursus-minishell)
-- [Subject - 42Seoul Translation](https://github.com/42seoul-translation/subject_ko/blob/master/minishell/minishell.md)
 - [GNU Bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)

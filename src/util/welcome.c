@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   welcome.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sarchoi <sarchoi@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: cpak <cpak@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:58:07 by sarchoi           #+#    #+#             */
-/*   Updated: 2022/05/11 14:20:58 by sarchoi          ###   ########seoul.kr  */
+/*   Updated: 2022/09/02 19:26:59 by cpak             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_welcome(void)
 		len = read(file, buf, 1);
 		if (len == 0)
 			break ;
-		if (line == 150)
+		if (line == 62)
 			ft_putstr_fd("\033[01;32m", 1);
 		else if (line == 280)
 			ft_putstr_fd("\033[01;30m", 1);
