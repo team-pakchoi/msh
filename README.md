@@ -253,21 +253,21 @@ graph TD
 
 ![Setting child process to execute commands 1](./images/diagram_multi01.png)
 
-## loop 1
+## Loop 1
 
 Create a child process and pipe to execute the first command. The input of the pipe is connected to the child process, and the output is connected to the main process for the subsequent child process.
 
 <details>
-<summary>loop 1 details</summary>
+<summary>Loop 1 details</summary>
 
-### loop 1-1 : pipe  
+### Loop 1-1 : pipe  
 Create a pipe from the main process before creating the child process.
 ![Setting child process to execute commands 1-1](./images/diagram_multi02.png)
 
-### loop 1-2 : fork
+### Loop 1-2 : fork
 The child process to execute the command is forked. The forked child process has the same fd because it duplicated the main process.
 ![Setting child process to execute commands 1-2](./images/diagram_multi03.png)
-### loop 1-3 : close & dup
+### Loop 1-3 : close & dup
 In the child process, replicate the pipe input fd to the STDOUT fd and connect it. And close the fd that you will not use.
 ![Setting child process to execute commands 1-3](./images/diagram_multi04.png)
 ![Setting child process to execute commands 1-3](./images/diagram_multi06.png)
@@ -276,17 +276,17 @@ In the child process, replicate the pipe input fd to the STDOUT fd and connect i
 
 ![Setting child process to execute commands 2](./images/diagram_multi05.png)
 
-## loop 2
+## Loop 2
 
 Create a child process and pipe as before. The difference, however, is that it connects to previously generated pipes to the process generated.
 
 <details>
-<summary>loop 2 details</summary>
+<summary>Loop 2 details</summary>
 
-### loop 2-1 : pipe & fork
+### Loop 2-1 : pipe & fork
 Create pipes and child processes as before. The difference is that I have one more fd. This fd is the pipe fd of previously generated child processes.
 ![Setting child process to execute commands 2-1](./images/diagram_multi07.png)
-### loop 2-2 : close & dup
+### Loop 2-2 : close & dup
 Replicate the pipe fd to the STDIN and STDOUT of the child process. To STDIN, connect the out fd of the previously generated pipe, and to STDOUT, connect the in fd of the pipe generated this time. And close the fd that you will not use.
 ![Setting child process to execute commands 2-2](./images/diagram_multi08.png)
 ![Setting child process to execute commands 2-2](./images/diagram_multi09.png)
@@ -295,7 +295,7 @@ Replicate the pipe fd to the STDIN and STDOUT of the child process. To STDIN, co
 
 ![Setting child process to execute commands 3](./images/diagram_multi10.png)
 
-## loop 3
+## Loop 3
 
 In the last loop, you don't connect the child process to the pipe. The command of the last child process is printed on the screen.
 
